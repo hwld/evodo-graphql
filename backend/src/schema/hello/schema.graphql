@@ -1,3 +1,7 @@
 type Query {
-  message: String!
+  message: Message!
+}
+
+type Message {
+  body: String!
 }
