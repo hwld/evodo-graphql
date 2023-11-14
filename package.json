@@ -1,0 +1,12 @@
+{
+  "name": "evodo-graphql",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "backend": "pnpm -F \"backend\"",
+    "frontend": "pnpm -F \"frontend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development ts-node-dev --exit-child --respawn src/main.ts",
+    "start": "ts-node src/main.ts",
+    "codegen": "graphql-codegen --watch"
+  },
+  "dependencies": {
+    "@parcel/watcher": "^2.3.0",
+    "graphql": "^16.8.1",
+    "graphql-yoga": "^5.0.0"
+  },
+  "devDependencies": {
+    "@eddeee888/gcg-typescript-resolver-files": "^0.7.1",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@types/node": "^20",
+    "cross-env": "^7.0.3",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5"
+  }
+}
