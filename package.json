@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "backend": "pnpm -F \"backend\"",
-    "frontend": "pnpm -F \"frontend\""
+    "frontend": "pnpm -F \"frontend\"",
+    "dev": "pnpm -r dev & pnpm -r codegen"
   },
   "keywords": [],
   "author": "",

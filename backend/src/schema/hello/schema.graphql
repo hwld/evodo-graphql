@@ -3,5 +3,6 @@ type Query {
 }
 
 type Message {
+  id: ID!
   body: String!
 }
