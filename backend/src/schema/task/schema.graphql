@@ -1,0 +1,12 @@
+type Query {
+  tsaks: [Task!]!
+}
+
+type Task {
+  id: ID!
+  title: String!
+  detail: String!
+  done: Boolean!
+  createdAt: String!
+  updatedAt: String!
+}

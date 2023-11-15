@@ -1,8 +1,0 @@
-type Query {
-  message: Message!
-}
-
-type Message {
-  id: ID!
-  body: String!
-}

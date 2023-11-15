@@ -5,7 +5,9 @@
   "scripts": {
     "backend": "pnpm -F \"backend\"",
     "frontend": "pnpm -F \"frontend\"",
-    "dev": "pnpm -r dev & pnpm -r codegen"
+    "prisma": "pnpm backend exec prisma ",
+    "dev": "pnpm -r dev & pnpm -r codegen",
+    "type-check": "pnpm -r exec tsc --noEmit"
   },
   "keywords": [],
   "author": "",
