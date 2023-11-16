@@ -5,7 +5,9 @@ import { db } from "../../db";
 
 const taskArgs = {} satisfies Prisma.TaskDefaultArgs;
 
-const convert = (raw: Prisma.TaskGetPayload<typeof taskArgs>): Task => {
+export const convertTask = (
+  raw: Prisma.TaskGetPayload<typeof taskArgs>
+): Task => {
   return {
     id: raw.id,
     title: raw.title,
@@ -23,6 +25,6 @@ export const findManyTasks = async (
 ): Promise<Task[]> => {
   const raws = await db.task.findMany({ ...args });
 
-  const tasks = raws.map(convert);
+  const tasks = raws.map(convertTask);
   return tasks;
 };

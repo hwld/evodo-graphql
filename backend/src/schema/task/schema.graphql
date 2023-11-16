@@ -1,5 +1,13 @@
-type Query {
-  tsaks: [Task!]!
+extend type Query {
+  tasks: [Task!]!
+}
+
+extend type Mutation {
+  createTask(input: CreateTaskInput!): Task
+  deleteTask(id: ID!): Task
+  updateTaskTitle(id: ID!, title: String!): Task
+  doneTask(id: ID!): Task
+  undoneTask(id: ID!): Task
 }
 
 type Task {
@@ -9,4 +17,8 @@ type Task {
   done: Boolean!
   createdAt: String!
   updatedAt: String!
+}
+
+input CreateTaskInput {
+  title: String!
 }
