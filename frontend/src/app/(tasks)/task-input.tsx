@@ -1,7 +1,6 @@
 "use client";
 
 import { graphql } from "@/gql";
-import { Task } from "@/gql/graphql";
 import { ChangeEvent, SyntheticEvent, useState } from "react";
 import { useMutation } from "urql";
 
@@ -24,6 +23,10 @@ export const TaskInput: React.FC<Props> = () => {
   };
 
   const handleCreateTask = async (e: SyntheticEvent) => {
+    if (fetching) {
+      return;
+    }
+
     e.preventDefault();
     const result = await createTaskMutation({ input: { title: taskTitle } });
     if (result.error) {
@@ -40,7 +43,6 @@ export const TaskInput: React.FC<Props> = () => {
         placeholder="タスクを入力してください..."
         onChange={handleChangeTaskTitle}
         value={taskTitle}
-        disabled={fetching}
       />
     </form>
   );

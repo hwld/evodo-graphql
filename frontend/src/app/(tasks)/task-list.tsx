@@ -34,7 +34,11 @@ export const TaskList: React.FC = () => {
   return (
     <div>
       {data?.tasks.map((t) => {
-        return <TaskItem task={t} key={t.id} />;
+        return (
+          <div key={t.id} className="my-2">
+            <TaskItem task={t} />
+          </div>
+        );
       })}
     </div>
   );

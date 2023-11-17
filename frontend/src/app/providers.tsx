@@ -1,14 +1,9 @@
 "use client";
 
-import { Client, Provider, cacheExchange, fetchExchange } from "urql";
-
-const urqlClient = new Client({
-  url: "http://localhost:4000/graphql",
-  exchanges: [cacheExchange, fetchExchange],
-});
+import { UrqlProvider } from "@/lib/urql";
 
 export const Providers: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  return <Provider value={urqlClient}>{children}</Provider>;
+  return <UrqlProvider>{children}</UrqlProvider>;
 };
