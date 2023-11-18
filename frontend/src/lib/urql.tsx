@@ -1,26 +1,28 @@
 "use client";
 
-import { supabase } from "@/lib/supabase";
 import { authExchange } from "@urql/exchange-auth";
 import { Client, Provider, cacheExchange, fetchExchange } from "urql";
+import { auth } from "./firebase";
 
 const urqlClient = new Client({
   url: "http://localhost:4000/graphql",
   exchanges: [
     cacheExchange,
+    // リクエストごとにtokenを取得する方法がなさそう？
+    // https://github.com/urql-graphql/urql/discussions/2647#discussioncomment-3501919
+    // event-emitterを使った解決策が紹介されてるけど、無駄に複雑になりそうな気がしてる。
+    // apollo-clientだとリクエストごとにAuthorizationヘッダ付与できるっぽいし、そっち使おうかな・・・。
     authExchange(async (utils) => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
+      const token = await auth.currentUser?.getIdToken();
 
       return {
         addAuthToOperation: (operation) => {
-          if (!session) {
+          if (!token) {
             return operation;
           }
 
           return utils.appendHeaders(operation, {
-            AUthorization: `Bearer ${session.access_token}`,
+            AUthorization: `Bearer ${token}`,
           });
         },
         didAuthError: (error, _operation) => {
@@ -28,7 +30,7 @@ const urqlClient = new Client({
           return false;
         },
         refreshAuth: async () => {
-          await supabase.auth.signOut();
+          await auth.signOut();
         },
       };
     }),
