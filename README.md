@@ -12,6 +12,7 @@ GraphQL を試すために作った、GraphQL と Next.js で作る todo リス�
 - Next.js
 - TypeScript
 - pnpm
+- firebase
 
 ## 開発の進め方
 

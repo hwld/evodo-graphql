@@ -1,12 +1,9 @@
 import { AuthConfig, AuthUtilities } from "@urql/exchange-auth";
-import { User } from "firebase/auth";
 
 export const authExchangeInit: (
   utils: AuthUtilities,
-  loggedInUser: User | null
-) => Promise<AuthConfig> = async (utils, loggedInUser) => {
-  const token = await loggedInUser?.getIdToken();
-
+  token: string | undefined
+) => Promise<AuthConfig> = async (utils, token) => {
   return {
     addAuthToOperation: (operation) => {
       if (!token) {

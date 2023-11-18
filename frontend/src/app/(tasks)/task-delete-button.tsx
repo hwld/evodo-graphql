@@ -1,3 +1,5 @@
+"use client";
+
 import { graphql } from "@/gql";
 import { TrashIcon } from "lucide-react";
 import { useMutation } from "urql";
