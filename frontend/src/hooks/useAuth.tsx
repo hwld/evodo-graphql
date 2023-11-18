@@ -1,4 +1,4 @@
-import { auth, googleAuthProvider } from "@/lib/firebase";
+import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import {
   User,
@@ -26,7 +26,7 @@ export const useAuth = () => {
       // redirectでもできないことはないが、getRedirectResultを使って結果を取得する必要があり、
       // getRedirectResultに時間がかかるのでpopupを使用する。
       setIsLoggedIn(true);
-      const result = await signInWithPopup(auth, googleAuthProvider);
+      const result = await signInWithPopup(firebaseAuth, googleAuthProvider);
       const accessToekn = await result.user.getIdToken();
 
       // ここで新規登録かを問い合わせて、新規登録であれば専用のページに飛ばす
@@ -50,11 +50,11 @@ export const useAuth = () => {
   };
 
   const _signOut = () => {
-    signOut(auth);
+    signOut(firebaseAuth);
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
       setLoggedInUser(user);
     });
 
