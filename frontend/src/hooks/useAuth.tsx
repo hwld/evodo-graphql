@@ -61,5 +61,5 @@ export const useAuth = () => {
     return () => unsubscribe();
   }, []);
 
-  return { session: loggedInUser, signIn, signOut: _signOut, isLoggedIn };
+  return { loggedInUser, signIn, signOut: _signOut, isLoggedIn };
 };
