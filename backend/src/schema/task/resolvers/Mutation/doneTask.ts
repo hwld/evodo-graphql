@@ -1,12 +1,20 @@
+import { GraphQLEnumType, GraphQLError } from "graphql";
 import { db } from "../../../../db";
 import { convertTask } from "../../finder";
 import type { MutationResolvers } from "./../../../types.generated";
 export const doneTask: NonNullable<MutationResolvers['doneTask']> = async (
   _parent,
   { id },
-  _ctx
+  { loggedInUserId }
 ) => {
-  const updated = await db.task.update({ where: { id }, data: { done: true } });
+  if (!loggedInUserId) {
+    throw new GraphQLError("forbidden");
+  }
+
+  const updated = await db.task.update({
+    where: { id, userId: loggedInUserId },
+    data: { done: true },
+  });
 
   const task = convertTask(updated);
   return task;

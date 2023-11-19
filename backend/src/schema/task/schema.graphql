@@ -1,5 +1,5 @@
 extend type Query {
-  tasks: [Task!]!
+  myTasks: [Task!]!
 }
 
 extend type Mutation {

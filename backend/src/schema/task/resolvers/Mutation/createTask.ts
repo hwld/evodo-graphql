@@ -1,4 +1,4 @@
-import { setTimeout } from "timers/promises";
+import { GraphQLError } from "graphql";
 import { db } from "../../../../db";
 import { convertTask } from "../../finder";
 import type { MutationResolvers } from "./../../../types.generated";
@@ -6,10 +6,14 @@ import type { MutationResolvers } from "./../../../types.generated";
 export const createTask: NonNullable<MutationResolvers['createTask']> = async (
   _parent,
   _arg,
-  _ctx
+  { loggedInUserId }
 ) => {
+  if (!loggedInUserId) {
+    throw new GraphQLError("forbidden");
+  }
+
   const raw = await db.task.create({
-    data: { title: _arg.input.title, detail: "" },
+    data: { title: _arg.input.title, detail: "", userId: loggedInUserId },
   });
 
   const task = convertTask(raw);

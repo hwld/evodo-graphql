@@ -8,7 +8,7 @@ import { Task } from "@/gql/graphql";
 
 const TaskListQuery = graphql(`
   query TodoListQuery {
-    tasks {
+    myTasks {
       id
       ...TaskItemFragment
     }
@@ -33,7 +33,7 @@ export const TaskList: React.FC = () => {
 
   return (
     <div>
-      {data?.tasks.map((t) => {
+      {data?.myTasks.map((t) => {
         return (
           <div key={t.id} className="my-2">
             <TaskItem task={t} />
