@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useMutation, useQuery } from "urql";
 import { useFirebaseAuthState } from "./useFirebaseAuthState";
+import { Routes } from "@/lib/routes";
 
 const UserQuery = graphql(`
   query UserQuery($id: ID!) {
@@ -59,7 +60,7 @@ export const useAuth = () => {
 
       // 新規登録であれば新規登録ページにリダイレクトさせる
       if (initializeResult.data?.initializeSignupIfNew?.isNewUser) {
-        router.push("/auth/signup");
+        router.push(Routes.signUp);
       }
     } catch (e) {
       // ポップアップを閉じたときにエラーが出るまでにタイムラグがあるのでloading状態が切れない時間が長い・・・

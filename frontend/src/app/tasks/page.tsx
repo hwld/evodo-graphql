@@ -1,4 +1,4 @@
-import { TaskList } from "@/app/(tasks)/task-list";
+import { TaskList } from "@/app/tasks/task-list";
 import { TaskInput } from "./task-input";
 import { UserAuthArea } from "./user-auth-area";
 

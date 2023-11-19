@@ -2,6 +2,7 @@
 
 import { graphql } from "@/gql";
 import { useFirebaseAuthState } from "@/hooks/useFirebaseAuthState";
+import { Routes } from "@/lib/routes";
 import { useRouter } from "next/navigation";
 import { SyntheticEvent, useState } from "react";
 import { useMutation } from "urql";
@@ -53,7 +54,7 @@ export const SignupForm: React.FC<Props> = ({ defaultValues }) => {
       return;
     }
 
-    router.replace("/");
+    router.replace(Routes.home);
   };
 
   return (

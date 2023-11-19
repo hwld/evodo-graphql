@@ -3,6 +3,7 @@
 import { SignupForm } from "./signup-form";
 import { graphql } from "@/gql";
 import { useFirebaseAuthState } from "@/hooks/useFirebaseAuthState";
+import { Routes } from "@/lib/routes";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useQuery } from "urql";
@@ -31,7 +32,7 @@ const SignupPage: React.FC = () => {
       (!firebaseAuthState.isLoading && !firebaseAuthState.user) ||
       draftUserResult.error
     ) {
-      router.replace("/");
+      router.replace(Routes.home);
     }
   }, [
     firebaseAuthState.user,
