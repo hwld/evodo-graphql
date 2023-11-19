@@ -3,10 +3,10 @@ import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import { signInWithPopup, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
 import { useMutation, useQuery } from "urql";
 import { useFirebaseAuthState } from "./useFirebaseAuthState";
 import { Routes } from "@/lib/routes";
+import { useMemo } from "react";
 
 const UserQuery = graphql(`
   query UserQuery($id: ID!) {
@@ -26,23 +26,40 @@ const InitializeSignupIfNewMutation = graphql(`
   }
 `);
 
-export const useAuth = () => {
+export const useSession = () => {
   const router = useRouter();
   const {
-    firebaseAuthState: { user: firebaseUser },
+    firebaseAuthState: { user: firebaseUser, isLoading },
   } = useFirebaseAuthState();
-  const [{ data }] = useQuery({
+  const [{ data, fetching }] = useQuery({
     query: UserQuery,
     variables: { id: firebaseUser?.uid! },
     pause: firebaseUser?.uid === undefined,
     requestPolicy: "network-only",
   });
+
+  const status = useMemo(() => {
+    if (isLoading || fetching) {
+      return "loading";
+    }
+    // ログアウトするとここがundefinedになるが、dataはpauseされるのでundefinedにならないので
+    // data.userのチェックの前にfirebaesUserが存在しないことを確認する必要がある
+    if (!firebaseUser) {
+      return "unauthenticated";
+    }
+    if (data?.user) {
+      return "authenticated";
+    }
+
+    return "unauthenticated";
+  }, [data?.user, fetching, firebaseUser, isLoading]);
+
   const [, initializeSignupIfNew] = useMutation(InitializeSignupIfNewMutation);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const login = async () => {
-    setIsLoggedIn(true);
-
+  type LoginResult =
+    | { cancelled: false; isNewUser: boolean }
+    | { cancelled: true };
+  const login = async (): Promise<LoginResult> => {
     try {
       // ログイン後にtokenをAPIに投げて、新規登録かを判断するためpopupを使用する。
       // redirectでもできないことはないが、getRedirectResultを使って結果を取得する必要があり、
@@ -50,7 +67,7 @@ export const useAuth = () => {
       const result = await signInWithPopup(firebaseAuth, googleAuthProvider);
       const idToken = await result.user.getIdToken();
 
-      const initializeResult = await initializeSignupIfNew({
+      const { data } = await initializeSignupIfNew({
         input: {
           firebaseToken: idToken,
           name: result.user.displayName,
@@ -58,10 +75,11 @@ export const useAuth = () => {
         },
       });
 
-      // 新規登録であれば新規登録ページにリダイレクトさせる
-      if (initializeResult.data?.initializeSignupIfNew?.isNewUser) {
-        router.push(Routes.signUp);
-      }
+      // 新規登録かどうか
+      return {
+        cancelled: false,
+        isNewUser: data?.initializeSignupIfNew?.isNewUser ?? false,
+      };
     } catch (e) {
       // ポップアップを閉じたときにエラーが出るまでにタイムラグがあるのでloading状態が切れない時間が長い・・・
       if (e instanceof FirebaseError) {
@@ -71,18 +89,21 @@ export const useAuth = () => {
           e.code === "auth/popup-closed-by-user" ||
           e.code === "auth/cancelled-popup-request"
         ) {
-          return;
+          return { cancelled: true };
         }
       }
       throw e;
-    } finally {
-      setIsLoggedIn(false);
     }
   };
 
-  const logout = () => {
-    signOut(firebaseAuth);
+  const logout = async () => {
+    await signOut(firebaseAuth);
   };
 
-  return { loggedInUser: data?.user, login, logout, isLoggedIn };
+  return {
+    loggedInUser: data?.user,
+    status,
+    login,
+    logout,
+  } as const;
 };

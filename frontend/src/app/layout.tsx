@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
+import clsx from "clsx";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body className={inter.className}>
+      <body
+        className={clsx(
+          inter.className,
+          "bg-neutral-200 bg-no-repeat text-neutral-700"
+        )}
+      >
         <Providers>{children}</Providers>
       </body>
     </html>
