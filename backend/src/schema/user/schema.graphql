@@ -1,19 +1,46 @@
 extend type Query {
   user(id: ID!): User
+
+  # authorizationヘッダにあるtokenから対応するdraftUserを取得する
+  draftUser: DraftUser
 }
 
 extend type Mutation {
-  signUp(input: SignUpInput!): User
+  # もしDBに存在しないユーザーであれば新規登録の準備をする
+  # この時点でauthozationヘッダを登録できないのでinputにtokenを入れる
+  initializeSignupIfNew(
+    input: InitializeSignupIfNewInput!
+  ): InitializeSignupIfNewResponse
+
+  # 新規登録する
+  signup(input: SignupInput!): User
 }
 
 type User {
   id: ID!
   name: String!
   avatarUrl: String!
+  profile: String!
 }
 
-input SignUpInput {
+type DraftUser {
+  name: String!
+  avatarUrl: String!
+}
+
+input SignupInput {
   firebaseToken: String!
   name: String
   avatarUrl: String
+  profile: String
+}
+
+input InitializeSignupIfNewInput {
+  firebaseToken: String!
+  name: String
+  avatarUrl: String
+}
+
+type InitializeSignupIfNewResponse {
+  isNewUser: Boolean!
 }

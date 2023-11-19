@@ -8,7 +8,12 @@ const userArgs = {} satisfies Prisma.UserDefaultArgs;
 export const convertUser = (
   raw: Prisma.UserGetPayload<typeof userArgs>
 ): User => {
-  return { id: raw.id, name: raw.name, avatarUrl: raw.avatarUrl };
+  return {
+    id: raw.id,
+    name: raw.name,
+    avatarUrl: raw.avatarUrl,
+    profile: raw.profile,
+  };
 };
 
 type FindFirstUserArgs = FindFirstArgs<"user">;

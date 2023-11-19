@@ -1,11 +1,11 @@
 import { graphql } from "@/gql";
 import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
-import { getAdditionalUserInfo, signInWithPopup, signOut } from "firebase/auth";
+import { signInWithPopup, signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useMutation, useQuery } from "urql";
-import { useFirebaseUser } from "./useFirebaseUser";
+import { useFirebaseAuthState } from "./useFirebaseAuthState";
 
 const UserQuery = graphql(`
   query UserQuery($id: ID!) {
@@ -17,69 +17,50 @@ const UserQuery = graphql(`
   }
 `);
 
-const SignUpMutation = graphql(`
-  mutation SignUpMutation($input: SignUpInput!) {
-    signUp(input: $input) {
-      id
+const InitializeSignupIfNewMutation = graphql(`
+  mutation InitializeSignupIfNewMutation($input: InitializeSignupIfNewInput!) {
+    initializeSignupIfNew(input: $input) {
+      isNewUser
     }
   }
 `);
 
 export const useAuth = () => {
   const router = useRouter();
-
-  const { firebaseUser } = useFirebaseUser();
-
+  const {
+    firebaseAuthState: { user: firebaseUser },
+  } = useFirebaseAuthState();
   const [{ data }] = useQuery({
     query: UserQuery,
-    variables: { id: firebaseUser.id! },
-    pause: firebaseUser.id === undefined,
+    variables: { id: firebaseUser?.uid! },
+    pause: firebaseUser?.uid === undefined,
+    requestPolicy: "network-only",
   });
-
-  const [, signUp] = useMutation(SignUpMutation);
-
+  const [, initializeSignupIfNew] = useMutation(InitializeSignupIfNewMutation);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const loggedInUser = useMemo(() => {
-    if (firebaseUser.id === undefined) {
-      return undefined;
-    }
-    return data?.user ?? undefined;
-  }, [data?.user, firebaseUser.id]);
 
   const login = async () => {
     setIsLoggedIn(true);
 
     try {
-      // ログイン後にtokenをAPIに投げて、新規登録化を判断するためpopupを使用する。
+      // ログイン後にtokenをAPIに投げて、新規登録かを判断するためpopupを使用する。
       // redirectでもできないことはないが、getRedirectResultを使って結果を取得する必要があり、
       // getRedirectResultに時間がかかるのでpopupを使用する。
       const result = await signInWithPopup(firebaseAuth, googleAuthProvider);
       const idToken = await result.user.getIdToken();
 
-      // 新規登録
-      const isNew = getAdditionalUserInfo(result)?.isNewUser;
-      if (isNew) {
-        // 新規登録のエンドポイントを呼ぶ
-        const signUpResult = await signUp({
-          input: {
-            firebaseToken: idToken,
-            name: result.user.displayName,
-            avatarUrl: result.user.photoURL,
-          },
-        });
+      const initializeResult = await initializeSignupIfNew({
+        input: {
+          firebaseToken: idToken,
+          name: result.user.displayName,
+          avatarUrl: result.user.photoURL,
+        },
+      });
 
-        if (signUpResult.error) {
-          window.alert("新規登録に失敗しました。もう一度試してください。");
-          logout();
-          return;
-        }
-
-        // TODO: 新規登録用のページにリダイレクトする？
-        // router.push("/auth/init");
-        return;
+      // 新規登録であれば新規登録ページにリダイレクトさせる
+      if (initializeResult.data?.initializeSignupIfNew?.isNewUser) {
+        router.push("/auth/signup");
       }
-      return;
     } catch (e) {
       // ポップアップを閉じたときにエラーが出るまでにタイムラグがあるのでloading状態が切れない時間が長い・・・
       if (e instanceof FirebaseError) {
@@ -102,5 +83,5 @@ export const useAuth = () => {
     signOut(firebaseAuth);
   };
 
-  return { loggedInUser, login, logout, isLoggedIn };
+  return { loggedInUser: data?.user, login, logout, isLoggedIn };
 };

@@ -23,4 +23,11 @@ model User {
   id String @id
   name String
   avatarUrl String
+  profile String
+}
+
+model DraftUser {
+  id String @id
+  name String
+  avatarUrl String
 }
