@@ -7,7 +7,9 @@ import { useMutation } from "urql";
 const DeleteTask = graphql(`
   mutation DeleteTaskMutation($id: ID!) {
     deleteTask(id: $id) {
-      id
+      task {
+        id
+      }
     }
   }
 `);

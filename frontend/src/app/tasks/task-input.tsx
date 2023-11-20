@@ -9,7 +9,9 @@ type Props = {};
 const CreateTask = graphql(`
   mutation CreateTaskMutation($input: CreateTaskInput!) {
     createTask(input: $input) {
-      id
+      task {
+        id
+      }
     }
   }
 `);
@@ -33,6 +35,7 @@ export const TaskInput: React.FC<Props> = () => {
       window.alert("タスクが入力できませんでした");
       return;
     }
+
     setTaskTitle("");
   };
 

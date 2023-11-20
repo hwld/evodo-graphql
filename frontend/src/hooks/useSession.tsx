@@ -2,10 +2,8 @@ import { graphql } from "@/gql";
 import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
 import { FirebaseError } from "firebase/app";
 import { signInWithPopup, signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
 import { useMutation, useQuery } from "urql";
 import { useFirebaseAuthState } from "./useFirebaseAuthState";
-import { Routes } from "@/lib/routes";
 import { useMemo } from "react";
 
 const UserQuery = graphql(`
@@ -27,7 +25,6 @@ const InitializeSignupIfNewMutation = graphql(`
 `);
 
 export const useSession = () => {
-  const router = useRouter();
   const {
     firebaseAuthState: { user: firebaseUser, isLoading },
   } = useFirebaseAuthState();

@@ -6,14 +6,18 @@ import { useMutation } from "urql";
 const DoneTask = graphql(`
   mutation DoneTaskMutation($id: ID!) {
     doneTask(id: $id) {
-      id
+      task {
+        id
+      }
     }
   }
 `);
 const UndoneTask = graphql(`
   mutation UndoneTaskMutation($id: ID!) {
     undoneTask(id: $id) {
-      id
+      task {
+        id
+      }
     }
   }
 `);

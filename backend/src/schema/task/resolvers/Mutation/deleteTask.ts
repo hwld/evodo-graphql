@@ -16,5 +16,5 @@ export const deleteTask: NonNullable<MutationResolvers['deleteTask']> = async (
   });
   const task = convertTask(deleted);
 
-  return task;
+  return { task };
 };

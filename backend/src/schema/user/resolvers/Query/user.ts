@@ -1,7 +1,7 @@
 import { GraphQLError } from "graphql";
 import { findFirstUser } from "../../finder";
 import type { QueryResolvers } from "./../../../types.generated";
-export const user: NonNullable<QueryResolvers['user']> = async (
+export const user: NonNullable<QueryResolvers["user"]> = async (
   _parent,
   _arg,
   _ctx

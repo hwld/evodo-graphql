@@ -3,11 +3,31 @@ extend type Query {
 }
 
 extend type Mutation {
-  createTask(input: CreateTaskInput!): Task
-  deleteTask(id: ID!): Task
-  updateTaskTitle(id: ID!, title: String!): Task
-  doneTask(id: ID!): Task
-  undoneTask(id: ID!): Task
+  createTask(input: CreateTaskInput!): CreateTaskPayload!
+  deleteTask(id: ID!): DeleteTaskPayload!
+  updateTaskTitle(id: ID!, title: String!): UpdateTaskTitlePayload!
+  doneTask(id: ID!): DoneTaskPayload!
+  undoneTask(id: ID!): UndoneTaskPayload!
+}
+
+type CreateTaskPayload {
+  task: Task!
+}
+
+type DeleteTaskPayload {
+  task: Task!
+}
+
+type UpdateTaskTitlePayload {
+  task: Task!
+}
+
+type DoneTaskPayload {
+  task: Task!
+}
+
+type UndoneTaskPayload {
+  task: Task!
 }
 
 type Task {

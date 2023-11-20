@@ -10,7 +10,7 @@ export const signup: NonNullable<MutationResolvers['signup']> = async (
   const decoded = await firebaseAuth.verifyIdToken(input.firebaseToken);
   const userId = decoded.sub;
 
-  const user = await db.$transaction(async (tx) => {
+  const rawUser = await db.$transaction(async (tx) => {
     const foundUser = await tx.user.findUnique({ where: { id: userId } });
     if (foundUser) {
       return foundUser;
@@ -30,5 +30,6 @@ export const signup: NonNullable<MutationResolvers['signup']> = async (
     return newUser;
   });
 
-  return convertUser(user);
+  const user = convertUser(rawUser);
+  return { user };
 };

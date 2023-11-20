@@ -1,8 +1,8 @@
 extend type Query {
-  user(id: ID!): User
+  user(id: ID!): User!
 
   # authorizationヘッダにあるtokenから対応するdraftUserを取得する
-  draftUser: DraftUser
+  draftUser: DraftUser!
 }
 
 extend type Mutation {
@@ -10,10 +10,10 @@ extend type Mutation {
   # この時点でauthozationヘッダを登録できないのでinputにtokenを入れる
   initializeSignupIfNew(
     input: InitializeSignupIfNewInput!
-  ): InitializeSignupIfNewResponse
+  ): InitializeSignupIfNewPayload!
 
   # 新規登録する
-  signup(input: SignupInput!): User
+  signup(input: SignupInput!): SignupPayload!
 }
 
 type User {
@@ -41,6 +41,10 @@ input InitializeSignupIfNewInput {
   avatarUrl: String
 }
 
-type InitializeSignupIfNewResponse {
+type InitializeSignupIfNewPayload {
   isNewUser: Boolean!
+}
+
+type SignupPayload {
+  user: User!
 }

@@ -14,5 +14,5 @@ export const updateTaskTitle: NonNullable<MutationResolvers['updateTaskTitle']> 
   });
 
   const task = convertTask(updated);
-  return task;
+  return { task };
 };

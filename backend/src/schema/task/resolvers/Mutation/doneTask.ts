@@ -17,5 +17,5 @@ export const doneTask: NonNullable<MutationResolvers['doneTask']> = async (
   });
 
   const task = convertTask(updated);
-  return task;
+  return { task };
 };

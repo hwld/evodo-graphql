@@ -15,7 +15,7 @@ export const draftUser: NonNullable<QueryResolvers['draftUser']> = async (
     where: { id: draftUserId },
   });
   if (!draftUser) {
-    throw new GraphQLError("not found user", {});
+    throw new GraphQLError("not found user");
   }
 
   return {

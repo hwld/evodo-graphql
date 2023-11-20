@@ -7,7 +7,9 @@ import clsx from "clsx";
 const UpdateTaskTitle = graphql(`
   mutation UpdateTaskTitleMutation($id: ID!, $title: String!) {
     updateTaskTitle(id: $id, title: $title) {
-      id
+      task {
+        id
+      }
     }
   }
 `);

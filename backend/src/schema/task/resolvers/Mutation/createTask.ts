@@ -3,7 +3,7 @@ import { db } from "../../../../db";
 import { convertTask } from "../../finder";
 import type { MutationResolvers } from "./../../../types.generated";
 
-export const createTask: NonNullable<MutationResolvers['createTask']> = async (
+export const createTask: NonNullable<MutationResolvers["createTask"]> = async (
   _parent,
   _arg,
   { loggedInUserId }
@@ -17,5 +17,5 @@ export const createTask: NonNullable<MutationResolvers['createTask']> = async (
   });
 
   const task = convertTask(raw);
-  return task;
+  return { task };
 };
