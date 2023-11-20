@@ -2,10 +2,10 @@ import { GraphQLError } from "graphql";
 import { db } from "../../../../db";
 import { convertTask } from "../../finder";
 import type { MutationResolvers } from "./../../../types.generated";
-export const undoneTask: NonNullable<MutationResolvers['undoneTask']> = async (
+export const undoneTask: NonNullable<MutationResolvers["undoneTask"]> = async (
   _parent,
   { id },
-  { loggedInUserId }
+  { loggedInUserId },
 ) => {
   if (!loggedInUserId) {
     throw new GraphQLError("forbidden");

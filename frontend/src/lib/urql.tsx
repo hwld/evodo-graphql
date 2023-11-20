@@ -16,7 +16,7 @@ export const UrqlProvider: React.FC<{ children: React.ReactNode }> = ({
       exchanges: [
         cacheExchange,
         authExchange((utils) =>
-          authExchangeInit(utils, firebaseAuthState.user)
+          authExchangeInit(utils, firebaseAuthState.user),
         ),
         fetchExchange,
       ],

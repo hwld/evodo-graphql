@@ -9,7 +9,7 @@ export type Context = YogaInitialContext & {
 } & { firebaseToken: DecodedIdToken | undefined };
 
 export const yogaContext = async (
-  ctx: YogaInitialContext
+  ctx: YogaInitialContext,
 ): Promise<Context> => {
   const token = getTokenFromRequest(ctx.request);
   if (token === null) {

@@ -15,7 +15,7 @@ type EditableTaskTitle = {
   enableEditing: () => void;
 };
 const editableTaskTitleContext = createContext<EditableTaskTitle | undefined>(
-  undefined
+  undefined,
 );
 
 export const useEditableTaskTitleContext = () => {

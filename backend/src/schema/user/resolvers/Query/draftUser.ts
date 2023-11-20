@@ -1,10 +1,10 @@
 import { GraphQLEnumType, GraphQLError } from "graphql";
 import type { QueryResolvers } from "./../../../types.generated";
 import { db } from "../../../../db";
-export const draftUser: NonNullable<QueryResolvers['draftUser']> = async (
+export const draftUser: NonNullable<QueryResolvers["draftUser"]> = async (
   _parent,
   _arg,
-  _ctx
+  _ctx,
 ) => {
   const draftUserId = _ctx.firebaseToken?.sub;
   if (!draftUserId) {

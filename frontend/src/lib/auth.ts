@@ -3,7 +3,7 @@ import { User } from "firebase/auth";
 
 export const authExchangeInit: (
   utils: AuthUtilities,
-  firebaseUser: User | undefined
+  firebaseUser: User | undefined,
 ) => Promise<AuthConfig> = async (utils, user) => {
   const token = await user?.getIdToken();
 

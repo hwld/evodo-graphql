@@ -6,7 +6,7 @@ import type { MutationResolvers } from "./../../../types.generated";
 export const createTask: NonNullable<MutationResolvers["createTask"]> = async (
   _parent,
   _arg,
-  { loggedInUserId }
+  { loggedInUserId },
 ) => {
   if (!loggedInUserId) {
     throw new GraphQLError("forbidden");

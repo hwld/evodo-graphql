@@ -6,7 +6,7 @@ import { db } from "../../db";
 const userArgs = {} satisfies Prisma.UserDefaultArgs;
 
 export const convertUser = (
-  raw: Prisma.UserGetPayload<typeof userArgs>
+  raw: Prisma.UserGetPayload<typeof userArgs>,
 ): User => {
   return {
     id: raw.id,
@@ -18,7 +18,7 @@ export const convertUser = (
 
 type FindFirstUserArgs = FindFirstArgs<"user">;
 export const findFirstUser = async (
-  args: FindFirstUserArgs
+  args: FindFirstUserArgs,
 ): Promise<User | undefined> => {
   const raw = await db.user.findFirst({ ...args });
 

@@ -7,7 +7,7 @@ type Models = ExcludeDollar<keyof PrismaClient>;
 type Args<
   M extends Models,
   Extra extends Record<string, unknown>,
-  Operation extends "findFirst" | "findMany"
+  Operation extends "findFirst" | "findMany",
 > = Omit<
   Prisma.Args<PrismaClient[M], Operation>,
   "select" | "include" | "distinct"
@@ -21,7 +21,7 @@ type Args<
  */
 export type FindFirstArgs<
   M extends Models,
-  Extra extends Record<string, unknown> = {}
+  Extra extends Record<string, unknown> = {},
 > = Args<M, Extra, "findFirst">;
 
 /**
@@ -31,5 +31,5 @@ export type FindFirstArgs<
  */
 export type FindManyArgs<
   M extends Models,
-  Extra extends Record<string, unknown> = {}
+  Extra extends Record<string, unknown> = {},
 > = Args<M, Extra, "findMany">;
