@@ -17,7 +17,7 @@ export const authExchangeInit: (
         AUthorization: `Bearer ${token}`,
       });
     },
-    didAuthError: (error, _operation) => {
+    didAuthError: () => {
       // TODO
       return false;
     },
