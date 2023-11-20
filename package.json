@@ -7,12 +7,13 @@
     "frontend": "pnpm -F \"frontend\"",
     "prisma": "pnpm backend exec prisma ",
     "dev": "pnpm -r dev & pnpm -r codegen",
-    "type-check": "pnpm -r exec tsc --noEmit"
+    "lint": "pnpm -r exec tsc --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "graphql-config": "^5.0.3"
+    "graphql-config": "^5.0.3",
+    "prettier": "^3.1.0"
   }
 }
