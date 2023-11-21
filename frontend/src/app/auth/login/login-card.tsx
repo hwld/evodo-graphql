@@ -33,18 +33,28 @@ export const LoginCard: React.FC<Props> = () => {
 
   return (
     <div className="rounded-2xl border-2 border-neutral-300 bg-neutral-100 p-16">
-      <div className="flex max-w-[300px] flex-col items-center">
-        <div className="flex flex-col items-center gap-1">
-          <CopyCheckIcon size={100} />
-          <p className="text-3xl">evodo-graphql</p>
+      <div className="flex max-w-[350px] flex-col items-center">
+        <div className="flex w-full items-center justify-start gap-2">
+          <CopyCheckIcon size={55} />
+          <p className="text-4xl font-bold">evodo-graphql</p>
         </div>
-        <p className="mt-5">
-          GraphQLで作られた、ついタスクを追加したくなるようなTodoリストです。
+        <p className="mt-7">
+          evodo-graphqlは、GraphQLで作られた、ついタスクを追加したくなるようなTodoリストです。
         </p>
+        <div className="mt-20">
+          <p className="flex items-start text-sm text-neutral-400">
+            <span className="text-xl">・</span>
+            ログイン、新規登録どちらも下のボタンから行うことができます。
+          </p>
+          <p className="mt-2 flex items-start text-sm text-neutral-400">
+            <span className="text-xl">・</span>
+            ポップアップを閉じるともう一度開けるようになるまで時間がかかります。
+          </p>
+        </div>
         <button
-          className="group mt-14 flex w-full items-center justify-between rounded-lg border-2 border-neutral-300 px-3 py-2 
-          transition-all hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500
-          focus-visible:ring-offset-1 disabled:pointer-events-none disabled:opacity-50"
+          className="group mt-5 flex w-full items-center justify-between rounded-lg bg-neutral-800 px-4 py-3 text-neutral-100 
+          transition-all hover:bg-neutral-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800
+          focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
           onClick={handleLogin}
           disabled={isLoggedIn}
         >
@@ -59,16 +69,6 @@ export const LoginCard: React.FC<Props> = () => {
           </div>
           <span className="h-5 w-5 animate-spin rounded-full border-[3px] border-neutral-400  border-t-transparent opacity-0 group-disabled:opacity-100"></span>
         </button>
-        <div className="mt-5">
-          <p className="flex items-start text-xs text-neutral-500">
-            <span className="text-xl">・</span>
-            ログイン、新規登録どちらも上のボタンから行うことができます。
-          </p>
-          <p className="mt-2 flex items-start text-xs text-neutral-500">
-            <span className="text-xl">・</span>
-            ポップアップを閉じるともう一度開けるようになるまで時間がかかります。
-          </p>
-        </div>
       </div>
     </div>
   );

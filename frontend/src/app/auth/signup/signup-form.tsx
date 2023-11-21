@@ -78,8 +78,8 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
           id="name"
           name="name"
           className="rounded border border-neutral-300 bg-neutral-100 px-3 py-2 transition-all
-          placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500
-          focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+          placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800
+          focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           value={formData.username}
           disabled={isLoading}
           placeholder="ユーザー名を入力してください..."
@@ -98,7 +98,7 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
           id="profile"
           name="profile"
           className="min-h-[150px] resize-none rounded border border-neutral-300 bg-neutral-100 px-3 py-2 transition-all
-          placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-1
+          placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800 focus-visible:ring-offset-2
           disabled:cursor-not-allowed disabled:opacity-50"
           value={formData.profile}
           placeholder="プロフィールを入力してください..."
@@ -113,7 +113,7 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
       </div>
       <button
         className="self-center rounded bg-neutral-800 px-4 py-2 text-neutral-100 transition-all
-         hover:bg-neutral-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800 focus-visible:ring-offset-1
+         hover:bg-neutral-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800 focus-visible:ring-offset-2
          disabled:pointer-events-none disabled:opacity-50"
         disabled={fetching || isLoading}
       >
