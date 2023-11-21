@@ -32,17 +32,19 @@ export const LoginCard: React.FC<Props> = () => {
   };
 
   return (
-    <div className="rounded-2xl border-2 border-neutral-300 bg-neutral-100 p-10">
+    <div className="rounded-2xl border-2 border-neutral-300 bg-neutral-100 p-16">
       <div className="flex max-w-[300px] flex-col items-center">
         <div className="flex flex-col items-center gap-1">
           <CopyCheckIcon size={100} />
           <p className="text-3xl">evodo-graphql</p>
         </div>
-        <p className="mt-5 text-sm">
+        <p className="mt-5">
           GraphQLで作られた、ついタスクを追加したくなるようなTodoリストです。
         </p>
         <button
-          className="group mt-20 flex w-full items-center justify-between rounded-lg border-2 border-neutral-300 px-3 py-2 transition-all duration-150 hover:bg-black/5 disabled:cursor-not-allowed disabled:bg-black/5 disabled:text-neutral-400"
+          className="group mt-14 flex w-full items-center justify-between rounded-lg border-2 border-neutral-300 px-3 py-2 
+          transition-all hover:bg-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500
+          focus-visible:ring-offset-1 disabled:pointer-events-none disabled:opacity-50"
           onClick={handleLogin}
           disabled={isLoggedIn}
         >
