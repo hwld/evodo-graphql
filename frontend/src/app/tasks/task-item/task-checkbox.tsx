@@ -8,12 +8,12 @@ import { useRef } from "react";
 
 type Animation = [Keyframe[], KeyframeAnimationOptions];
 const doneAnimation: Animation = [
-  [{ transform: "scale(1.5)" }, { transform: "scale(1)" }],
-  { duration: 150 },
+  [{ transform: "scale(1.2)" }, { transform: "scale(1)" }],
+  { duration: 150, easing: "ease-out" },
 ];
 const undoneAnimation: Animation = [
   [{ transform: "scale(1)" }, { transform: "scale(1.1)" }],
-  { duration: 150 },
+  { duration: 150, easing: "ease-out" },
 ];
 
 const DoneTask = graphql(`
@@ -77,11 +77,12 @@ export const TaskCheckbox: React.FC<Props> = ({ id, done }) => {
         checked={done}
         onCheckedChange={handleToggleTaskDone}
         disabled={doing || undoing}
-        className="h-[25px] w-[25px] rounded border-2 text-neutral-100 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500
+        className="h-[25px] w-[25px] rounded-full border-2 border-neutral-700 bg-neutral-100 text-neutral-100 
+        transition-all hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500
         focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 disabled:opacity-50 data-[state=checked]:bg-neutral-900"
       >
         <Checkbox.Indicator className="flex items-center justify-center">
-          <CheckIcon size={20} />
+          <CheckIcon size="80%" />
         </Checkbox.Indicator>
       </Checkbox.Root>
     </>

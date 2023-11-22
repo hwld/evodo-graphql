@@ -66,9 +66,9 @@ export const TaskInput: React.FC<Props> = () => {
 
   return (
     <div
-      className="flex h-[55px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 shadow-lg 
-        shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px] focus-within:ring-2
-        focus-within:ring-neutral-500 focus-within:ring-offset-2"
+      className="flex h-[55px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 
+        shadow-lg shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px]
+        focus-within:ring-2 focus-within:ring-neutral-500 focus-within:ring-offset-2"
     >
       <form
         className="flex h-full w-full items-center"

@@ -49,7 +49,7 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
   };
 
   return (
-    <div>
+    <div className="w-full">
       <form
         className={clsx({ hidden: !editable })}
         onSubmit={handleUpdateTaskTitle}
@@ -59,7 +59,7 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
           value={editableTitle}
           onChange={handleChangeEditableTitle}
           onBlur={handleCancelEditable}
-          className="pl-1"
+          className="w-full rounded bg-neutral-100 pl-1 focus-visible:outline-neutral-900"
           disabled={updating}
         />
       </form>

@@ -11,8 +11,6 @@ const config: Config = {
       animation: {
         popoverEnter: "popoverEnter .15s ease-out",
         popoverExit: "popoverExit .15s ease-out",
-        checked: "checked .15s ease-out",
-        unchecked: "unchecked .15s ease-out",
         dialogEnter: "dialogEnter .15s ease-out",
         dialogExit: "dialogExit .15s ease-out",
         dialogOverlayEnter: "dialogOverlayEnter .15s ease-out",

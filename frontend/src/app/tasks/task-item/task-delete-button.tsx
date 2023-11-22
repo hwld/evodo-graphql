@@ -41,7 +41,8 @@ export const TaskDeleteButton: React.FC<Props> = ({ id }) => {
         />
         <Dialog.Content
           className="data-[state=open]:animate-dialogEnter data-[state=closed]:animate-dialogExit fixed 
-            inset-0 left-[50%] top-[50%] h-[250px] w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-lg bg-neutral-100 p-5"
+            inset-0 left-[50%] top-[50%] h-[250px] w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-lg bg-neutral-100 p-5
+            text-neutral-700"
         >
           <Dialog.Close
             className="absolute right-3 top-3 rounded p-1 transition-all

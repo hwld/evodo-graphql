@@ -32,7 +32,7 @@ export const LoginCard: React.FC<Props> = () => {
   };
 
   return (
-    <div className="rounded-2xl border-2 border-neutral-300 bg-neutral-100 p-16">
+    <div className="rounded-2xl border border-neutral-300 bg-neutral-100 p-16">
       <div className="flex max-w-[350px] flex-col items-center">
         <div className="flex w-full items-center justify-start gap-2">
           <CopyCheckIcon size={55} />

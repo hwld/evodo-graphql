@@ -25,8 +25,8 @@ export const TaskItem: React.FC<Props> = ({ task: _task }) => {
 
   return (
     <EditableTaskTitle.Root>
-      <div className="flex justify-between rounded border-2 border-neutral-300 bg-neutral-100 p-2">
-        <div className="flex items-center gap-2">
+      <div className="flex justify-between gap-2 rounded border border-neutral-300 bg-neutral-100 p-2">
+        <div className="flex grow items-center gap-2">
           <TaskCheckbox id={task.id} done={task.done} />
           <EditableTaskTitle.Field id={task.id} title={task.title} />
         </div>

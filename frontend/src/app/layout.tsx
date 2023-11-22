@@ -20,13 +20,8 @@ export default function RootLayout({
       <body
         className={clsx(
           inter.className,
-          "bg bg-neutral-100 bg-no-repeat text-neutral-700",
+          "bg-neutral-100 bg-[url(/dots.svg)] bg-[length:200px] text-neutral-700",
         )}
-        style={{
-          backgroundImage: "url(/dots.svg)",
-          backgroundSize: "200px",
-          backgroundRepeat: "repeat",
-        }}
       >
         <Providers>{children}</Providers>
       </body>
