@@ -2,8 +2,7 @@
 
 import { FragmentType, graphql, useFragment } from "@/gql";
 import { TaskCheckbox } from "./task-checkbox";
-import { TaskDeleteButton } from "./task-delete-button";
-import { PencilIcon } from "lucide-react";
+import { PencilIcon, TrashIcon } from "lucide-react";
 import { EditableTaskTitle } from "../editable-task-title/index";
 import { TaskItemAction } from "./task-item-action";
 
@@ -18,10 +17,22 @@ const TaskItemFragment = graphql(`
   }
 `);
 
-type Props = { task: FragmentType<typeof TaskItemFragment> };
+type Props = {
+  task: FragmentType<typeof TaskItemFragment>;
+  onOpenTaskDeleteDialog: (taskId: string) => void;
+  deletingTask: boolean;
+};
 
-export const TaskItem: React.FC<Props> = ({ task: _task }) => {
+export const TaskItem: React.FC<Props> = ({
+  task: _task,
+  onOpenTaskDeleteDialog,
+  deletingTask,
+}) => {
   const task = useFragment(TaskItemFragment, _task);
+
+  const handleOpenTaskDeleteDialog = () => {
+    onOpenTaskDeleteDialog(task.id);
+  };
 
   return (
     <EditableTaskTitle.Root>
@@ -34,7 +45,11 @@ export const TaskItem: React.FC<Props> = ({ task: _task }) => {
           <EditableTaskTitle.Trigger asChild>
             <TaskItemAction icon={PencilIcon} />
           </EditableTaskTitle.Trigger>
-          <TaskDeleteButton id={task.id} />
+          <TaskItemAction
+            icon={TrashIcon}
+            disabled={deletingTask}
+            onClick={handleOpenTaskDeleteDialog}
+          />
         </div>
       </div>
     </EditableTaskTitle.Root>
