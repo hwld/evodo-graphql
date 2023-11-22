@@ -31,7 +31,7 @@ export const TaskItem: React.FC<Props> = ({ task: _task }) => {
           <EditableTaskTitle.Field id={task.id} title={task.title} />
         </div>
         <div className="flex gap-1">
-          <EditableTaskTitle.Trigger>
+          <EditableTaskTitle.Trigger asChild>
             <TaskItemAction icon={PencilIcon} />
           </EditableTaskTitle.Trigger>
           <TaskDeleteButton id={task.id} />
