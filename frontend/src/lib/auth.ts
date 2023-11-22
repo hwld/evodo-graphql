@@ -1,13 +1,19 @@
 import { AuthConfig, AuthUtilities } from "@urql/exchange-auth";
-import { User } from "firebase/auth";
+import { firebaseAuth } from "./firebase";
 
 export const authExchangeInit: (
   utils: AuthUtilities,
-  firebaseUser: User | undefined,
-) => Promise<AuthConfig> = async (utils, user) => {
-  const token = await user?.getIdToken();
+) => Promise<AuthConfig> = async (utils) => {
+  let token: String | undefined;
 
   return {
+    // リクエスト毎にtoken取得したいので常にtrueを返してrefreshAuthを実行させる
+    willAuthError: () => {
+      return true;
+    },
+    refreshAuth: async () => {
+      token = await firebaseAuth.currentUser?.getIdToken();
+    },
     addAuthToOperation: (operation) => {
       if (!token) {
         return operation;
@@ -21,6 +27,5 @@ export const authExchangeInit: (
       // TODO
       return false;
     },
-    refreshAuth: async () => {},
   };
 };
