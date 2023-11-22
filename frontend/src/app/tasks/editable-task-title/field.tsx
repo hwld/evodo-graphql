@@ -63,7 +63,14 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
           disabled={updating}
         />
       </form>
-      <div className={clsx("pl-1", { hidden: editable })}>{title}</div>
+      <label
+        htmlFor={id}
+        className={clsx("cursor-pointer select-none pl-1", {
+          hidden: editable,
+        })}
+      >
+        {title}
+      </label>
     </div>
   );
 };

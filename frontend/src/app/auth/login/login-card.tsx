@@ -41,7 +41,7 @@ export const LoginCard: React.FC<Props> = () => {
         <p className="mt-7">
           evodo-graphqlは、GraphQLで作られた、ついタスクを追加したくなるようなTodoリストです。
         </p>
-        <div className="mt-20">
+        <div className="mt-14">
           <p className="flex items-start text-sm text-neutral-400">
             <span className="text-xl">・</span>
             ログイン、新規登録どちらも下のボタンから行うことができます。
@@ -58,7 +58,7 @@ export const LoginCard: React.FC<Props> = () => {
           onClick={handleLogin}
           disabled={isLoggedIn}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex w-full items-center justify-center gap-2">
             <Image
               src="/google-icon.svg"
               alt="google-icon"

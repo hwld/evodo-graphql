@@ -3,6 +3,7 @@
 import { graphql } from "@/gql";
 import { TrashIcon } from "lucide-react";
 import { useMutation } from "urql";
+import { TaskItemAction } from "./task-item-action";
 
 const DeleteTask = graphql(`
   mutation DeleteTaskMutation($id: ID!) {
@@ -27,8 +28,10 @@ export const TaskDeleteButton: React.FC<Props> = ({ id }) => {
   };
 
   return (
-    <button onClick={handleDeleteTask} disabled={deleting}>
-      <TrashIcon />
-    </button>
+    <TaskItemAction
+      icon={TrashIcon}
+      onClick={handleDeleteTask}
+      disabled={deleting}
+    />
   );
 };

@@ -7,7 +7,9 @@
     "frontend": "pnpm -F \"frontend\"",
     "prisma": "pnpm backend exec prisma ",
     "dev": "pnpm -r dev & pnpm -r codegen",
-    "lint": "pnpm -r exec tsc --noEmit"
+    "lint": "pnpm \"/^lint:.*/\"",
+    "lint:type": "pnpm -r exec tsc --noEmit",
+    "lint:eslint": "pnpm exec eslint ."
   },
   "keywords": [],
   "author": "",

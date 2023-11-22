@@ -20,7 +20,7 @@ export default function RootLayout({
       <body
         className={clsx(
           inter.className,
-          "bg-neutral-200 bg-no-repeat text-neutral-700 bg",
+          "bg bg-neutral-100 bg-no-repeat text-neutral-700",
         )}
         style={{
           backgroundImage: "url(/dots.svg)",

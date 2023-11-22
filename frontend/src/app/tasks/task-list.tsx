@@ -2,7 +2,7 @@
 
 import { graphql } from "@/gql";
 import { OperationContext, useQuery } from "urql";
-import { TaskItem } from "./task-item";
+import { TaskItem } from "./task-item/task-item";
 import { useMemo } from "react";
 import { Task } from "@/gql/graphql";
 
@@ -32,10 +32,10 @@ export const TaskList: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       {data?.myTasks.map((t) => {
         return (
-          <div key={t.id} className="my-2">
+          <div key={t.id}>
             <TaskItem task={t} />
           </div>
         );
