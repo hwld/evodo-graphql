@@ -53,7 +53,7 @@ export const LoginCard: React.FC<Props> = () => {
         </div>
         <button
           className="group mt-5 flex w-full items-center justify-between rounded-lg bg-neutral-800 px-4 py-3 text-neutral-100 
-          transition-all hover:bg-neutral-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-800
+          transition-all hover:bg-neutral-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500
           focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
           onClick={handleLogin}
           disabled={isLoggedIn}
