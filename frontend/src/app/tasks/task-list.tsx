@@ -36,8 +36,9 @@ export const TaskList: React.FC = () => {
   });
   const [taskIdToDelete, setTaskIdToDelete] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [{ fetching: deletingTask }, deleteTaskMutation] =
-    useMutation(DeleteTask);
+
+  const [deletingTaskIds, setDeletingTaskIds] = useState<string[]>([]);
+  const [, deleteTaskMutation] = useMutation(DeleteTask);
 
   const handleOpen = (taskId: string) => {
     setTaskIdToDelete(taskId);
@@ -45,17 +46,21 @@ export const TaskList: React.FC = () => {
   };
 
   const handleDeleteTask = async (): Promise<"success" | "error"> => {
-    if (!taskIdToDelete) {
-      return "error";
-    }
+    setDeletingTaskIds((ids) => [...ids, taskIdToDelete]);
 
     const result = await deleteTaskMutation({ id: taskIdToDelete });
+    setDeletingTaskIds((ids) => ids.filter((id) => id !== taskIdToDelete));
+
     if (result.error) {
       window.alert("タスクが削除できませんでした。");
       return "error";
     }
 
     return "success";
+  };
+
+  const isDeletingTask = (id: string) => {
+    return deletingTaskIds.includes(id);
   };
 
   if (fetching) {
@@ -71,11 +76,7 @@ export const TaskList: React.FC = () => {
         {data?.myTasks.map((t) => {
           return (
             <div key={t.id}>
-              <TaskItem
-                task={t}
-                onOpenTaskDeleteDialog={handleOpen}
-                deletingTask={taskIdToDelete === t.id && deletingTask}
-              />
+              <TaskItem task={t} onOpenTaskDeleteDialog={handleOpen} />
             </div>
           );
         })}
@@ -84,7 +85,7 @@ export const TaskList: React.FC = () => {
         isOpen={isOpen}
         onDeleteTask={handleDeleteTask}
         onOpenChange={setIsOpen}
-        deleting={deletingTask}
+        deleting={isDeletingTask(taskIdToDelete)}
       />
     </>
   );

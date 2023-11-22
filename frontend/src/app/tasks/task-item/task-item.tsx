@@ -20,13 +20,11 @@ const TaskItemFragment = graphql(`
 type Props = {
   task: FragmentType<typeof TaskItemFragment>;
   onOpenTaskDeleteDialog: (taskId: string) => void;
-  deletingTask: boolean;
 };
 
 export const TaskItem: React.FC<Props> = ({
   task: _task,
   onOpenTaskDeleteDialog,
-  deletingTask,
 }) => {
   const task = useFragment(TaskItemFragment, _task);
 
@@ -47,7 +45,6 @@ export const TaskItem: React.FC<Props> = ({
           </EditableTaskTitle.Trigger>
           <TaskItemAction
             icon={TrashIcon}
-            disabled={deletingTask}
             onClick={handleOpenTaskDeleteDialog}
           />
         </div>
