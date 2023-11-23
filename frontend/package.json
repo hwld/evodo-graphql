@@ -17,6 +17,7 @@
     "@urql/exchange-auth": "^2.1.6",
     "clsx": "^2.0.0",
     "firebase": "^10.6.0",
+    "framer-motion": "^10.16.5",
     "graphql": "^16.8.1",
     "jotai": "^2.5.1",
     "lucide-react": "^0.292.0",
