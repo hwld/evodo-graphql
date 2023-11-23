@@ -24,7 +24,7 @@ const CreateTask = graphql(`
 `);
 
 export const TaskInput: React.FC<Props> = () => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [taskTitle, setTaskTitle] = useState("");
   const [{ fetching }, createTaskMutation] = useMutation(CreateTask);
 

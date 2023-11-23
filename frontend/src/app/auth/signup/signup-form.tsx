@@ -32,7 +32,7 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
   const router = useRouter();
   const { firebaseAuthState } = useFirebaseAuthState();
   const [{ fetching }, signup] = useMutation(SignupMutation);
-  const nameInputRef = useRef<HTMLInputElement | null>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState<SignupFormData>({
     username: defaultValues.username ?? "",
     profile: defaultValues.profile ?? "",

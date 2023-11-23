@@ -37,7 +37,7 @@ const UndoneTask = graphql(`
 
 type Props = { id: string; done: boolean };
 export const TaskCheckbox: React.FC<Props> = ({ id, done }) => {
-  const checkboxRef = useRef<HTMLButtonElement | null>(null);
+  const checkboxRef = useRef<HTMLButtonElement>(null);
   const [{ fetching: doing }, doneTask] = useMutation(DoneTask);
   const [{ fetching: undoing }, undoneTask] = useMutation(UndoneTask);
 

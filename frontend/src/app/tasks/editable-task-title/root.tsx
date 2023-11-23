@@ -28,7 +28,7 @@ export const useEditableTaskTitleContext = () => {
 };
 
 export const _Root: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [editable, setEditable] = useState(false);
 
   const enableEditing = useCallback(() => {
