@@ -5,6 +5,7 @@ import { TaskCheckbox } from "./task-checkbox";
 import { PencilIcon, TrashIcon } from "lucide-react";
 import { EditableTaskTitle } from "../editable-task-title/index";
 import { TaskItemAction } from "./task-item-action";
+import { useTaskDeleteDialog } from "../task-delete-dialog";
 
 const TaskItemFragment = graphql(`
   fragment TaskItemFragment on Task {
@@ -19,17 +20,14 @@ const TaskItemFragment = graphql(`
 
 type Props = {
   task: FragmentType<typeof TaskItemFragment>;
-  onOpenTaskDeleteDialog: (taskId: string) => void;
 };
 
-export const TaskItem: React.FC<Props> = ({
-  task: _task,
-  onOpenTaskDeleteDialog,
-}) => {
+export const TaskItem: React.FC<Props> = ({ task: _task }) => {
   const task = useFragment(TaskItemFragment, _task);
+  const { open: openTaskDeleteDialog } = useTaskDeleteDialog();
 
   const handleOpenTaskDeleteDialog = () => {
-    onOpenTaskDeleteDialog(task.id);
+    openTaskDeleteDialog({ taskId: task.id });
   };
 
   return (
