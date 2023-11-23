@@ -1,13 +1,12 @@
 import { ReactNode } from "react";
-import { useEditableTaskTitleContext } from "./root";
 import { Slot } from "@radix-ui/react-slot";
+import { useEditableTaskTitle } from "./state";
 
 type Props = { children: ReactNode; asChild?: boolean };
 
 export const _Trigger: React.FC<Props> = ({ children, asChild }) => {
-  const { enableEditing } = useEditableTaskTitleContext();
+  const { enableEditing } = useEditableTaskTitle();
 
   const Component = asChild ? Slot : "button";
-
   return <Component onClick={enableEditing}>{children}</Component>;
 };

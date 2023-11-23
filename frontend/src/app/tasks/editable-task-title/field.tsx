@@ -1,8 +1,8 @@
 import { graphql } from "@/gql";
-import { useEditableTaskTitleContext } from "./root";
 import { SyntheticEvent, useState } from "react";
 import { useMutation } from "urql";
 import clsx from "clsx";
+import { useEditableTaskTitle } from "./state";
 
 const UpdateTaskTitle = graphql(`
   mutation UpdateTaskTitleMutation($id: ID!, $title: String!) {
@@ -18,7 +18,8 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
   title,
   id,
 }) => {
-  const { editable, setEditable, inputRef } = useEditableTaskTitleContext();
+  const { inputEl, editable, setInputEl, disableEditing } =
+    useEditableTaskTitle();
   const [editableTitle, setEditableTitle] = useState(title);
   const [{ fetching: updating }, updateTaskTitleMutation] =
     useMutation(UpdateTaskTitle);
@@ -27,10 +28,6 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
     HTMLInputElement
   > = (e) => {
     setEditableTitle(e.target.value);
-  };
-
-  const handleCancelEditable = () => {
-    setEditable(false);
   };
 
   const handleUpdateTaskTitle = async (e: SyntheticEvent) => {
@@ -42,10 +39,11 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
     });
     if (result.error) {
       window.alert("タスク名を変えられませんでした");
-      inputRef.current?.focus();
+      inputEl?.focus();
       return;
     }
-    setEditable(false);
+
+    disableEditing();
   };
 
   return (
@@ -55,10 +53,10 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
         onSubmit={handleUpdateTaskTitle}
       >
         <input
-          ref={inputRef}
+          ref={setInputEl}
           value={editableTitle}
           onChange={handleChangeEditableTitle}
-          onBlur={handleCancelEditable}
+          onBlur={disableEditing}
           className="w-full rounded bg-neutral-100 pl-1 focus-visible:outline-neutral-900"
           disabled={updating}
         />
