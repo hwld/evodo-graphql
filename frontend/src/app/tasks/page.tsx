@@ -23,7 +23,9 @@ export default function Home() {
                 <HomeIcon strokeWidth={3} />
                 <p>今日のタスク</p>
               </h1>
-              <TaskList />
+              <div className="mb-20">
+                <TaskList />
+              </div>
             </div>
           </div>
           <div className="absolute bottom-0 left-0 right-0 mx-auto my-3 flex max-w-[85%] items-start justify-center gap-2">
