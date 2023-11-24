@@ -1,4 +1,4 @@
-import { GraphQLEnumType, GraphQLError } from "graphql";
+import { GraphQLError } from "graphql";
 import type { QueryResolvers } from "./../../../types.generated";
 import { db } from "../../../../db";
 export const draftUser: NonNullable<QueryResolvers["draftUser"]> = async (

@@ -9,7 +9,7 @@
     "dev": "pnpm -r dev & pnpm -r codegen",
     "lint": "pnpm \"/^lint:.*/\"",
     "lint:type": "pnpm -r exec tsc --noEmit",
-    "lint:eslint": "pnpm exec eslint ."
+    "lint:eslint": "pnpm exec eslint . --ext .ts,.tsx"
   },
   "keywords": [],
   "author": "",

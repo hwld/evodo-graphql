@@ -1,4 +1,4 @@
-import { GraphQLEnumType, GraphQLError } from "graphql";
+import { GraphQLError } from "graphql";
 import { db } from "../../../../db";
 import { convertTask } from "../../finder";
 import type { MutationResolvers } from "./../../../types.generated";
