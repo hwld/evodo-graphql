@@ -4,8 +4,8 @@ import { FragmentType, graphql, useFragment } from '@/gql';
 import { TaskCheckbox } from './task-checkbox';
 import { PencilIcon, TrashIcon } from 'lucide-react';
 import { EditableTaskTitle } from '../editable-task-title/index';
-import { TaskItemAction } from './task-item-action';
 import { useTaskDeleteDialog } from '../task-delete-dialog';
+import { IconButton } from '@/app/_components/icon-button';
 
 const TaskItemFragment = graphql(`
   fragment TaskItemFragment on Task {
@@ -39,12 +39,10 @@ export const TaskItem: React.FC<Props> = ({ task: _task }) => {
         </div>
         <div className="flex gap-1">
           <EditableTaskTitle.Trigger asChild>
-            <TaskItemAction icon={PencilIcon} />
+            <IconButton icon={PencilIcon} />
           </EditableTaskTitle.Trigger>
-          <TaskItemAction
-            icon={TrashIcon}
-            onClick={handleOpenTaskDeleteDialog}
-          />
+
+          <IconButton icon={TrashIcon} onClick={handleOpenTaskDeleteDialog} />
         </div>
       </div>
     </EditableTaskTitle.Root>

@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/app/_components/button';
 import { graphql } from '@/gql';
 import { useFirebaseAuthState } from '@/hooks/useFirebaseAuthState';
 import { preventDefaultEnter } from '@/lib/preventDefault';
@@ -111,14 +112,9 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
           }}
         />
       </div>
-      <button
-        className="self-center rounded bg-neutral-800 px-4 py-2 text-neutral-100 transition-all
-         hover:bg-neutral-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2
-         disabled:pointer-events-none disabled:opacity-50"
-        disabled={fetching || isLoading}
-      >
-        Evodoをはじめる
-      </button>
+      <div className="self-center">
+        <Button disabled={fetching || isLoading}>Evodoをはじめる</Button>
+      </div>
     </form>
   );
 };

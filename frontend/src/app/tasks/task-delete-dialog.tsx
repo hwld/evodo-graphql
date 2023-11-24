@@ -3,6 +3,7 @@ import { TrashIcon, XIcon } from 'lucide-react';
 import { atom, useAtom, useSetAtom } from 'jotai';
 import { useTaskDelete } from './use-task-delete';
 import { useMemo } from 'react';
+import { Button } from '../_components/button';
 
 type TaskDeleteDialogAtom =
   | { isOpen: true; taskId: string }
@@ -97,24 +98,15 @@ export const TaskDeleteDialog: React.FC<Props> = () => {
          border-neutral-300 bg-neutral-200/30 p-3"
           >
             <Dialog.Close asChild>
-              <button
-                className="rounded border border-neutral-300 bg-neutral-100 px-3 py-1 text-neutral-700
-          transition-all hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500
-          focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-200"
-              >
-                キャンセル
-              </button>
+              <Button color="white">キャンセル</Button>
             </Dialog.Close>
-            <button
-              className="flex items-center gap-1 rounded bg-neutral-900 px-3 py-2 text-neutral-100 transition-all
-          hover:bg-neutral-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500
-          focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-200 disabled:pointer-events-none disabled:opacity-50"
+            <Button
               onClick={handleDeleteTask}
+              leftIcon={TrashIcon}
               disabled={deleting}
             >
-              <TrashIcon size={20} />
               削除する
-            </button>
+            </Button>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

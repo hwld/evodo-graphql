@@ -1,6 +1,7 @@
 'use client';
 
 import { useSession } from '@/hooks/useSession';
+import { Button } from '../_components/button';
 
 type Props = {};
 export const UserAuthArea: React.FC<Props> = () => {
@@ -14,14 +15,9 @@ export const UserAuthArea: React.FC<Props> = () => {
             {loggedInUser.name}
             <span className="text-xs text-neutral-300">さん</span>
           </div>
-          <button
-            onClick={logout}
-            className="rounded bg-neutral-200 px-3 py-1 text-neutral-700 transition-all hover:bg-neutral-300
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-100 focus-visible:ring-offset-2
-            focus-visible:ring-offset-neutral-900"
-          >
+          <Button onClick={logout} color="white" size="sm">
             ログアウト
-          </button>
+          </Button>
         </div>
       )}
     </div>
