@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Providers } from './providers';
-import clsx from 'clsx';
+import { cx } from 'cva';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={clsx(
+        className={cx(
           inter.className,
           'bg-neutral-100 bg-[url(/dots.svg)] bg-[length:200px] text-neutral-700',
         )}

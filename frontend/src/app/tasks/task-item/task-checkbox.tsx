@@ -5,7 +5,7 @@ import { useMutation } from 'urql';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from 'lucide-react';
 import { useRef } from 'react';
-import clsx from 'clsx';
+import { cx } from 'cva';
 
 type Animation = [Keyframe[], KeyframeAnimationOptions];
 const doneAnimation: Animation = [
@@ -92,7 +92,7 @@ export const TaskCheckbox: React.FC<Props> = ({ id, done }) => {
         >
           <CheckIcon
             size="80%"
-            className={clsx(
+            className={cx(
               'group-data-[state=checked]-hover:text-blue-500 transition-all duration-300',
               { 'group-hover:text-neutral-600': !done },
             )}

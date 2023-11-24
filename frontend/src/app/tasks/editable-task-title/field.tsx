@@ -1,7 +1,7 @@
 import { graphql } from '@/gql';
 import { SyntheticEvent, useState } from 'react';
 import { useMutation } from 'urql';
-import clsx from 'clsx';
+import { cx } from 'cva';
 import { useEditableTaskTitle } from './state';
 
 const UpdateTaskTitle = graphql(`
@@ -49,7 +49,7 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
   return (
     <div className="w-full">
       <form
-        className={clsx({ hidden: !editable })}
+        className={cx({ hidden: !editable })}
         onSubmit={handleUpdateTaskTitle}
       >
         <input
@@ -63,7 +63,7 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
       </form>
       <label
         htmlFor={id}
-        className={clsx('cursor-pointer select-none pl-1', {
+        className={cx('cursor-pointer select-none pl-1', {
           hidden: editable,
         })}
       >

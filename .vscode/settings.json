@@ -5,6 +5,14 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "tailwindCSS.experimental.classRegex": [
     // Classで終わる変数名に補完を効かせる
-    "(?:const|let|var)\\s+[\\w$_][_\\w\\d]*Class\\s*=\\s*['\\\"](.*?)['\\\"]"
+    "(?:const|let|var)\\s+[\\w$_][_\\w\\d]*Class\\s*=\\s*['\\\"](.*?)['\\\"]",
+    [
+      "cva\\(([^)]*)\\)",
+      "[\"'`]([^\"'`]*).*?[\"'`]"
+    ],
+    [
+      "cx\\(([^)]*)\\)",
+      "(?:'|\"|`)([^']*)(?:'|\"|`)"
+    ]
   ]
 }
