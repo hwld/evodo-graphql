@@ -1,8 +1,8 @@
-import * as Dialog from "@radix-ui/react-dialog";
-import { TrashIcon, XIcon } from "lucide-react";
-import { atom, useAtom, useSetAtom } from "jotai";
-import { useTaskDelete } from "./use-task-delete";
-import { useMemo } from "react";
+import * as Dialog from '@radix-ui/react-dialog';
+import { TrashIcon, XIcon } from 'lucide-react';
+import { atom, useAtom, useSetAtom } from 'jotai';
+import { useTaskDelete } from './use-task-delete';
+import { useMemo } from 'react';
 
 type TaskDeleteDialogAtom =
   | { isOpen: true; taskId: string }

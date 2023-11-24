@@ -1,7 +1,7 @@
-import { graphql } from "@/gql/gql";
-import { atom, useAtom } from "jotai";
-import { useCallback } from "react";
-import { useMutation } from "urql";
+import { graphql } from '@/gql/gql';
+import { atom, useAtom } from 'jotai';
+import { useCallback } from 'react';
+import { useMutation } from 'urql';
 
 const deletingTasIdsAtom = atom<string[]>([]);
 
@@ -27,7 +27,7 @@ export const useTaskDelete = () => {
       setDeletingTaskIds((ids) => ids.filter((i) => i !== id));
 
       if (result.error) {
-        window.alert("タスクが削除できませんでした。");
+        window.alert('タスクが削除できませんでした。');
       }
 
       return result;

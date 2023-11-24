@@ -1,8 +1,8 @@
 export const getTokenFromRequest = (req: Request): string | null => {
-  const authorization = req.headers.get("authorization") ?? "";
-  const [bearer, token] = authorization?.split(" ");
+  const authorization = req.headers.get('authorization') ?? '';
+  const [bearer, token] = authorization?.split(' ');
 
-  if (bearer === "Bearer" && token) {
+  if (bearer === 'Bearer' && token) {
     return token;
   }
 

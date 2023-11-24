@@ -1,8 +1,8 @@
-import { graphql } from "@/gql";
-import { SyntheticEvent, useState } from "react";
-import { useMutation } from "urql";
-import clsx from "clsx";
-import { useEditableTaskTitle } from "./state";
+import { graphql } from '@/gql';
+import { SyntheticEvent, useState } from 'react';
+import { useMutation } from 'urql';
+import clsx from 'clsx';
+import { useEditableTaskTitle } from './state';
 
 const UpdateTaskTitle = graphql(`
   mutation UpdateTaskTitleMutation($id: ID!, $title: String!) {
@@ -38,7 +38,7 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
       title: editableTitle,
     });
     if (result.error) {
-      window.alert("タスク名を変えられませんでした");
+      window.alert('タスク名を変えられませんでした');
       inputEl?.focus();
       return;
     }
@@ -63,7 +63,7 @@ export const _Field: React.FC<{ title: string; id: string }> = ({
       </form>
       <label
         htmlFor={id}
-        className={clsx("cursor-pointer select-none pl-1", {
+        className={clsx('cursor-pointer select-none pl-1', {
           hidden: editable,
         })}
       >

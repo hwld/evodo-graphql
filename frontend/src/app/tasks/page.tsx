@@ -1,10 +1,10 @@
-import { TaskList } from "@/app/tasks/task-list";
-import { TaskInput } from "./task-input";
-import { UserAuthArea } from "./user-auth-area";
-import { RequireAuth } from "../_components/require-auth";
-import { SideNavigationBar } from "./side-navigation-bar/side-navigation-bar";
-import { MenuButton } from "./menu/menu-button";
-import { HomeIcon } from "lucide-react";
+import { TaskList } from '@/app/tasks/task-list';
+import { TaskInput } from './task-input';
+import { UserAuthArea } from './user-auth-area';
+import { RequireAuth } from '../_components/require-auth';
+import { SideNavigationBar } from './side-navigation-bar/side-navigation-bar';
+import { MenuButton } from './menu/menu-button';
+import { HomeIcon } from 'lucide-react';
 
 export default function Home() {
   return (

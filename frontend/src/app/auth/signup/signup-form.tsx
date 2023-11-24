@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { graphql } from "@/gql";
-import { useFirebaseAuthState } from "@/hooks/useFirebaseAuthState";
-import { preventDefaultEnter } from "@/lib/preventDefault";
-import { Routes } from "@/lib/routes";
-import { useRouter } from "next/navigation";
-import { SyntheticEvent, useEffect, useRef, useState } from "react";
-import { useMutation } from "urql";
+import { graphql } from '@/gql';
+import { useFirebaseAuthState } from '@/hooks/useFirebaseAuthState';
+import { preventDefaultEnter } from '@/lib/preventDefault';
+import { Routes } from '@/lib/routes';
+import { useRouter } from 'next/navigation';
+import { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { useMutation } from 'urql';
 
 const SignupMutation = graphql(`
   mutation SignupMutation($input: SignupInput!) {
@@ -34,8 +34,8 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
   const [{ fetching }, signup] = useMutation(SignupMutation);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState<SignupFormData>({
-    username: defaultValues.username ?? "",
-    profile: defaultValues.profile ?? "",
+    username: defaultValues.username ?? '',
+    profile: defaultValues.profile ?? '',
   });
 
   const handleSignup = async (e: SyntheticEvent) => {
@@ -55,7 +55,7 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
     });
 
     if (result.error) {
-      window.alert("新規登録できませんでした。");
+      window.alert('新規登録できませんでした。');
       return;
     }
 

@@ -1,9 +1,9 @@
-import { LucideIcon } from "lucide-react";
-import { ComponentPropsWithoutRef, forwardRef } from "react";
+import { LucideIcon } from 'lucide-react';
+import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
 type Props = { icon: LucideIcon } & Omit<
-  ComponentPropsWithoutRef<"button">,
-  "className"
+  ComponentPropsWithoutRef<'button'>,
+  'className'
 >;
 
 export const TaskItemAction: React.FC<Props> = forwardRef<

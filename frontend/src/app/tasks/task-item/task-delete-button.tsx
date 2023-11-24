@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { graphql } from "@/gql";
-import { TrashIcon, XIcon } from "lucide-react";
-import { useMutation } from "urql";
-import { TaskItemAction } from "./task-item-action";
-import * as Dialog from "@radix-ui/react-dialog";
+import { graphql } from '@/gql';
+import { TrashIcon, XIcon } from 'lucide-react';
+import { useMutation } from 'urql';
+import { TaskItemAction } from './task-item-action';
+import * as Dialog from '@radix-ui/react-dialog';
 
 const DeleteTask = graphql(`
   mutation DeleteTaskMutation($id: ID!) {
@@ -24,7 +24,7 @@ export const TaskDeleteButton: React.FC<Props> = ({ id }) => {
   const handleDeleteTask = async () => {
     const result = await deleteTaskMutation({ id });
     if (result.error) {
-      window.alert("タスクが削除できませんでした");
+      window.alert('タスクが削除できませんでした');
       return;
     }
   };

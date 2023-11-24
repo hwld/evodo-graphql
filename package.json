@@ -6,7 +6,7 @@
     "backend": "pnpm -F \"backend\"",
     "frontend": "pnpm -F \"frontend\"",
     "prisma": "pnpm backend exec prisma ",
-    "dev": "pnpm -r dev & pnpm -r codegen",
+    "dev": "pnpm -r dev & pnpm -r codegen:watch",
     "lint": "pnpm \"/^lint:.*/\"",
     "lint:type": "pnpm -r exec tsc --noEmit",
     "lint:eslint": "pnpm exec eslint . --ext .ts,.tsx"

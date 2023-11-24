@@ -1,10 +1,10 @@
-import { graphql } from "@/gql";
-import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
-import { FirebaseError } from "firebase/app";
-import { signInWithPopup, signOut } from "firebase/auth";
-import { useMutation, useQuery } from "urql";
-import { useFirebaseAuthState } from "./useFirebaseAuthState";
-import { useMemo } from "react";
+import { graphql } from '@/gql';
+import { firebaseAuth, googleAuthProvider } from '@/lib/firebase';
+import { FirebaseError } from 'firebase/app';
+import { signInWithPopup, signOut } from 'firebase/auth';
+import { useMutation, useQuery } from 'urql';
+import { useFirebaseAuthState } from './useFirebaseAuthState';
+import { useMemo } from 'react';
 
 const UserQuery = graphql(`
   query UserQuery($id: ID!) {
@@ -32,23 +32,23 @@ export const useSession = () => {
     query: UserQuery,
     variables: { id: firebaseUser?.uid! },
     pause: firebaseUser?.uid === undefined,
-    requestPolicy: "network-only",
+    requestPolicy: 'network-only',
   });
 
   const status = useMemo(() => {
     if (isLoading || fetching) {
-      return "loading";
+      return 'loading';
     }
     // ログアウトするとここがundefinedになるが、dataはpauseされるのでundefinedにならないので
     // data.userのチェックの前にfirebaesUserが存在しないことを確認する必要がある
     if (!firebaseUser) {
-      return "unauthenticated";
+      return 'unauthenticated';
     }
     if (data?.user) {
-      return "authenticated";
+      return 'authenticated';
     }
 
-    return "unauthenticated";
+    return 'unauthenticated';
   }, [data?.user, fetching, firebaseUser, isLoading]);
 
   const [, initializeSignupIfNew] = useMutation(InitializeSignupIfNewMutation);
@@ -83,8 +83,8 @@ export const useSession = () => {
         // ポップアップを閉じてもう一度開こうとするとエラーになるが、無視して問題なさそうなので無視する。
         // https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#error-codes_15
         if (
-          e.code === "auth/popup-closed-by-user" ||
-          e.code === "auth/cancelled-popup-request"
+          e.code === 'auth/popup-closed-by-user' ||
+          e.code === 'auth/cancelled-popup-request'
         ) {
           return { cancelled: true };
         }

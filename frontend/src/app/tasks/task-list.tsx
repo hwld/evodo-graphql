@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { graphql } from "@/gql";
-import { OperationContext, useQuery } from "urql";
-import { TaskItem } from "./task-item/task-item";
-import { useMemo } from "react";
-import { Task } from "@/gql/graphql";
-import { TaskDeleteDialog } from "./task-delete-dialog";
-import { AnimatePresence, motion } from "framer-motion";
+import { graphql } from '@/gql';
+import { OperationContext, useQuery } from 'urql';
+import { TaskItem } from './task-item/task-item';
+import { useMemo } from 'react';
+import { Task } from '@/gql/graphql';
+import { TaskDeleteDialog } from './task-delete-dialog';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const TaskListQuery = graphql(`
   query TodoListQuery {
@@ -19,7 +19,7 @@ const TaskListQuery = graphql(`
 
 export const TaskList: React.FC = () => {
   const context: Partial<OperationContext> = useMemo(() => {
-    return { additionalTypenames: ["Task" satisfies Task["__typename"]] };
+    return { additionalTypenames: ['Task' satisfies Task['__typename']] };
   }, []);
   const [{ data, fetching, error }] = useQuery({
     query: TaskListQuery,
@@ -45,7 +45,7 @@ export const TaskList: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 0.15, ease: "easeOut" }}
+                transition={{ duration: 0.15, ease: 'easeOut' }}
               >
                 <TaskItem task={t} />
               </motion.div>

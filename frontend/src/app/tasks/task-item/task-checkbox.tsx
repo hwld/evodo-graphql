@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { graphql } from "@/gql";
-import { useMutation } from "urql";
-import * as Checkbox from "@radix-ui/react-checkbox";
-import { CheckIcon } from "lucide-react";
-import { useRef } from "react";
-import clsx from "clsx";
+import { graphql } from '@/gql';
+import { useMutation } from 'urql';
+import * as Checkbox from '@radix-ui/react-checkbox';
+import { CheckIcon } from 'lucide-react';
+import { useRef } from 'react';
+import clsx from 'clsx';
 
 type Animation = [Keyframe[], KeyframeAnimationOptions];
 const doneAnimation: Animation = [
   [
-    { transform: "scale(0.5)" },
-    { transform: "scale(1.2)" },
-    { transform: "scale(1)" },
+    { transform: 'scale(0.5)' },
+    { transform: 'scale(1.2)' },
+    { transform: 'scale(1)' },
   ],
-  { duration: 250, easing: "ease-out" },
+  { duration: 250, easing: 'ease-out' },
 ];
 const undoneAnimation: Animation = [
-  [{ transform: "scale(1)" }, { transform: "scale(1.1)" }],
-  { duration: 150, easing: "ease-out" },
+  [{ transform: 'scale(1)' }, { transform: 'scale(1.1)' }],
+  { duration: 150, easing: 'ease-out' },
 ];
 
 const DoneTask = graphql(`
@@ -63,13 +63,13 @@ export const TaskCheckbox: React.FC<Props> = ({ id, done }) => {
     };
 
     const willDone = !done;
-    const { animate, mutate } = map[willDone ? "done" : "undone"];
+    const { animate, mutate } = map[willDone ? 'done' : 'undone'];
 
     animate();
     const result = await mutate({ id });
 
     if (result.error) {
-      window.alert("タスクを更新できませんでした。");
+      window.alert('タスクを更新できませんでした。');
       return;
     }
   };
@@ -93,8 +93,8 @@ export const TaskCheckbox: React.FC<Props> = ({ id, done }) => {
           <CheckIcon
             size="80%"
             className={clsx(
-              "group-data-[state=checked]-hover:text-blue-500 transition-all duration-300",
-              { "group-hover:text-neutral-600": !done },
+              'group-data-[state=checked]-hover:text-blue-500 transition-all duration-300',
+              { 'group-hover:text-neutral-600': !done },
             )}
           />
         </Checkbox.Indicator>

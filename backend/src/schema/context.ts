@@ -1,8 +1,8 @@
-import { YogaInitialContext } from "graphql-yoga";
-import { getTokenFromRequest } from "../lib/utils";
-import { firebaseAuth } from "../lib/firebase";
-import { DecodedIdToken } from "firebase-admin/auth";
-import { db } from "../db";
+import { YogaInitialContext } from 'graphql-yoga';
+import { getTokenFromRequest } from '../lib/utils';
+import { firebaseAuth } from '../lib/firebase';
+import { DecodedIdToken } from 'firebase-admin/auth';
+import { db } from '../db';
 
 export type Context = YogaInitialContext & {
   loggedInUserId: string | undefined;

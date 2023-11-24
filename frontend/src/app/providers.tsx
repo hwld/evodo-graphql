@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { UrqlProvider } from "@/lib/urql";
+import { UrqlProvider } from '@/lib/urql';
 
 export const Providers: React.FC<{ children: React.ReactNode }> = ({
   children,

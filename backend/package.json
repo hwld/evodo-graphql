@@ -3,13 +3,15 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node-dev --exit-child --respawn src/main.ts",
     "start": "ts-node src/main.ts",
-    "codegen": "graphql-codegen --watch"
+    "codegen": "graphql-codegen",
+    "codegen:watch": "graphql-codegen --watch"
   },
   "dependencies": {
     "@parcel/watcher": "^2.3.0",
     "@prisma/client": "5.6.0",
     "firebase-admin": "^11.11.0",
     "graphql": "^16.8.1",
+    "graphql-scalars": "^1.22.4",
     "graphql-yoga": "^5.0.0"
   },
   "devDependencies": {

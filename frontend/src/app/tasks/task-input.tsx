@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { graphql } from "@/gql";
-import { CommandIcon } from "lucide-react";
+import { graphql } from '@/gql';
+import { CommandIcon } from 'lucide-react';
 import {
   ChangeEvent,
   SyntheticEvent,
   useEffect,
   useRef,
   useState,
-} from "react";
-import { useMutation } from "urql";
+} from 'react';
+import { useMutation } from 'urql';
 
 type Props = {};
 
@@ -25,7 +25,7 @@ const CreateTask = graphql(`
 
 export const TaskInput: React.FC<Props> = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [taskTitle, setTaskTitle] = useState("");
+  const [taskTitle, setTaskTitle] = useState('');
   const [{ fetching }, createTaskMutation] = useMutation(CreateTask);
 
   const handleChangeTaskTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,22 +40,22 @@ export const TaskInput: React.FC<Props> = () => {
     e.preventDefault();
     const result = await createTaskMutation({ input: { title: taskTitle } });
     if (result.error) {
-      window.alert("タスクが入力できませんでした");
+      window.alert('タスクが入力できませんでした');
       return;
     }
 
-    setTaskTitle("");
+    setTaskTitle('');
   };
 
   useEffect(() => {
     const focusInput = (e: KeyboardEvent) => {
-      if (e.metaKey && e.key === "k" && inputRef.current) {
+      if (e.metaKey && e.key === 'k' && inputRef.current) {
         inputRef.current.focus();
       }
     };
 
-    window.addEventListener("keydown", focusInput);
-    return () => window.removeEventListener("keydown", focusInput);
+    window.addEventListener('keydown', focusInput);
+    return () => window.removeEventListener('keydown', focusInput);
   }, []);
 
   useEffect(() => {

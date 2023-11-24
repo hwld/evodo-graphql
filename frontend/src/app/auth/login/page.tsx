@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { LoginCard } from "./login-card";
+import { LoginCard } from './login-card';
 
 const SigninPage: React.FC = () => {
   return (

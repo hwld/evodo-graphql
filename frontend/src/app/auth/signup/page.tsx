@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { SignupForm } from "./signup-form";
-import { graphql } from "@/gql";
-import { useFirebaseAuthState } from "@/hooks/useFirebaseAuthState";
-import { Routes } from "@/lib/routes";
-import { HandMetalIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useQuery } from "urql";
+import { SignupForm } from './signup-form';
+import { graphql } from '@/gql';
+import { useFirebaseAuthState } from '@/hooks/useFirebaseAuthState';
+import { Routes } from '@/lib/routes';
+import { HandMetalIcon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useQuery } from 'urql';
 
 const DraftUserQuery = graphql(`
   query DraftUserQuery {
@@ -23,7 +23,7 @@ const SignupPage: React.FC = () => {
   const [draftUserResult] = useQuery({
     query: DraftUserQuery,
     pause: !firebaseAuthState.user,
-    requestPolicy: "network-only",
+    requestPolicy: 'network-only',
   });
 
   // firebaeで認証していない場合はリダイレクト

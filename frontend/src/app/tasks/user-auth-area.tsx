@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useSession } from "@/hooks/useSession";
+import { useSession } from '@/hooks/useSession';
 
 type Props = {};
 export const UserAuthArea: React.FC<Props> = () => {

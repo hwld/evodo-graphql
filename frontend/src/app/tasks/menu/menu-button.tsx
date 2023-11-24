@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {
   CalendarIcon,
   HomeIcon,
   LayoutListIcon,
   MoreHorizontalIcon,
-} from "lucide-react";
-import { MenuItem } from "./menu-item";
+} from 'lucide-react';
+import { MenuItem } from './menu-item';
 
 type Props = {};
 

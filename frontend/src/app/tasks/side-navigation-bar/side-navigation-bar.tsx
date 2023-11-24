@@ -3,8 +3,8 @@ import {
   CopyCheckIcon,
   HomeIcon,
   LayoutListIcon,
-} from "lucide-react";
-import { NavigationItem } from "./navigation-item";
+} from 'lucide-react';
+import { NavigationItem } from './navigation-item';
 
 type Props = {};
 

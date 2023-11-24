@@ -1,4 +1,4 @@
-import { atom, useAtomValue, useSetAtom } from "jotai";
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 
 type EditableAtom = { inputEl: HTMLInputElement | null; editable: boolean };
 
@@ -7,7 +7,7 @@ const editableAtom = atom<EditableAtom>({
   editable: false,
 });
 
-const setInputElAtom = atom(null, (_, set, update: EditableAtom["inputEl"]) => {
+const setInputElAtom = atom(null, (_, set, update: EditableAtom['inputEl']) => {
   set(editableAtom, (prev) => ({ ...prev, inputEl: update }));
 });
 

@@ -1,5 +1,5 @@
-import { AuthConfig, AuthUtilities } from "@urql/exchange-auth";
-import { firebaseAuth } from "./firebase";
+import { AuthConfig, AuthUtilities } from '@urql/exchange-auth';
+import { firebaseAuth } from './firebase';
 
 export const authExchangeInit: (
   utils: AuthUtilities,
