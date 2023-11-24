@@ -1,9 +1,9 @@
-import * as Dialog from '@radix-ui/react-dialog';
-import { TrashIcon, XIcon } from 'lucide-react';
+import { TrashIcon } from 'lucide-react';
 import { atom, useAtom, useSetAtom } from 'jotai';
 import { useTaskDelete } from './use-task-delete';
 import { useMemo } from 'react';
 import { Button } from '../_components/button';
+import { Dialog } from '../_components/dialog';
 
 type TaskDeleteDialogAtom =
   | { isOpen: true; taskId: string }
@@ -67,49 +67,26 @@ export const TaskDeleteDialog: React.FC<Props> = () => {
   }, [dialogState, isDeleting]);
 
   return (
-    <Dialog.Root open={dialogState.isOpen} onOpenChange={handleOpenChange}>
-      <Dialog.Portal>
-        <Dialog.Overlay
-          className="data-[state=open]:animate-dialogOverlayEnter data-[state=closed]:animate-dialogOverlayExit
-      fixed inset-0 bg-black/30"
-        />
-        <Dialog.Content
-          className="data-[state=open]:animate-dialogEnter data-[state=closed]:animate-dialogExit fixed 
-        inset-0 left-[50%] top-[50%] h-[250px] w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-lg bg-neutral-100 p-5
-        text-neutral-700"
+    <Dialog
+      height={250}
+      isOpen={dialogState.isOpen}
+      onChangeIsOpen={handleOpenChange}
+      title="タスクの削除"
+      content={
+        <p>
+          このタスクを本当に削除しますか？削除後は元に戻すことはできません。
+        </p>
+      }
+      cancelButton={<Button color="white">キャンセル</Button>}
+      actionButton={
+        <Button
+          onClick={handleDeleteTask}
+          leftIcon={TrashIcon}
+          disabled={deleting}
         >
-          <Dialog.Close
-            className="absolute right-3 top-3 rounded p-1 transition-all
-      hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500
-      focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100"
-          >
-            <XIcon />
-          </Dialog.Close>
-          <Dialog.Title className="text-xl font-bold">
-            タスクの削除
-          </Dialog.Title>
-          <Dialog.Description className="mt-5" asChild>
-            <p>
-              このタスクを本当に削除しますか？削除後は元に戻すことはできません。
-            </p>
-          </Dialog.Description>
-          <div
-            className="absolute bottom-0 left-0 flex w-full justify-between gap-2 rounded-b-lg border-t
-         border-neutral-300 bg-neutral-200/30 p-3"
-          >
-            <Dialog.Close asChild>
-              <Button color="white">キャンセル</Button>
-            </Dialog.Close>
-            <Button
-              onClick={handleDeleteTask}
-              leftIcon={TrashIcon}
-              disabled={deleting}
-            >
-              削除する
-            </Button>
-          </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+          削除する
+        </Button>
+      }
+    />
   );
 };

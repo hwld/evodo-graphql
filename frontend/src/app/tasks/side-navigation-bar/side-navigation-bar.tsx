@@ -10,18 +10,18 @@ type Props = {};
 
 export const SideNavigationBar: React.FC<Props> = () => {
   return (
-    <div className="h-full w-[300px] flex-shrink-0 rounded-r-lg bg-neutral-800 p-5 text-neutral-100">
+    <div className="h-full w-[250px] flex-shrink-0 rounded-r-lg bg-neutral-800 p-5 text-neutral-100">
       <div className="flex items-center gap-2">
         <CopyCheckIcon />
         <div className="font-bold">evodo-graphql</div>
       </div>
       <div className="my-5 h-[1px] w-full bg-neutral-600" />
-      <div className="flex flex-col gap-2">
-        <NavigationItem active icon={<HomeIcon />}>
+      <div className="flex flex-col gap-1">
+        <NavigationItem active icon={HomeIcon}>
           今日のタスク
         </NavigationItem>
-        <NavigationItem icon={<LayoutListIcon />}>過去のタスク</NavigationItem>
-        <NavigationItem icon={<CalendarIcon />}>予定</NavigationItem>
+        <NavigationItem icon={LayoutListIcon}>過去のタスク</NavigationItem>
+        <NavigationItem icon={CalendarIcon}>予定</NavigationItem>
       </div>
     </div>
   );

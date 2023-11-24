@@ -27,7 +27,7 @@ export const TaskList: React.FC = () => {
   });
 
   if (fetching) {
-    return <div>loading...</div>;
+    return <div></div>;
   }
   if (error) {
     return <div>error</div>;

@@ -17,7 +17,7 @@ export default function Home() {
           <div className="absolute right-4 top-2">
             <UserAuthArea />
           </div>
-          <div className="overflow-auto p-3">
+          <div className="overflow-auto p-5">
             <div className="m-auto mt-10 max-w-5xl grow">
               <h1 className="mb-5 flex items-center gap-2 text-xl font-bold">
                 <HomeIcon strokeWidth={3} />
