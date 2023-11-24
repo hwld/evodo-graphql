@@ -21,14 +21,11 @@ export const TaskList: React.FC = () => {
   const context: Partial<OperationContext> = useMemo(() => {
     return { additionalTypenames: ['Task' satisfies Task['__typename']] };
   }, []);
-  const [{ data, fetching, error }] = useQuery({
+  const [{ data, error }] = useQuery({
     query: TaskListQuery,
     context,
   });
 
-  if (fetching) {
-    return <div></div>;
-  }
   if (error) {
     return <div>error</div>;
   }

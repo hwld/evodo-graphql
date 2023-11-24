@@ -12,6 +12,7 @@ export const UrqlProvider: React.FC<{ children: React.ReactNode }> = ({
     return new Client({
       url: 'http://localhost:4000/graphql',
       exchanges: [cacheExchange, authExchange(authExchangeInit), fetchExchange],
+      suspense: true,
     });
   }, []);
 

@@ -1,14 +1,16 @@
 import { TaskList } from '@/app/tasks/task-list';
 import { TaskInput } from './task-input';
 import { UserAuthArea } from './user-auth-area';
-import { RequireAuth } from '../_components/require-auth';
+import { RequireAuthPage } from '../_components/require-auth-page';
 import { SideNavigationBar } from './side-navigation-bar/side-navigation-bar';
 import { MenuButton } from './menu/menu-button';
 import { HomeIcon } from 'lucide-react';
+import { Suspense } from 'react';
+import { Spinner } from '../_components/spinner';
 
 export default function Home() {
   return (
-    <RequireAuth>
+    <RequireAuthPage>
       <div className="flex h-[100dvh]">
         <div className="hidden h-full lg:block">
           <SideNavigationBar />
@@ -23,9 +25,11 @@ export default function Home() {
                 <HomeIcon strokeWidth={3} />
                 <p>今日のタスク</p>
               </h1>
-              <div className="mb-20">
-                <TaskList />
-              </div>
+              <Suspense fallback={<Spinner />}>
+                <div className="mb-20">
+                  <TaskList />
+                </div>
+              </Suspense>
             </div>
           </div>
           <div className="absolute bottom-0 left-0 right-0 mx-auto my-3 flex max-w-[85%] items-start justify-center gap-2">
@@ -34,6 +38,6 @@ export default function Home() {
           </div>
         </main>
       </div>
-    </RequireAuth>
+    </RequireAuthPage>
   );
 }
