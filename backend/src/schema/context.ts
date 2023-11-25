@@ -1,19 +1,22 @@
 import { YogaInitialContext } from 'graphql-yoga';
 import { getTokenFromRequest } from '../lib/utils';
-import { firebaseAuth } from '../lib/firebase';
-import { DecodedIdToken } from 'firebase-admin/auth';
 import { db } from '../db';
+import { firebaseAuth } from '../services/firebase';
+import { DecodedIdToken } from 'firebase-admin/auth';
+import type { PrismaClient } from '@prisma/client';
 
 export type Context = YogaInitialContext & {
   loggedInUserId: string | undefined;
-} & { firebaseToken: DecodedIdToken | undefined };
+  firebaseToken: DecodedIdToken | undefined;
+  db: PrismaClient;
+};
 
 export const yogaContext = async (
   ctx: YogaInitialContext,
 ): Promise<Context> => {
   const token = getTokenFromRequest(ctx.request);
   if (token === null) {
-    return { ...ctx, loggedInUserId: undefined, firebaseToken: undefined };
+    return { ...ctx, loggedInUserId: undefined, firebaseToken: undefined, db };
   }
 
   const decodedToken = await firebaseAuth.verifyIdToken(token);
@@ -26,5 +29,6 @@ export const yogaContext = async (
     ...ctx,
     loggedInUserId: foundUser?.id,
     firebaseToken: decodedToken,
+    db,
   };
 };

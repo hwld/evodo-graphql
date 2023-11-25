@@ -4,9 +4,9 @@ import type { QueryResolvers } from './../../../types.generated';
 export const user: NonNullable<QueryResolvers['user']> = async (
   _parent,
   _arg,
-  _ctx,
+  { db },
 ) => {
-  const user = await findFirstUser({ where: { id: _arg.id } });
+  const user = await findFirstUser({ db, where: { id: _arg.id } });
   if (!user) {
     throw new GraphQLError('not found user');
   }

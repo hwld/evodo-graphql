@@ -1,7 +1,6 @@
-import { Prisma } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 import { User } from '../types.generated';
 import { FindFirstArgs } from '../../db/types';
-import { db } from '../../db';
 
 const userArgs = {} satisfies Prisma.UserDefaultArgs;
 
@@ -16,10 +15,11 @@ export const convertUser = (
   };
 };
 
-type FindFirstUserArgs = FindFirstArgs<'user'>;
-export const findFirstUser = async (
-  args: FindFirstUserArgs,
-): Promise<User | undefined> => {
+type FindFirstUserArgs = FindFirstArgs<'user', { db: PrismaClient }>;
+export const findFirstUser = async ({
+  db,
+  ...args
+}: FindFirstUserArgs): Promise<User | undefined> => {
   const raw = await db.user.findFirst({ ...args });
 
   if (!raw) {

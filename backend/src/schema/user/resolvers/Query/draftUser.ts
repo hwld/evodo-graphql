@@ -1,12 +1,11 @@
 import { GraphQLError } from 'graphql';
 import type { QueryResolvers } from './../../../types.generated';
-import { db } from '../../../../db';
 export const draftUser: NonNullable<QueryResolvers['draftUser']> = async (
   _parent,
   _arg,
-  _ctx,
+  { firebaseToken, db },
 ) => {
-  const draftUserId = _ctx.firebaseToken?.sub;
+  const draftUserId = firebaseToken?.sub;
   if (!draftUserId) {
     throw new GraphQLError('not found user');
   }

@@ -1,8 +1,9 @@
-import { db } from '../../../../db';
-import { firebaseAuth } from '../../../../lib/firebase';
+import { firebaseAuth } from '../../../../services/firebase';
 import type { MutationResolvers } from '../../../types.generated';
 
-export const initializeSignupIfNew: NonNullable<MutationResolvers['initializeSignupIfNew']> = async (_parent, { input }, _ctx) => {
+export const initializeSignupIfNew: NonNullable<
+  MutationResolvers['initializeSignupIfNew']
+> = async (_parent, { input }, { db }) => {
   const decoded = await firebaseAuth.verifyIdToken(input.firebaseToken);
   const userId = decoded.sub;
 
