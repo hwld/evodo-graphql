@@ -1,5 +1,9 @@
 import { FirebaseOptions, initializeApp } from 'firebase/app';
-import { GoogleAuthProvider, getAuth } from 'firebase/auth';
+import {
+  GoogleAuthProvider,
+  connectAuthEmulator,
+  getAuth,
+} from 'firebase/auth';
 
 const firebaseConfig: FirebaseOptions = {
   apiKey: 'AIzaSyDVba2qKYYRjfWg8wp5LxxxQRWf0NER0QI',
@@ -14,4 +18,12 @@ const firebaseConfig: FirebaseOptions = {
 const app = initializeApp(firebaseConfig);
 
 export const firebaseAuth = getAuth(app);
+if (process.env.NODE_ENV !== 'production') {
+  connectAuthEmulator(
+    firebaseAuth,
+    process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST || '',
+    { disableWarnings: true },
+  );
+}
+
 export const googleAuthProvider = new GoogleAuthProvider();

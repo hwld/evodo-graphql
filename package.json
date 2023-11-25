@@ -6,7 +6,8 @@
     "backend": "pnpm -F \"backend\"",
     "frontend": "pnpm -F \"frontend\"",
     "prisma": "pnpm backend exec prisma ",
-    "dev": "pnpm -r dev & pnpm -r codegen:watch",
+    "emulator": "pnpm firebase emulators:start",
+    "dev": "pnpm emulator &  pnpm -r dev & pnpm -r codegen:watch",
     "lint": "pnpm \"/^lint:.*/\"",
     "lint:type": "pnpm -r exec tsc --noEmit",
     "lint:eslint": "pnpm exec eslint . --ext .ts,.tsx"
@@ -15,10 +16,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.11.0",
-    "@typescript-eslint/parser": "^6.11.0",
-    "eslint": "^8",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
-    "prettier": "^3.1.0"
+    "prettier": "^3.1.0",
+    "firebase-tools": "^12.9.1"
   }
 }
