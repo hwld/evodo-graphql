@@ -5,6 +5,7 @@
   "scripts": {
     "backend": "pnpm -F \"backend\"",
     "frontend": "pnpm -F \"frontend\"",
+    "test": "pnpm -r test -- ",
     "prisma": "pnpm backend exec prisma ",
     "emulator": "pnpm firebase emulators:start",
     "dev": "pnpm emulator &  pnpm -r dev & pnpm -r codegen:watch",

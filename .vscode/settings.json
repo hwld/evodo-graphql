@@ -3,6 +3,11 @@
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-file",
+  },
+  "jest.jestCommandLine": "pnpm test -- ",
   "tailwindCSS.classAttributes": [
     "class",
     "className",

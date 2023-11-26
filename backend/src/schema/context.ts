@@ -5,11 +5,12 @@ import { firebaseAuth } from '../services/firebase';
 import { DecodedIdToken } from 'firebase-admin/auth';
 import type { PrismaClient } from '@prisma/client';
 
-export type Context = YogaInitialContext & {
+export type CustomContext = {
   loggedInUserId: string | undefined;
   firebaseToken: DecodedIdToken | undefined;
   db: PrismaClient;
 };
+export type Context = YogaInitialContext & CustomContext;
 
 export const yogaContext = async (
   ctx: YogaInitialContext,
