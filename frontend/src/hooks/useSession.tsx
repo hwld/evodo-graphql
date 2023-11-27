@@ -67,8 +67,8 @@ export const useSession = () => {
       const { data } = await initializeSignupIfNew({
         input: {
           firebaseToken: idToken,
-          name: result.user.displayName,
-          avatarUrl: result.user.photoURL,
+          name: result.user.displayName ?? '',
+          avatarUrl: result.user.photoURL ?? '',
         },
       });
 

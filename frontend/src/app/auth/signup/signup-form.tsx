@@ -52,6 +52,7 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
         firebaseToken: token,
         name: formData.username,
         profile: formData.profile,
+        avatarUrl: '',
       },
     });
 

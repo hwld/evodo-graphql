@@ -5,7 +5,10 @@ extend type Query {
 extend type Mutation {
   createTask(input: CreateTaskInput!): CreateTaskPayload!
   deleteTask(id: ID!): DeleteTaskPayload!
-  updateTaskTitle(id: ID!, title: String!): UpdateTaskTitlePayload!
+  updateTaskTitle(
+    id: ID!
+    title: String! @constraint(minLength: 1)
+  ): UpdateTaskTitlePayload!
   doneTask(id: ID!): DoneTaskPayload!
   undoneTask(id: ID!): UndoneTaskPayload!
 }
@@ -40,5 +43,5 @@ type Task {
 }
 
 input CreateTaskInput {
-  title: String!
+  title: String! @constraint(minLength: 1)
 }

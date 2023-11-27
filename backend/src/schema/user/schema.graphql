@@ -30,15 +30,15 @@ type DraftUser {
 
 input SignupInput {
   firebaseToken: String!
-  name: String
-  avatarUrl: String
-  profile: String
+  name: String! @constraint(minLength: 1, maxLength: 100)
+  avatarUrl: String! @constraint(maxLength: 100)
+  profile: String!
 }
 
 input InitializeSignupIfNewInput {
   firebaseToken: String!
-  name: String
-  avatarUrl: String
+  name: String!
+  avatarUrl: String!
 }
 
 type InitializeSignupIfNewPayload {
