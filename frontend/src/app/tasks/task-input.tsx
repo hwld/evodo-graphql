@@ -1,6 +1,6 @@
 'use client';
 
-import { graphql } from '@/gql/generated';
+import { graphql } from '@/gql';
 import { CommandIcon } from 'lucide-react';
 import {
   ChangeEvent,

@@ -1,10 +1,10 @@
 'use client';
 
-import { graphql } from '@/gql/generated';
+import { graphql } from '@/gql';
 import { OperationContext, useQuery } from 'urql';
 import { TaskItem } from './task-item/task-item';
 import { useMemo } from 'react';
-import { Task } from '@/gql/generated/graphql';
+import { Task } from '@/gql/graphql';
 import { TaskDeleteDialog } from './task-delete-dialog';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -24,6 +24,7 @@ export const TaskList: React.FC = () => {
   const [{ data, error }] = useQuery({
     query: TaskListQuery,
     context,
+    requestPolicy: 'network-only',
   });
 
   if (error) {

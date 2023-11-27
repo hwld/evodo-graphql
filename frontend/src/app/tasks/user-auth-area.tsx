@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from '@/hooks/useSession';
+import { useSession } from '@/app/_hooks/useSession';
 import { Button } from '../_components/button';
 
 type Props = {};

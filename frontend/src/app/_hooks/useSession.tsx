@@ -1,4 +1,4 @@
-import { graphql } from '@/gql/generated';
+import { graphql } from '@/gql';
 import { firebaseAuth, googleAuthProvider } from '@/lib/firebase';
 import { FirebaseError } from 'firebase/app';
 import { signInWithPopup, signOut } from 'firebase/auth';

@@ -11,7 +11,7 @@ const config: CodegenConfig = {
       schema: '../backend/src/schema/**/schema.graphql',
       plugins: ['typescript-validation-schema'],
       config: {
-        importFrom: './generated/graphql',
+        importFrom: './graphql',
         strictScalars: true,
         scalarSchemas: {
           ID: 'string',
@@ -19,13 +19,13 @@ const config: CodegenConfig = {
         schema: 'zod',
         directives: {
           constraint: {
-            minLength: 'min',
-            maxLength: 'max',
+            minLength: ['min', '$1', '必須項目です。'],
+            maxLength: ['max', '$1', '最大で$1文字です。'],
           },
         },
       },
     },
-    './src/gql/generated/': {
+    './src/gql/': {
       preset: 'client',
     },
   },

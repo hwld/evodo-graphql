@@ -1,4 +1,4 @@
-import { useSession } from '@/hooks/useSession';
+import { useSession } from '@/app/_hooks/useSession';
 import { Routes } from '@/lib/routes';
 import { CopyCheckIcon } from 'lucide-react';
 import Image from 'next/image';

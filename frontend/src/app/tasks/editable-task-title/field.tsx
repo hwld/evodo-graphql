@@ -1,4 +1,4 @@
-import { graphql } from '@/gql/generated';
+import { graphql } from '@/gql';
 import { SyntheticEvent, useState } from 'react';
 import { useMutation } from 'urql';
 import { cx } from 'cva';

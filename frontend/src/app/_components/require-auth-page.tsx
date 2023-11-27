@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from '@/hooks/useSession';
+import { useSession } from '@/app/_hooks/useSession';
 import { Routes } from '@/lib/routes';
 import { redirect } from 'next/navigation';
 import { CopyCheckIcon } from 'lucide-react';

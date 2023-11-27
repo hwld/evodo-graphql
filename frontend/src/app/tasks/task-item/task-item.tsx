@@ -1,6 +1,6 @@
 'use client';
 
-import { FragmentType, graphql, useFragment } from '@/gql/generated';
+import { FragmentType, graphql, useFragment } from '@/gql';
 import { TaskCheckbox } from './task-checkbox';
 import { PencilIcon, TrashIcon } from 'lucide-react';
 import { EditableTaskTitle } from '../editable-task-title/index';

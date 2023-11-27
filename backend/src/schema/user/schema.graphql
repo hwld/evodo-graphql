@@ -31,8 +31,8 @@ type DraftUser {
 input SignupInput {
   firebaseToken: String!
   name: String! @constraint(minLength: 1, maxLength: 100)
-  avatarUrl: String! @constraint(maxLength: 100)
-  profile: String!
+  avatarUrl: String!
+  profile: String! @constraint(maxLength: 100)
 }
 
 input InitializeSignupIfNewInput {
