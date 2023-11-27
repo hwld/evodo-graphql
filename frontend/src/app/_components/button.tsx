@@ -31,12 +31,17 @@ export const Button: React.FC<Props> = ({
   children,
   leftIcon: LeftIcon,
   color,
-  size,
+  size = 'md',
   ...props
 }) => {
+  const iconSize = {
+    md: '20',
+    sm: '18',
+  };
+
   return (
     <button {...props} className={button({ color, size })}>
-      {LeftIcon && <LeftIcon size={20} />}
+      {LeftIcon && <LeftIcon size={iconSize[size]} />}
       {children}
     </button>
   );

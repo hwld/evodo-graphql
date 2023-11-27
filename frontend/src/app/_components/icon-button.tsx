@@ -4,7 +4,7 @@ import { ComponentPropsWithoutRef, forwardRef } from 'react';
 
 const iconButton = cva({
   base: 'flex items-center justify-center bg-transparent hover:bg-neutral-200 transition-all rounded disabled:pointer-events-none disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 ring-offset-2 ring-neutral-500 text-neutral-700',
-  variants: { size: { md: 'p-1' } },
+  variants: { size: { md: 'p-1 w-[30px] h-[30px]' } },
   defaultVariants: { size: 'md' },
 });
 

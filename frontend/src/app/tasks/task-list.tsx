@@ -7,6 +7,7 @@ import { useMemo } from 'react';
 import { Task } from '@/gql/graphql';
 import { TaskDeleteDialog } from './task-delete-dialog';
 import { AnimatePresence, motion } from 'framer-motion';
+import { EmptyTaskCard } from './empty-task-card';
 
 const TaskListQuery = graphql(`
   query TodoListQuery {
@@ -34,7 +35,12 @@ export const TaskList: React.FC = () => {
   return (
     <>
       <div className="flex flex-col gap-2">
-        <AnimatePresence>
+        {data?.myTasks.length === 0 && (
+          <div className="mt-5">
+            <EmptyTaskCard />
+          </div>
+        )}
+        <AnimatePresence mode="popLayout">
           {data?.myTasks.map((t) => {
             return (
               <motion.div

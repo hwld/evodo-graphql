@@ -33,11 +33,11 @@ export const TaskInput: React.FC<Props> = () => {
   };
 
   const handleCreateTask = async (e: SyntheticEvent) => {
-    if (fetching) {
+    e.preventDefault();
+    if (fetching || taskTitle === '') {
       return;
     }
 
-    e.preventDefault();
     const result = await createTaskMutation({ input: { title: taskTitle } });
     if (result.error) {
       window.alert('タスクが入力できませんでした');
@@ -49,7 +49,7 @@ export const TaskInput: React.FC<Props> = () => {
 
   useEffect(() => {
     const focusInput = (e: KeyboardEvent) => {
-      if (e.metaKey && e.key === 'k' && inputRef.current) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k' && inputRef.current) {
         inputRef.current.focus();
       }
     };

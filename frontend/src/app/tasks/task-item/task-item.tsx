@@ -37,7 +37,7 @@ export const TaskItem: React.FC<Props> = ({ task: _task }) => {
           <TaskCheckbox id={task.id} done={task.done} />
           <EditableTaskTitle.Field id={task.id} title={task.title} />
         </div>
-        <div className="flex gap-1">
+        <div className="flex items-center gap-1">
           <EditableTaskTitle.Trigger asChild>
             <IconButton icon={PencilIcon} />
           </EditableTaskTitle.Trigger>
