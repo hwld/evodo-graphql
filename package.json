@@ -7,8 +7,9 @@
     "frontend": "pnpm -F \"frontend\"",
     "test": "pnpm -r test -- ",
     "prisma": "pnpm backend exec prisma ",
-    "emulator": "pnpm firebase emulators:start",
-    "dev": "pnpm emulator &  pnpm -r dev & pnpm -r codegen:watch",
+    "emulator:export": "pnpm firebase emularots:export .firebase-data",
+    "emulator:start": "pnpm firebase emulators:start --import=.firebase-data",
+    "dev": "pnpm emulator:start &  pnpm -r dev & pnpm -r codegen:watch",
     "lint": "pnpm \"/^lint:.*/\"",
     "lint:type": "pnpm -r exec tsc --noEmit",
     "lint:eslint": "pnpm exec eslint . --ext .ts,.tsx"

@@ -4,4 +4,7 @@ node_modules
 backend/src/schema/**/*.generated.*
 frontend/src/gql/generated
 
+.firebase-data/**/*
+!.firebase-data/.gitkeep
+
 *-debug.log
