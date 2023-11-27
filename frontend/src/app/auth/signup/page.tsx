@@ -1,7 +1,7 @@
 'use client';
 
 import { SignupForm } from './signup-form';
-import { graphql } from '@/gql';
+import { graphql } from '@/gql/generated';
 import { useFirebaseAuthState } from '@/hooks/useFirebaseAuthState';
 import { Routes } from '@/lib/routes';
 import { HandMetalIcon } from 'lucide-react';

@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/app/_components/button';
-import { graphql } from '@/gql';
+import { graphql } from '@/gql/generated';
 import { useFirebaseAuthState } from '@/hooks/useFirebaseAuthState';
 import { preventDefaultEnter } from '@/lib/preventDefault';
 import { Routes } from '@/lib/routes';

@@ -1,10 +1,10 @@
 'use client';
 
-import { graphql } from '@/gql';
+import { graphql } from '@/gql/generated';
 import { OperationContext, useQuery } from 'urql';
 import { TaskItem } from './task-item/task-item';
 import { useMemo } from 'react';
-import { Task } from '@/gql/graphql';
+import { Task } from '@/gql/generated/graphql';
 import { TaskDeleteDialog } from './task-delete-dialog';
 import { AnimatePresence, motion } from 'framer-motion';
 

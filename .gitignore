@@ -2,6 +2,6 @@ node_modules
 
 # 自動生成のファイルを除く
 backend/src/schema/**/*.generated.*
-frontend/src/gql
+frontend/src/gql/generated
 
 *-debug.log

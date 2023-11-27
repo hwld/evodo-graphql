@@ -1,4 +1,4 @@
-import { graphql } from '@/gql/gql';
+import { graphql } from '@/gql/generated';
 import { atom, useAtom } from 'jotai';
 import { useCallback } from 'react';
 import { useMutation } from 'urql';

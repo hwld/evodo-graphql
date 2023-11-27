@@ -1,6 +1,6 @@
 'use client';
 
-import { graphql } from '@/gql';
+import { graphql } from '@/gql/generated';
 import { useMutation } from 'urql';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from 'lucide-react';
