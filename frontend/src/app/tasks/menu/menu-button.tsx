@@ -17,7 +17,7 @@ export const MenuButton: React.FC<Props> = () => {
       <DropdownMenu.Trigger asChild>
         <button
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900
-          text-neutral-200 transition-all duration-200 focus-within:outline-none focus-within:ring-2 focus-within:ring-neutral-500 focus-within:ring-offset-2 hover:bg-neutral-700"
+          text-neutral-200 shadow-lg shadow-neutral-900/20 transition-all duration-200 focus-within:outline-none focus-within:ring-2 focus-within:ring-neutral-500 focus-within:ring-offset-2 hover:bg-neutral-700"
         >
           <MoreHorizontalIcon size="60%" />
         </button>
