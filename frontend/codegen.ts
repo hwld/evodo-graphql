@@ -13,9 +13,6 @@ const config: CodegenConfig = {
       config: {
         importFrom: './graphql',
         strictScalars: true,
-        scalarSchemas: {
-          ID: 'string',
-        },
         schema: 'zod',
         directives: {
           constraint: {

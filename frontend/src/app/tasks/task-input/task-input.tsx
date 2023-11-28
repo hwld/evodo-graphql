@@ -17,6 +17,7 @@ import {
   FloatingArrow,
 } from '@floating-ui/react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { cx } from 'cva';
 
 type Props = {};
 
@@ -46,7 +47,6 @@ export const TaskInput: React.FC<Props> = () => {
   } = useForm<CreateTaskInput>({
     defaultValues: { title: '' },
     resolver: zodResolver(createTaskInputSchema),
-    reValidateMode: 'onSubmit',
   });
 
   const arrowRef = useRef(null);
@@ -84,9 +84,12 @@ export const TaskInput: React.FC<Props> = () => {
   return (
     <>
       <div
-        className="flex h-[55px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 
-        shadow-lg shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px]
-        focus-within:ring-2 focus-within:ring-neutral-500 focus-within:ring-offset-2"
+        className={cx(
+          'flex h-[55px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 shadow-lg shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px] focus-within:ring-2 focus-within:ring-offset-2',
+          errors.title
+            ? 'text-red-500 focus-within:ring-red-600'
+            : 'text-neutral-100 focus-within:ring-neutral-500',
+        )}
       >
         <form
           className="flex h-full w-full items-center"
@@ -114,11 +117,7 @@ export const TaskInput: React.FC<Props> = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 15 }}
             >
-              <FloatingArrow
-                ref={arrowRef}
-                context={context}
-                style={{ height: 10, width: 10 }}
-              />
+              <FloatingArrow ref={arrowRef} context={context} width={10} />
               <div className="flex items-end gap-2">
                 <div className="flex items-center gap-1 text-red-300">
                   <AlertCircleIcon size={20} />
