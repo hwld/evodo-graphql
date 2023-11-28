@@ -14,7 +14,7 @@ import {
   useFloating,
   useMergeRefs,
 } from '@floating-ui/react';
-import { useMemo, useRef } from 'react';
+import { useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { AlertCircleIcon } from 'lucide-react';
 
@@ -36,8 +36,11 @@ type UpdateTaskTitleInput = z.infer<typeof updateTaskTitleInputSchema>;
 type Props = { title: string; id: string };
 
 export const _Field: React.FC<Props> = ({ title, id }) => {
-  const { inputEl, editable, setInputEl, disableEditing } =
-    useEditableTaskTitle();
+  const {
+    inputRef: _inputRef,
+    editable,
+    disableEditing,
+  } = useEditableTaskTitle();
   const [{ fetching: updating }, updateTaskTitleMutation] =
     useMutation(UpdateTaskTitle);
 
@@ -64,12 +67,8 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
   // TODO
   //　ここどうにかしたい。refをjotaiで管理してるから、setInputElで再レンダリングが発生しちゃって
   // 無限ループになるので、再レンダリングの原因になるregisterが返すrefをメモ化する
-  const {
-    ref: _ref,
-    onBlur,
-    ...register
-  } = useMemo(() => _register('title'), [_register]);
-  const inputRef = useMergeRefs([setInputEl, _ref, refs.setReference]);
+  const { ref: _ref, onBlur, ...register } = _register('title');
+  const inputRef = useMergeRefs([_inputRef, _ref, refs.setReference]);
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     onBlur(e);
@@ -87,7 +86,7 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
     });
     if (result.error) {
       window.alert('タスク名を変えられませんでした');
-      inputEl?.focus();
+      _inputRef?.current?.focus();
       return;
     }
 
