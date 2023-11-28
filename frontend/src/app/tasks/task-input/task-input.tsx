@@ -1,0 +1,115 @@
+'use client';
+
+import { graphql } from '@/gql';
+import { AlertCircleIcon, CommandIcon } from 'lucide-react';
+import { useRef } from 'react';
+import { useMutation } from 'urql';
+import * as Popover from '@radix-ui/react-popover';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { CreateTaskInputSchema } from '@/gql/validator';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMergedRef } from '@mantine/hooks';
+import { useTaskInputEffect } from './use-task-input-effect';
+
+type Props = {};
+
+const CreateTask = graphql(`
+  mutation CreateTaskMutation($input: CreateTaskInput!) {
+    createTask(input: $input) {
+      task {
+        id
+      }
+    }
+  }
+`);
+
+const createTaskInputSchema = CreateTaskInputSchema();
+type CreateTaskInput = z.infer<typeof createTaskInputSchema>;
+
+export const TaskInput: React.FC<Props> = () => {
+  const [{ fetching }, createTaskMutation] = useMutation(CreateTask);
+  const {
+    register: _register,
+    reset,
+    handleSubmit: _handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<CreateTaskInput>({
+    defaultValues: { title: '' },
+    resolver: zodResolver(createTaskInputSchema),
+    reValidateMode: 'onSubmit',
+  });
+
+  const _inputRef = useRef<HTMLInputElement>(null);
+  const { ref: _ref, onBlur: _onBlur, ...register } = _register('title');
+  const inputRef = useMergedRef(_ref, _inputRef);
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    _onBlur(e);
+  };
+
+  const handleCreateTask = _handleSubmit(async (data) => {
+    if (fetching) {
+      return;
+    }
+
+    const result = await createTaskMutation({ input: { title: data.title } });
+    if (result.error) {
+      window.alert('タスクが入力できませんでした');
+      return;
+    }
+
+    reset({ title: '' });
+  });
+
+  useTaskInputEffect(_inputRef);
+
+  return (
+    <Popover.Root open={!!errors.title?.message}>
+      <Popover.Anchor>
+        <div
+          className="flex h-[55px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 
+        shadow-lg shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px]
+        focus-within:ring-2 focus-within:ring-neutral-500 focus-within:ring-offset-2"
+        >
+          <form
+            className="flex h-full w-full items-center"
+            onSubmit={handleCreateTask}
+          >
+            <input
+              className="w-full bg-transparent px-3 py-3 placeholder:text-neutral-400 focus-visible:outline-none"
+              placeholder="タスクを入力してください..."
+              {...register}
+              ref={inputRef}
+              onBlur={handleBlur}
+            />
+          </form>
+          <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-neutral-600 text-neutral-200">
+            <CommandIcon size={15} />
+            <p className="text-sm">K</p>
+          </div>
+        </div>
+      </Popover.Anchor>
+      <Popover.Portal>
+        <Popover.Content
+          className="pointer-events-none rounded-lg bg-neutral-900 px-3 py-2"
+          side="top"
+          sideOffset={5}
+          autoFocus={false}
+        >
+          <Popover.Arrow />
+          <div className="flex items-end gap-1">
+            <div className="flex items-center gap-1 text-red-300">
+              <AlertCircleIcon size={20} />
+              <p>{errors.title?.message}</p>
+            </div>
+            <p className="text-xs tabular-nums text-neutral-300">
+              文字数: {watch('title').length}
+            </p>
+          </div>
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
+  );
+};

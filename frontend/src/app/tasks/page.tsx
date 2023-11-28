@@ -1,5 +1,5 @@
 import { TaskList } from '@/app/tasks/task-list';
-import { TaskInput } from './task-input';
+import { TaskInput } from './task-input/task-input';
 import { UserAuthArea } from './user-auth-area';
 import { RequireAuthPage } from '../_components/require-auth-page';
 import { SideNavigationBar } from './side-navigation-bar/side-navigation-bar';
