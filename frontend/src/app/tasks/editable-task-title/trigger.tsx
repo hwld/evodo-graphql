@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Slot } from '@radix-ui/react-slot';
-import { useEditableTaskTitle } from './state';
+import { useEditableTaskTitle } from './root';
 
 type Props = { children: ReactNode; asChild?: boolean };
 

@@ -1,7 +1,6 @@
 import { graphql } from '@/gql';
 import { useMutation } from 'urql';
 import { cx } from 'cva';
-import { useEditableTaskTitle } from './state';
 import { useForm } from 'react-hook-form';
 import { UpdateTaskTitleInputSchema } from '@/gql/validator';
 import { z } from 'zod';
@@ -10,6 +9,7 @@ import { useMergeRefs } from '@floating-ui/react';
 import { motion } from 'framer-motion';
 import { AlertCircleIcon } from 'lucide-react';
 import { Popover } from '@/app/_components/popover';
+import { useEditableTaskTitle } from './root';
 
 const UpdateTaskTitle = graphql(`
   mutation UpdateTaskTitleMutation($input: UpdateTaskTitleInput!) {
