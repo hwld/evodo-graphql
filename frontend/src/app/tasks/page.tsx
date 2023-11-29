@@ -16,10 +16,10 @@ export default function Home() {
           <SideNavigationBar />
         </div>
         <main className="relative flex grow flex-col gap-5">
-          <div className="absolute right-4 top-2">
+          <div className="absolute right-4 top-2 z-10">
             <UserAuthArea />
           </div>
-          <div className="overflow-auto p-5">
+          <div className="min-h-[100dvh] overflow-auto p-5">
             <div className="m-auto mt-10 max-w-3xl grow">
               <h1 className="mb-5 flex items-center gap-2 text-xl font-bold">
                 <HomeIcon strokeWidth={3} />
