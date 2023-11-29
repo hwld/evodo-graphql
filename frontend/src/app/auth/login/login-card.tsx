@@ -34,12 +34,14 @@ export const LoginCard: React.FC<Props> = () => {
   return (
     <div className="rounded-2xl border border-neutral-300 bg-neutral-100 p-16">
       <div className="flex max-w-[350px] flex-col items-center">
-        <div className="flex w-full items-center justify-start gap-2">
-          <CopyCheckIcon size={55} />
-          <p className="text-4xl font-bold">evodo-graphql</p>
+        <div className="flex w-full items-center justify-center gap-2">
+          <CopyCheckIcon size={75} strokeWidth={3} />
+          <p className="text-6xl font-bold">evodo</p>
         </div>
-        <p className="mt-7">
-          evodo-graphqlは、GraphQLで作られた、ついタスクを追加したくなるようなTodoリストです。
+        <p className="mt-10">
+          すぐに始められるTodoリスト。
+          <br />
+          直感的なUIでストレスなくタスクを入力でき、日々のタスクを楽しく管理することができます。
         </p>
         <div className="mt-14">
           <p className="flex items-start text-sm text-neutral-400">

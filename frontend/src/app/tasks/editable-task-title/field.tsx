@@ -103,7 +103,7 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
         </form>
         <label
           htmlFor={id}
-          className={cx('cursor-pointer select-none pl-1', {
+          className={cx('cursor-pointer select-none break-all pl-1', {
             hidden: editable,
           })}
         >

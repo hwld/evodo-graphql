@@ -10,10 +10,10 @@ type Props = {};
 
 export const SideNavigationBar: React.FC<Props> = () => {
   return (
-    <div className="h-full w-[250px] flex-shrink-0 rounded-r-lg bg-neutral-800 p-5 text-neutral-100">
+    <div className="h-full w-[250px] flex-shrink-0 border-r-2 border-neutral-300 bg-neutral-800 p-5 text-neutral-100">
       <div className="flex items-center gap-2">
         <CopyCheckIcon />
-        <div className="font-bold">evodo-graphql</div>
+        <div className="font-bold">evodo</div>
       </div>
       <div className="my-5 h-[1px] w-full bg-neutral-600" />
       <div className="flex flex-col gap-1">

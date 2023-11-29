@@ -73,7 +73,7 @@ export const TaskInput: React.FC<Props> = () => {
     <Popover.Root isOpen={!!errors.title} placement="top">
       <div
         className={cx(
-          'flex h-[55px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 shadow-lg shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px] focus-within:ring-2 focus-within:ring-offset-2',
+          'flex h-[45px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 shadow-lg shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px] focus-within:ring-2 focus-within:ring-offset-2',
           errors.title
             ? 'text-red-500 focus-within:ring-red-600'
             : 'text-neutral-100 focus-within:ring-neutral-500',
@@ -93,7 +93,7 @@ export const TaskInput: React.FC<Props> = () => {
             />
           </Popover.Anchor>
         </form>
-        <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center gap-[2px] rounded-full bg-neutral-600 text-neutral-200">
+        <div className="flex h-[32px] w-[50px] shrink-0 items-center justify-center gap-[2px] rounded-full border-2 border-neutral-200 text-neutral-200">
           <CommandIcon size={15} strokeWidth={3} />
           <p className="text-sm font-bold">K</p>
         </div>

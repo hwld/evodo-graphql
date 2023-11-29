@@ -35,7 +35,7 @@ export const TaskList: React.FC = () => {
   return (
     <>
       <div className="relative flex flex-col gap-2">
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {data?.myTasks.length === 0 && (
             // myTasksが1->0になったときにこのコンポーネントがレイアウトアニメーションに影響を与えないように
             // absoluteにする
@@ -49,7 +49,7 @@ export const TaskList: React.FC = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="popLayout" initial={false}>
           {data?.myTasks.map((t) => {
             return (
               <motion.div

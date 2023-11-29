@@ -7,7 +7,7 @@ import { cx } from 'cva';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'evodo-graphql',
+  title: 'evodo',
 };
 
 export default function RootLayout({
