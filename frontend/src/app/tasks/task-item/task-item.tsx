@@ -7,7 +7,8 @@ import { EditableTaskTitle } from '../editable-task-title/index';
 import { useTaskDeleteDialog } from '../task-delete-dialog';
 import { IconButton } from '@/app/_components/icon-button';
 import { useState } from 'react';
-import { TaskSheet } from './task-sheet';
+import { TaskDetailSheetContent } from './task-detail-sheet-content';
+import { Sheet } from '@/app/_components/sheet';
 
 const TaskItemFragment = graphql(`
   fragment TaskItemFragment on Task {
@@ -51,7 +52,9 @@ export const TaskItem: React.FC<Props> = ({ task: _task }) => {
           />
         </div>
       </div>
-      <TaskSheet open={isSheetOpen} onOpenChange={setIsSheetOpen} task={task} />
+      <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+        <TaskDetailSheetContent task={task} />
+      </Sheet>
     </EditableTaskTitle.Root>
   );
 };
