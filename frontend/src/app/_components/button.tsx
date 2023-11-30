@@ -3,12 +3,13 @@ import { LucideIcon } from 'lucide-react';
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 const button = cva({
-  base: 'rounded transition-all focus-visible:outline-none     focus-visible:ring-2 ring-offset-2 ring-neutral-500 flex items-center gap-1 disabled:opacity-50 disabled:pointer-events-none',
+  base: 'rounded transition-all focus-visible:outline-none focus-visible:ring-2 ring-offset-2 flex items-center gap-1 disabled:opacity-50 disabled:pointer-events-none',
   variants: {
     color: {
-      black: 'bg-neutral-800 text-neutral-100 hover:bg-neutral-600',
+      black:
+        'bg-neutral-800 text-neutral-100 hover:bg-neutral-600 ring-offset-neutral-200 ring-neutral-500',
       white:
-        'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 border border-neutral-300',
+        'bg-neutral-100 text-neutral-700 hover:bg-neutral-200 border border-neutral-300 ring-offset-neutral-900 ring-neutral-200',
     },
     size: {
       md: 'py-2 px-4 text-base',

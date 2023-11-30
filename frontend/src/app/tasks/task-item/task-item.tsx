@@ -2,10 +2,12 @@
 
 import { FragmentType, graphql, useFragment } from '@/gql';
 import { TaskCheckbox } from './task-checkbox';
-import { PencilIcon, TrashIcon } from 'lucide-react';
+import { PanelRightOpenIcon, PencilIcon, TrashIcon } from 'lucide-react';
 import { EditableTaskTitle } from '../editable-task-title/index';
 import { useTaskDeleteDialog } from '../task-delete-dialog';
 import { IconButton } from '@/app/_components/icon-button';
+import { useState } from 'react';
+import { TaskSheet } from './task-sheet';
 
 const TaskItemFragment = graphql(`
   fragment TaskItemFragment on Task {
@@ -25,6 +27,7 @@ type Props = {
 export const TaskItem: React.FC<Props> = ({ task: _task }) => {
   const task = useFragment(TaskItemFragment, _task);
   const { open: openTaskDeleteDialog } = useTaskDeleteDialog();
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   const handleOpenTaskDeleteDialog = () => {
     openTaskDeleteDialog({ taskId: task.id });
@@ -41,10 +44,14 @@ export const TaskItem: React.FC<Props> = ({ task: _task }) => {
           <EditableTaskTitle.Trigger asChild>
             <IconButton icon={PencilIcon} />
           </EditableTaskTitle.Trigger>
-
           <IconButton icon={TrashIcon} onClick={handleOpenTaskDeleteDialog} />
+          <IconButton
+            icon={PanelRightOpenIcon}
+            onClick={() => setIsSheetOpen(true)}
+          />
         </div>
       </div>
+      <TaskSheet open={isSheetOpen} onOpenChange={setIsSheetOpen} task={task} />
     </EditableTaskTitle.Root>
   );
 };

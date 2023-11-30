@@ -6,8 +6,12 @@ import { cx } from 'cva';
 import { useToggleTaskDone } from './use-toggle-task-done';
 import { motion } from 'framer-motion';
 
-type Props = { id: string; done: boolean };
-export const TaskCheckbox: React.FC<Props> = ({ id, done }) => {
+type Props = { id: string; done: boolean; checkboxId?: string };
+export const TaskCheckbox: React.FC<Props> = ({
+  id,
+  done,
+  checkboxId = id,
+}) => {
   const { toggleTaskDone, isToggling } = useToggleTaskDone({
     taskId: id,
     done,
@@ -24,7 +28,7 @@ export const TaskCheckbox: React.FC<Props> = ({ id, done }) => {
   return (
     <>
       <Checkbox.Root
-        id={id}
+        id={checkboxId}
         checked={done}
         onCheckedChange={handleToggleTaskDone}
         disabled={isToggling}
