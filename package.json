@@ -9,7 +9,8 @@
     "prisma": "pnpm backend exec prisma ",
     "emulator:export": "pnpm firebase emularots:export .firebase-data",
     "emulator:start": "pnpm firebase emulators:start --import=.firebase-data",
-    "dev": "pnpm emulator:start &  pnpm -r dev & pnpm -r codegen:watch",
+    "dev": "pnpm emulator:start &  pnpm -r dev",
+    "codegen": "pnpm -r codegen:watch",
     "lint": "pnpm \"/^lint:.*/\"",
     "lint:type": "pnpm -r exec tsc --noEmit",
     "lint:eslint": "pnpm exec eslint . --ext .ts,.tsx"
