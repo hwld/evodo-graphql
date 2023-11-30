@@ -1,11 +1,10 @@
 'use client';
 
-import { graphql } from '@/gql';
-import { useMutation } from 'urql';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import { CheckIcon } from 'lucide-react';
 import { useRef } from 'react';
 import { cx } from 'cva';
+import { useToggleTaskDone } from './use-toggle-task-done';
 
 type Animation = [Keyframe[], KeyframeAnimationOptions];
 const doneAnimation: Animation = [
@@ -21,53 +20,22 @@ const undoneAnimation: Animation = [
   { duration: 150, easing: 'ease-out' },
 ];
 
-const DoneTask = graphql(`
-  mutation DoneTaskMutation($id: ID!) {
-    doneTask(id: $id) {
-      task {
-        id
-      }
-    }
-  }
-`);
-const UndoneTask = graphql(`
-  mutation UndoneTaskMutation($id: ID!) {
-    undoneTask(id: $id) {
-      task {
-        id
-      }
-    }
-  }
-`);
-
 type Props = { id: string; done: boolean };
 export const TaskCheckbox: React.FC<Props> = ({ id, done }) => {
   const checkboxRef = useRef<HTMLButtonElement>(null);
-  const [{ fetching: doing }, doneTask] = useMutation(DoneTask);
-  const [{ fetching: undoing }, undoneTask] = useMutation(UndoneTask);
+  const { toggleTaskDone, isToggling } = useToggleTaskDone({
+    taskId: id,
+    done,
+  });
 
   const handleToggleTaskDone = async () => {
-    const map = {
-      done: {
-        mutate: doneTask,
-        animate: () => {
-          checkboxRef.current?.animate(...doneAnimation);
-        },
-      },
-      undone: {
-        mutate: undoneTask,
-        animate: () => {
-          checkboxRef.current?.animate(...undoneAnimation);
-        },
-      },
-    };
-
     const willDone = !done;
-    const { animate, mutate } = map[willDone ? 'done' : 'undone'];
 
-    animate();
-    const result = await mutate({ id });
+    checkboxRef.current?.animate(
+      ...(willDone ? doneAnimation : undoneAnimation),
+    );
 
+    const result = await toggleTaskDone();
     if (result.error) {
       window.alert('タスクを更新できませんでした。');
       return;
@@ -81,10 +49,11 @@ export const TaskCheckbox: React.FC<Props> = ({ id, done }) => {
         id={id}
         checked={done}
         onCheckedChange={handleToggleTaskDone}
-        disabled={doing || undoing}
-        className="group h-[25px] w-[25px] rounded-full border-2 border-neutral-700 bg-neutral-100 text-neutral-100 
-        transition-all hover:bg-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500
-        focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 disabled:opacity-50 data-[state=checked]:bg-neutral-900"
+        disabled={isToggling}
+        className={cx(
+          'group h-[25px] w-[25px] rounded-full border-2 border-neutral-700 bg-neutral-100 text-neutral-100 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 disabled:opacity-50 data-[state=checked]:bg-neutral-900',
+          { 'hover:bg-neutral-200': !done },
+        )}
       >
         <Checkbox.Indicator
           className="flex items-center justify-center"
@@ -92,10 +61,9 @@ export const TaskCheckbox: React.FC<Props> = ({ id, done }) => {
         >
           <CheckIcon
             size="80%"
-            className={cx(
-              'group-data-[state=checked]-hover:text-blue-500 transition-all duration-300',
-              { 'group-hover:text-neutral-600': !done },
-            )}
+            className={cx('transition-all duration-300', {
+              'group-hover:text-neutral-600': !done,
+            })}
           />
         </Checkbox.Indicator>
       </Checkbox.Root>

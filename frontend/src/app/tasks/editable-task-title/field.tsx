@@ -10,6 +10,7 @@ import { motion } from 'framer-motion';
 import { AlertCircleIcon } from 'lucide-react';
 import { Popover } from '@/app/_components/popover';
 import { useEditableTaskTitle } from './root';
+import { stopPropagation } from '@/lib/utils';
 
 const UpdateTaskTitle = graphql(`
   mutation UpdateTaskTitleMutation($input: UpdateTaskTitleInput!) {
@@ -106,6 +107,7 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
           className={cx('cursor-pointer select-none break-all pl-1', {
             hidden: editable,
           })}
+          onClick={stopPropagation}
         >
           {title}
         </label>

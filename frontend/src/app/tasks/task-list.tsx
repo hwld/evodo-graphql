@@ -34,7 +34,7 @@ export const TaskList: React.FC = () => {
 
   return (
     <>
-      <div className="relative flex flex-col gap-2">
+      <div className="relative flex flex-col gap-1">
         <AnimatePresence initial={false}>
           {data?.myTasks.length === 0 && (
             // myTasksが1->0になったときにこのコンポーネントがレイアウトアニメーションに影響を与えないように

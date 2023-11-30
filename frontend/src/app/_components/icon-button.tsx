@@ -12,9 +12,19 @@ type Props = { icon: LucideIcon } & VariantProps<typeof iconButton> &
   ComponentPropsWithoutRef<'button'>;
 
 export const IconButton: React.FC<Props> = forwardRef<HTMLButtonElement, Props>(
-  function IconButton({ icon: Icon, size, ...props }, ref) {
+  function IconButton({ icon: Icon, size, onClick, ...props }, ref) {
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.stopPropagation();
+      onClick?.(e);
+    };
+
     return (
-      <button ref={ref} {...props} className={iconButton({ size })}>
+      <button
+        ref={ref}
+        onClick={handleClick}
+        {...props}
+        className={iconButton({ size })}
+      >
         <Icon size={20} />
       </button>
     );
