@@ -19,8 +19,21 @@ export const useTaskDelete = () => {
   const [deletingTaskIds, setDeletingTaskIds] = useAtom(deletingTasIdsAtom);
   const [, deleteTaskMutation] = useMutation(DeleteTaskMutation);
 
+  const isDeleting = useCallback(
+    (id: string) => {
+      return deletingTaskIds.includes(id);
+    },
+    [deletingTaskIds],
+  );
+
   const deleteTask = useCallback(
     async (id: string) => {
+      if (isDeleting(id)) {
+        throw new Error(
+          'すでに削除を実行中です。操作を行う前に実行中かチェックしてください。',
+        );
+      }
+
       setDeletingTaskIds((ids) => [...ids, id]);
 
       const result = await deleteTaskMutation({ id });
@@ -32,14 +45,7 @@ export const useTaskDelete = () => {
 
       return result;
     },
-    [deleteTaskMutation, setDeletingTaskIds],
-  );
-
-  const isDeleting = useCallback(
-    (id: string) => {
-      return deletingTaskIds.includes(id);
-    },
-    [deletingTaskIds],
+    [deleteTaskMutation, isDeleting, setDeletingTaskIds],
   );
 
   return { deleteTask, isDeleting };
