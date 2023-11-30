@@ -31,7 +31,7 @@ export const Dialog: React.FC<DialogProps> = ({
         <RadixDialog.Content
           className="data-[state=open]:animate-dialogEnter data-[state=closed]:animate-dialogExit fixed 
             inset-0 left-[50%] top-[50%] z-50 w-[500px] translate-x-[-50%] translate-y-[-50%] rounded-lg bg-neutral-100
-            p-5 text-neutral-700"
+            p-5 text-neutral-700 ring-neutral-900 focus-visible:outline-none focus-visible:ring-2"
           style={{ height }}
         >
           <RadixDialog.Close

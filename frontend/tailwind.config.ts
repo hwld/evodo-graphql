@@ -15,6 +15,8 @@ const config: Config = {
         dialogExit: 'dialogExit .15s ease-out',
         dialogOverlayEnter: 'dialogOverlayEnter .15s ease-out',
         dialogOverlayExit: 'dialogOverlayExit .15s ease-out',
+        showScrollbar: 'showScrollbar .15s ease-out',
+        hideScrollbar: 'hideScrollbar .15s ease-out',
       },
       keyframes: {
         popoverEnter: {
@@ -41,6 +43,9 @@ const config: Config = {
           from: { opacity: '1', transform: 'translate(-50%, -50%,)' },
           to: { opacity: '0', transform: 'translate(-50%, -60%)' },
         },
+
+        showScrollbar: { from: { opacity: '0' }, to: { opacity: '1' } },
+        hideScrollbar: { from: { opacity: '1' }, to: { opacity: '0' } },
       },
     },
   },

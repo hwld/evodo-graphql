@@ -8,26 +8,7 @@ extend type Mutation {
   updateTaskTitle(input: UpdateTaskTitleInput!): UpdateTaskTitlePayload!
   doneTask(id: ID!): DoneTaskPayload!
   undoneTask(id: ID!): UndoneTaskPayload!
-}
-
-type CreateTaskPayload {
-  task: Task!
-}
-
-type DeleteTaskPayload {
-  task: Task!
-}
-
-type UpdateTaskTitlePayload {
-  task: Task!
-}
-
-type DoneTaskPayload {
-  task: Task!
-}
-
-type UndoneTaskPayload {
-  task: Task!
+  updateTaskDetail(input: UpdateTaskDetailInput!): UpdateTaskDetailPayload!
 }
 
 type Task {
@@ -43,7 +24,36 @@ input CreateTaskInput {
   title: String! @constraint(minLength: 1, maxLength: 100)
 }
 
+type CreateTaskPayload {
+  task: Task!
+}
+
+type DeleteTaskPayload {
+  task: Task!
+}
+
 input UpdateTaskTitleInput {
   id: ID!
   title: String! @constraint(minLength: 1, maxLength: 100)
+}
+
+type UpdateTaskTitlePayload {
+  task: Task!
+}
+
+type DoneTaskPayload {
+  task: Task!
+}
+
+type UndoneTaskPayload {
+  task: Task!
+}
+
+input UpdateTaskDetailInput {
+  id: ID!
+  detail: String! @constraint(maxLength: 1000)
+}
+
+type UpdateTaskDetailPayload {
+  task: Task!
 }
