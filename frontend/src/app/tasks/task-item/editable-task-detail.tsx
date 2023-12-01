@@ -116,17 +116,24 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
                 onChange={handleChange}
                 {...others}
                 disabled={updateting}
+                placeholder="タスクの説明を入力してください..."
               ></textarea>
             </form>
           ) : (
             <div
               ref={detailTextRef}
               className={cx(
-                'min-h-[100px] rounded-lg p-3 outline outline-2 outline-neutral-300',
+                'min-h-[100px] cursor-pointer rounded-lg p-3 outline outline-2 outline-neutral-300',
               )}
               onClick={handleClickDetail}
             >
-              <p className="whitespace-pre">{task.detail}</p>
+              {task.detail ? (
+                <p className="whitespace-pre-wrap">{task.detail}</p>
+              ) : (
+                <p className="text-neutral-500">
+                  ここをクリックすると、タスクの説明を入力することができます...
+                </p>
+              )}
             </div>
           )}
         </div>

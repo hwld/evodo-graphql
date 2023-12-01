@@ -41,7 +41,7 @@ export const Sheet: React.FC<Props> = ({
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: 50, opacity: 0 }}
               >
-                <ScrollArea className="h-full">
+                <ScrollArea className="h-full w-full">
                   <Dialog.Close className="absolute right-3 top-3 rounded ring-offset-neutral-200 transition-all hover:bg-neutral-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2">
                     <XIcon />
                   </Dialog.Close>

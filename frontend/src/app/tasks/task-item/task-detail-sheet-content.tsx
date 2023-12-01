@@ -8,7 +8,7 @@ type Props = {
 
 export const TaskDetailSheetContent: React.FC<Props> = ({ task }) => {
   return (
-    <div className="flex-col">
+    <div className="flex flex-col">
       <p className="text-neutral-500">task-title</p>
       <div className="mt-1 flex items-center gap-2">
         <TaskCheckbox
