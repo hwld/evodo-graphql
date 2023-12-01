@@ -69,11 +69,13 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
     });
     if (result.error) {
       window.alert('タスク名を変えられませんでした');
-      _inputRef?.current?.focus();
+      setTimeout(() => _inputRef?.current?.focus(), 0);
       return;
     }
 
-    disableEditing();
+    // TODO: 変更しても次のレンダリングでは変更前のデータが使用されるので、ちょっと待機する
+    // queryに時間がかかってしまう場合は普通にちらつく
+    setTimeout(() => disableEditing(), 100);
   });
 
   return (
@@ -90,7 +92,7 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
           <Popover.Anchor>
             <input
               className={cx(
-                'w-full rounded bg-neutral-100 pl-1',
+                'w-full rounded bg-neutral-100 pl-1 outline outline-2',
                 errors.title
                   ? 'text-red-500 focus-visible:outline-red-500'
                   : 'focus-visible:outline-neutral-900',

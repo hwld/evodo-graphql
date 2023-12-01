@@ -65,10 +65,13 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
       const result = await updateTaskDetail({ input: { id: task.id, detail } });
       if (result.error) {
         window.alert('タスクを更新できませんでした。');
+        setTimeout(() => detailTextareaRef.current?.focus(), 0);
         return;
       }
 
-      setEditable(false);
+      // TODO: 変更しても次のレンダリングでは変更前のデータが使用されるので、ちょっと待機する
+      // queryに時間がかかってしまう場合は普通にちらつく
+      setTimeout(() => setEditable(false), 100);
     });
 
     const handleCancel = () => {
