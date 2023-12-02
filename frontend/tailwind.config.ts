@@ -11,10 +11,15 @@ const config: Config = {
       animation: {
         popoverEnter: 'popoverEnter .15s ease-out',
         popoverExit: 'popoverExit .15s ease-out',
+
         dialogEnter: 'dialogEnter .15s ease-out',
         dialogExit: 'dialogExit .15s ease-out',
         dialogOverlayEnter: 'dialogOverlayEnter .15s ease-out',
         dialogOverlayExit: 'dialogOverlayExit .15s ease-out',
+
+        tooltipEnter: 'tooltipEnter .15s ease-out',
+        tooltipExit: 'tooltipExit .15s ease-out',
+
         showScrollbar: 'showScrollbar .15s ease-out',
         hideScrollbar: 'hideScrollbar .15s ease-out',
       },
@@ -27,6 +32,7 @@ const config: Config = {
           from: { opacity: '1', transform: 'scale(1)' },
           to: { opacity: '0', transform: 'scale(.9)' },
         },
+
         dialogOverlayEnter: {
           from: { opacity: '0' },
           to: { opacity: '1' },
@@ -46,6 +52,15 @@ const config: Config = {
 
         showScrollbar: { from: { opacity: '0' }, to: { opacity: '1' } },
         hideScrollbar: { from: { opacity: '1' }, to: { opacity: '0' } },
+
+        tooltipEnter: {
+          from: { opacity: '0', transform: 'translateY(5px)' },
+          to: { opacity: '1', transform: 'translateY(0px)' },
+        },
+        tooltipExit: {
+          from: { opacity: '1', transform: 'translateY(0px)' },
+          to: { opacity: '0', transform: 'translateY(5px)' },
+        },
       },
     },
   },
