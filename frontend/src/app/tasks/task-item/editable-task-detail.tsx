@@ -113,7 +113,7 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
             <form className="flex w-full flex-col">
               <textarea
                 className={cx(
-                  'min-h-[100px] resize-none overflow-hidden rounded-lg border-neutral-300 bg-neutral-50 p-3 outline outline-2 disabled:select-none disabled:bg-neutral-200 disabled:opacity-50',
+                  'min-h-[100px] resize-none overflow-hidden rounded-lg border-neutral-300 bg-neutral-50 p-3 outline outline-2',
                   errors.detail ? 'outline-red-500' : 'outline-neutral-300',
                 )}
                 ref={textareaRef}

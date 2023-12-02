@@ -8,12 +8,16 @@ import {
   MoreHorizontalIcon,
 } from 'lucide-react';
 import { MenuItem } from './menu-item';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 type Props = {};
 
 export const MenuButton: React.FC<Props> = () => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <DropdownMenu.Root>
+    <DropdownMenu.Root open={open} onOpenChange={setOpen}>
       <DropdownMenu.Trigger asChild>
         <button
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-900
@@ -22,18 +26,29 @@ export const MenuButton: React.FC<Props> = () => {
           <MoreHorizontalIcon size="60%" />
         </button>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="data-[state=open]:animate-popoverEnter data-[state=closed]:animate-popoverExit min-w-[300px] origin-[100%_100%] rounded-lg bg-neutral-900 p-3 transition-all duration-200"
-          sideOffset={12}
-          side="top"
-          align="end"
-        >
-          <MenuItem icon={<HomeIcon />}>今日のタスク</MenuItem>
-          <MenuItem icon={<LayoutListIcon />}>過去のタスク</MenuItem>
-          <MenuItem icon={<CalendarIcon />}>予定</MenuItem>
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
+      <AnimatePresence>
+        {open && (
+          <DropdownMenu.Portal forceMount>
+            <DropdownMenu.Content
+              sideOffset={12}
+              side="top"
+              align="end"
+              asChild
+            >
+              <motion.div
+                className="min-w-[300px] origin-[100%_100%] rounded-lg bg-neutral-900 p-3"
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 5 }}
+              >
+                <MenuItem icon={<HomeIcon />}>今日のタスク</MenuItem>
+                <MenuItem icon={<LayoutListIcon />}>過去のタスク</MenuItem>
+                <MenuItem icon={<CalendarIcon />}>予定</MenuItem>
+              </motion.div>
+            </DropdownMenu.Content>
+          </DropdownMenu.Portal>
+        )}
+      </AnimatePresence>
     </DropdownMenu.Root>
   );
 };
