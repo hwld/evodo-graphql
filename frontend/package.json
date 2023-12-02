@@ -22,7 +22,6 @@
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.7",
-    "@urql/exchange-auth": "^2.1.6",
     "cva": "1.0.0-beta.1",
     "firebase": "^10.6.0",
     "framer-motion": "^10.16.5",
@@ -34,7 +33,6 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
-    "urql": "^4.0.5",
     "zod": "^3.22.4"
   },
   "devDependencies": {
