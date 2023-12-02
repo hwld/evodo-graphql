@@ -11,6 +11,7 @@ import { AlertCircleIcon, SaveIcon } from 'lucide-react';
 import { Button } from '@/app/_components/button';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { stopPropagation } from '@/lib/utils';
 
 const UpdateTaskDetailMutation = graphql(`
   mutation UpdateTaskDetailMutation($input: UpdateTaskDetailInput!) {
@@ -117,9 +118,10 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
                 )}
                 ref={textareaRef}
                 onChange={handleChange}
-                {...others}
+                onKeyDown={stopPropagation}
                 disabled={updateting}
                 placeholder="タスクの説明を入力してください..."
+                {...others}
               ></textarea>
             </form>
           ) : (
