@@ -7,7 +7,7 @@ import { EditableTaskTitle } from '../editable-task-title/index';
 import { useTaskDeleteDialog } from '../task-delete-dialog';
 import { IconButton } from '@/app/_components/icon-button';
 import { useState } from 'react';
-import { TaskDetailSheetContent } from './task-detail-sheet-content';
+import { TaskDetailSheetContent } from '../task-detail-sheet/task-detail-sheet-content';
 import { Sheet } from '@/app/_components/sheet';
 import { Tooltip } from '@/app/_components/tooltip';
 
