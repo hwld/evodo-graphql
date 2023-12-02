@@ -24,7 +24,6 @@ export const authExchangeInit: (
       });
     },
     didAuthError: () => {
-      // TODO
       return false;
     },
   };

@@ -5,7 +5,7 @@ import { ReactNode } from 'react';
 type DialogProps = {
   height: number;
   isOpen: boolean;
-  onChangeIsOpen: (value: boolean) => void;
+  onOpenChange: (value: boolean) => void;
   title: string;
   content: ReactNode;
   cancelButton: ReactNode;
@@ -15,14 +15,14 @@ type DialogProps = {
 export const Dialog: React.FC<DialogProps> = ({
   height,
   isOpen,
-  onChangeIsOpen,
+  onOpenChange,
   title,
   content,
   cancelButton,
   actionButton,
 }) => {
   return (
-    <RadixDialog.Root open={isOpen} onOpenChange={onChangeIsOpen}>
+    <RadixDialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <RadixDialog.Portal>
         <RadixDialog.Overlay
           className="data-[state=open]:animate-dialogOverlayEnter data-[state=closed]:animate-dialogOverlayExit

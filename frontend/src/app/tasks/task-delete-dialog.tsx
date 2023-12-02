@@ -70,7 +70,7 @@ export const TaskDeleteDialog: React.FC<Props> = () => {
     <Dialog
       height={230}
       isOpen={dialogState.isOpen}
-      onChangeIsOpen={handleOpenChange}
+      onOpenChange={handleOpenChange}
       title="タスクの削除"
       content={
         <p>
