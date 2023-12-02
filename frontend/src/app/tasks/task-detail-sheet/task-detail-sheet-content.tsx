@@ -34,12 +34,12 @@ export const TaskDetailSheetContent: React.FC<Props> = ({ task }) => {
         <TaskDetailSheetRow
           icon={Clock8Icon}
           label="作成した日時"
-          content={<DateTime dateTime={new Date('2023/12/1 23:00')} />}
+          content={<DateTime dateTime={new Date(task.createdAt)} />}
         />
         <TaskDetailSheetRow
           icon={RotateCcwIcon}
           label="更新した日時"
-          content={<DateTime dateTime={new Date('2023/12/1 23:00')} />}
+          content={<DateTime dateTime={new Date(task.updatedAt)} />}
         />
         <div className="h-[1px] bg-neutral-200" />
       </div>

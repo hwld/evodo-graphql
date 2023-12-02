@@ -1,5 +1,7 @@
 import { CodegenConfig } from '@graphql-codegen/cli';
 
+const scalarConfig = { strictScalars: true, scalars: { DateTime: 'string' } };
+
 const config: CodegenConfig = {
   schema: 'http://localhost:4000/graphql',
   documents: ['src/**/*.tsx'],
@@ -11,8 +13,8 @@ const config: CodegenConfig = {
       schema: '../backend/src/schema/**/schema.graphql',
       plugins: ['typescript-validation-schema'],
       config: {
+        ...scalarConfig,
         importFrom: './graphql',
-        strictScalars: true,
         schema: 'zod',
         directives: {
           constraint: {
@@ -24,6 +26,9 @@ const config: CodegenConfig = {
     },
     './src/gql/': {
       preset: 'client',
+      config: {
+        ...scalarConfig,
+      },
     },
   },
 };

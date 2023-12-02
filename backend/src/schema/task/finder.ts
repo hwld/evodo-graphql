@@ -12,8 +12,8 @@ export const convertTask = (
     title: raw.title,
     detail: raw.detail,
     done: raw.done,
-    createdAt: raw.createdAt.toLocaleString(),
-    updatedAt: raw.updatedAt.toLocaleString(),
+    createdAt: raw.createdAt,
+    updatedAt: raw.updatedAt,
   };
 };
 
