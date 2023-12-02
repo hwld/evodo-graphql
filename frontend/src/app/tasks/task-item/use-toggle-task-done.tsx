@@ -1,7 +1,8 @@
 import { graphql } from '@/gql';
 import { atom, useAtom } from 'jotai';
 import { useCallback, useMemo } from 'react';
-import { useMutation } from 'urql';
+import { useMutation } from '@apollo/client';
+import { noop } from '@/lib/utils';
 
 const DoneTask = graphql(`
   mutation DoneTaskMutation($id: ID!) {
@@ -27,8 +28,8 @@ const togglingTaskIdsAtom = atom<string[]>([]);
 type Args = { taskId: string; done: boolean };
 export const useToggleTaskDone = ({ taskId, done }: Args) => {
   const [togglingIds, setTogglingIds] = useAtom(togglingTaskIdsAtom);
-  const [, doneTask] = useMutation(DoneTask);
-  const [, undoneTask] = useMutation(UndoneTask);
+  const [doneTask] = useMutation(DoneTask);
+  const [undoneTask] = useMutation(UndoneTask);
 
   const isToggling = useMemo(() => {
     return togglingIds.includes(taskId);
@@ -50,7 +51,10 @@ export const useToggleTaskDone = ({ taskId, done }: Args) => {
       mutate = doneTask;
     }
 
-    const result = await mutate({ id: taskId });
+    const result = await mutate({
+      variables: { id: taskId },
+      onError: noop,
+    });
     setTogglingIds((ids) => ids.filter((i) => i !== taskId));
 
     return result;

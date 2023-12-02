@@ -19,7 +19,7 @@ export const TaskCheckbox: React.FC<Props> = ({
 
   const handleToggleTaskDone = async () => {
     const result = await toggleTaskDone();
-    if (result.error) {
+    if (result.errors) {
       window.alert('タスクを更新できませんでした。');
       return;
     }

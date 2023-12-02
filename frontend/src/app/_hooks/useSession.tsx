@@ -2,9 +2,10 @@ import { graphql } from '@/gql';
 import { firebaseAuth, googleAuthProvider } from '@/lib/firebase';
 import { FirebaseError } from 'firebase/app';
 import { signInWithPopup, signOut } from 'firebase/auth';
-import { useMutation, useQuery } from 'urql';
+import { useQuery, useMutation } from '@apollo/client';
 import { useFirebaseAuthState } from './useFirebaseAuthState';
 import { useMemo } from 'react';
+import { noop } from '@/lib/utils';
 
 const UserQuery = graphql(`
   query UserQuery($id: ID!) {
@@ -26,17 +27,16 @@ const InitializeSignupIfNewMutation = graphql(`
 
 export const useSession = () => {
   const {
-    firebaseAuthState: { user: firebaseUser, isLoading },
+    firebaseAuthState: { user: firebaseUser, isLoading: isFirebaseLoading },
   } = useFirebaseAuthState();
-  const [{ data, fetching }] = useQuery({
-    query: UserQuery,
+
+  const { data, loading: isUserLoading } = useQuery(UserQuery, {
     variables: { id: firebaseUser?.uid! },
-    pause: firebaseUser?.uid === undefined,
-    requestPolicy: 'network-only',
+    skip: firebaseUser?.uid === undefined,
   });
 
   const status = useMemo(() => {
-    if (isLoading || fetching) {
+    if (isFirebaseLoading || isUserLoading) {
       return 'loading';
     }
     // ログアウトするとここがundefinedになるが、dataはpauseされるのでundefinedにならないので
@@ -49,9 +49,9 @@ export const useSession = () => {
     }
 
     return 'unauthenticated';
-  }, [data?.user, fetching, firebaseUser, isLoading]);
+  }, [data?.user, isUserLoading, firebaseUser, isFirebaseLoading]);
 
-  const [, initializeSignupIfNew] = useMutation(InitializeSignupIfNewMutation);
+  const [initializeSignupIfNew] = useMutation(InitializeSignupIfNewMutation);
 
   type LoginResult =
     | { cancelled: false; isNewUser: boolean }
@@ -65,11 +65,14 @@ export const useSession = () => {
       const idToken = await result.user.getIdToken();
 
       const { data } = await initializeSignupIfNew({
-        input: {
-          firebaseToken: idToken,
-          name: result.user.displayName ?? '',
-          avatarUrl: result.user.photoURL ?? '',
+        variables: {
+          input: {
+            firebaseToken: idToken,
+            name: result.user.displayName ?? '',
+            avatarUrl: result.user.photoURL ?? '',
+          },
         },
+        onError: noop,
       });
 
       // 新規登録かどうか

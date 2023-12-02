@@ -8,12 +8,13 @@ import { useFirebaseAuthState } from '@/app/_hooks/useFirebaseAuthState';
 import { Routes } from '@/lib/routes';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
-import { useMutation } from 'urql';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignupInputSchema } from '@/gql/validator';
 import { z } from 'zod';
 import { PowerIcon } from 'lucide-react';
+import { useMutation } from '@apollo/client';
+import { noop } from '@/lib/utils';
 
 const SignupMutation = graphql(`
   mutation SignupMutation($input: SignupInput!) {
@@ -36,7 +37,7 @@ type Props = {
 export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
   const router = useRouter();
   const { firebaseAuthState } = useFirebaseAuthState();
-  const [{ fetching }, signup] = useMutation(SignupMutation);
+  const [signup, { loading }] = useMutation(SignupMutation);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const {
     register,
@@ -47,7 +48,7 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
     resolver: zodResolver(signupInputSchema),
   });
 
-  const internalIsLoading = isLoading || fetching;
+  const internalIsLoading = isLoading || loading;
 
   const handleSignup = _handleSubmit(async ({ name, profile, avatarUrl }) => {
     const token = await firebaseAuthState.user?.getIdToken();
@@ -56,15 +57,18 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
     }
 
     const result = await signup({
-      input: {
-        firebaseToken: token,
-        name: name,
-        profile: profile,
-        avatarUrl: avatarUrl,
+      variables: {
+        input: {
+          firebaseToken: token,
+          name: name,
+          profile: profile,
+          avatarUrl: avatarUrl,
+        },
       },
+      onError: noop,
     });
 
-    if (result.error) {
+    if (result.errors) {
       window.alert('新規登録できませんでした。');
       return;
     }

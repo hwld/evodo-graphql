@@ -1,7 +1,8 @@
 import { graphql } from '@/gql';
 import { atom, useAtom } from 'jotai';
 import { useCallback } from 'react';
-import { useMutation } from 'urql';
+import { useMutation } from '@apollo/client';
+import { noop } from '@/lib/utils';
 
 const deletingTasIdsAtom = atom<string[]>([]);
 
@@ -17,7 +18,7 @@ const DeleteTaskMutation = graphql(`
 
 export const useTaskDelete = () => {
   const [deletingTaskIds, setDeletingTaskIds] = useAtom(deletingTasIdsAtom);
-  const [, deleteTaskMutation] = useMutation(DeleteTaskMutation);
+  const [deleteTaskMutation] = useMutation(DeleteTaskMutation);
 
   const isDeleting = useCallback(
     (id: string) => {
@@ -36,12 +37,18 @@ export const useTaskDelete = () => {
 
       setDeletingTaskIds((ids) => [...ids, id]);
 
-      const result = await deleteTaskMutation({ id });
-      setDeletingTaskIds((ids) => ids.filter((i) => i !== id));
+      const result = await deleteTaskMutation({
+        variables: { id },
+        // 例外を出さずにresult.errorsにエラーをセットするために何もしない関数を渡す
+        // TODO: useMutationのグローバル設定で設定したいけど、無理そう？
+        onError: noop,
+      });
 
-      if (result.error) {
-        window.alert('タスクが削除できませんでした。');
+      if (result.errors) {
+        window.alert('タスクを削除できませんでした。');
       }
+
+      setDeletingTaskIds((ids) => ids.filter((i) => i !== id));
 
       return result;
     },

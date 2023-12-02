@@ -42,7 +42,7 @@ export const TaskDeleteDialog: React.FC<Props> = () => {
     }
 
     const result = await deleteTask(taskId);
-    if (!result.error) {
+    if (!result.errors) {
       setDialogAtom({ isOpen: false, taskId: undefined });
     }
   };

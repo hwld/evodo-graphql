@@ -8,7 +8,7 @@ GraphQL を試すために作った、GraphQL と Next.js で作る todo リス�
 ## 使用する技術
 
 - GraphQL Yoga
-- urql
+- apollo-client
 - Next.js
 - TypeScript
 - pnpm

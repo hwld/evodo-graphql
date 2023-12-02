@@ -3,7 +3,7 @@ import { useFirebaseAuthState } from '@/app/_hooks/useFirebaseAuthState';
 import { Routes } from '@/lib/routes';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useQuery } from 'urql';
+import { useQuery } from '@apollo/client';
 
 const DraftUserQuery = graphql(`
   query DraftUserQuery {
@@ -16,10 +16,8 @@ const DraftUserQuery = graphql(`
 export const useDraftUser = () => {
   const router = useRouter();
   const { firebaseAuthState } = useFirebaseAuthState();
-  const [draftUserResult] = useQuery({
-    query: DraftUserQuery,
-    pause: !firebaseAuthState.user,
-    requestPolicy: 'network-only',
+  const draftUserResult = useQuery(DraftUserQuery, {
+    skip: !firebaseAuthState.user,
   });
 
   // firebaeで認証していない場合はリダイレクト
@@ -43,7 +41,7 @@ export const useDraftUser = () => {
   const isLoading = !!(
     firebaseAuthState.isLoading ||
     !firebaseAuthState.user ||
-    draftUserResult.fetching ||
+    draftUserResult.loading ||
     draftUserResult.error
   );
 

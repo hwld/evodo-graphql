@@ -1,13 +1,11 @@
 'use client';
 
 import { graphql } from '@/gql';
-import { OperationContext, useQuery } from 'urql';
 import { TaskItem } from './task-item/task-item';
-import { useMemo } from 'react';
-import { Task } from '@/gql/graphql';
 import { TaskDeleteDialog } from './task-delete-dialog';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EmptyTaskCard } from './empty-task-card';
+import { useSuspenseQuery } from '@apollo/client';
 
 const TaskListQuery = graphql(`
   query TodoListQuery {
@@ -19,14 +17,7 @@ const TaskListQuery = graphql(`
 `);
 
 export const TaskList: React.FC = () => {
-  const context: Partial<OperationContext> = useMemo(() => {
-    return { additionalTypenames: ['Task' satisfies Task['__typename']] };
-  }, []);
-  const [{ data, error }] = useQuery({
-    query: TaskListQuery,
-    context,
-    requestPolicy: 'network-only',
-  });
+  const { data, error } = useSuspenseQuery(TaskListQuery);
 
   if (error) {
     return <div>error</div>;

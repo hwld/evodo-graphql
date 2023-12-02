@@ -1,6 +1,6 @@
 import { TaskItemFragmentFragment } from '@/gql/graphql';
 import { graphql } from '@/gql';
-import { useMutation } from 'urql';
+import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { UpdateTaskDetailInputSchema } from '@/gql/validator';
 import { z } from 'zod';
@@ -11,7 +11,7 @@ import { AlertCircleIcon, SaveIcon } from 'lucide-react';
 import { Button } from '@/app/_components/button';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { stopPropagation } from '@/lib/utils';
+import { noop, stopPropagation } from '@/lib/utils';
 
 const UpdateTaskDetailMutation = graphql(`
   mutation UpdateTaskDetailMutation($input: UpdateTaskDetailInput!) {
@@ -38,7 +38,7 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
     const detailTextRef = useRef<HTMLDivElement>(null);
     const textHeightRef = useRef(0);
 
-    const [{ fetching: updateting }, updateTaskDetail] = useMutation(
+    const [updateTaskDetail, { loading: updating }] = useMutation(
       UpdateTaskDetailMutation,
     );
 
@@ -63,8 +63,12 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
     };
 
     const handleUpdateTaskDetail = handleSubmit(async ({ detail }) => {
-      const result = await updateTaskDetail({ input: { id: task.id, detail } });
-      if (result.error) {
+      const result = await updateTaskDetail({
+        variables: { input: { id: task.id, detail } },
+        onError: noop,
+      });
+
+      if (result.errors) {
         window.alert('タスクを更新できませんでした。');
         setTimeout(() => detailTextareaRef.current?.focus(), 0);
         return;
@@ -119,7 +123,7 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
                 ref={textareaRef}
                 onChange={handleChange}
                 onKeyDown={stopPropagation}
-                disabled={updateting}
+                disabled={updating}
                 placeholder="タスクの説明を入力してください..."
                 {...others}
               ></textarea>
@@ -162,7 +166,7 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
                 </div>
                 <fieldset
                   className="flex flex-shrink-0 items-center gap-1"
-                  disabled={updateting}
+                  disabled={updating}
                 >
                   <Button
                     color="white"
@@ -175,7 +179,7 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
                   <Button
                     size="sm"
                     type="submit"
-                    debouncedIsLoading={updateting}
+                    debouncedIsLoading={updating}
                     leftIcon={SaveIcon}
                     onClick={handleUpdateTaskDetail}
                   >

@@ -1,5 +1,4 @@
 import { graphql } from '@/gql';
-import { useMutation } from 'urql';
 import { cx } from 'cva';
 import { useForm } from 'react-hook-form';
 import { UpdateTaskTitleInputSchema } from '@/gql/validator';
@@ -10,7 +9,8 @@ import { motion } from 'framer-motion';
 import { AlertCircleIcon } from 'lucide-react';
 import { Popover } from '@/app/_components/popover';
 import { useEditableTaskTitle } from './root';
-import { stopPropagation } from '@/lib/utils';
+import { noop, stopPropagation } from '@/lib/utils';
+import { useMutation } from '@apollo/client';
 
 const UpdateTaskTitle = graphql(`
   mutation UpdateTaskTitleMutation($input: UpdateTaskTitleInput!) {
@@ -35,8 +35,7 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
     editable,
     disableEditing,
   } = useEditableTaskTitle();
-  const [{ fetching: updating }, updateTaskTitleMutation] =
-    useMutation(UpdateTaskTitle);
+  const [updateTaskTitle, { loading: updating }] = useMutation(UpdateTaskTitle);
 
   const {
     register: _register,
@@ -61,13 +60,17 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
   };
 
   const handleUpdateTaskTitle = _handleSubmit(async (data) => {
-    const result = await updateTaskTitleMutation({
-      input: {
-        id,
-        title: data.title,
+    const result = await updateTaskTitle({
+      variables: {
+        input: {
+          id,
+          title: data.title,
+        },
       },
+      onError: noop,
     });
-    if (result.error) {
+
+    if (result.errors) {
       window.alert('タスク名を変えられませんでした');
       setTimeout(() => _inputRef?.current?.focus(), 0);
       return;

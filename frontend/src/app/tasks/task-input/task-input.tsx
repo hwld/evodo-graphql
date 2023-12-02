@@ -3,7 +3,6 @@
 import { graphql } from '@/gql';
 import { AlertCircleIcon, CommandIcon } from 'lucide-react';
 import { useRef } from 'react';
-import { useMutation } from 'urql';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { CreateTaskInputSchema } from '@/gql/validator';
@@ -13,6 +12,7 @@ import { useMergeRefs } from '@floating-ui/react';
 import { motion } from 'framer-motion';
 import { cx } from 'cva';
 import { Popover } from '@/app/_components/popover';
+import { useMutation } from '@apollo/client';
 
 type Props = {};
 
@@ -30,7 +30,7 @@ const createTaskInputSchema = CreateTaskInputSchema();
 type CreateTaskInput = z.infer<typeof createTaskInputSchema>;
 
 export const TaskInput: React.FC<Props> = () => {
-  const [{ fetching }, createTaskMutation] = useMutation(CreateTask);
+  const [createTaskMutation, { loading }] = useMutation(CreateTask);
 
   const {
     register: _register,
@@ -54,12 +54,16 @@ export const TaskInput: React.FC<Props> = () => {
   };
 
   const handleCreateTask = _handleSubmit(async (data) => {
-    if (fetching) {
+    if (loading) {
       return;
     }
 
-    const result = await createTaskMutation({ input: { title: data.title } });
-    if (result.error) {
+    const result = await createTaskMutation({
+      variables: { input: { title: data.title } },
+      onError: () => {},
+    });
+
+    if (result.errors) {
       window.alert('タスクが入力できませんでした');
       return;
     }
