@@ -83,6 +83,7 @@ export const TaskDeleteDialog: React.FC<Props> = () => {
           onClick={handleDeleteTask}
           leftIcon={TrashIcon}
           disabled={deleting}
+          debouncedIsLoading={deleting}
         >
           削除する
         </Button>

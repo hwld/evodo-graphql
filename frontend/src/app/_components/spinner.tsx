@@ -7,8 +7,9 @@ const spinnerClass = {
   black: 'border-neutral-900',
   white: 'border-neutral-100',
 };
+// TODO 確認する
 const spinnerBgClass = {
-  black: 'border-neutral-300',
+  black: 'border-transparent',
   white: 'border-transparent',
 };
 

@@ -16,7 +16,7 @@ export const Input: React.FC<Props> = forwardRef<HTMLInputElement, Props>(
     };
 
     const inputClass = {
-      base: 'rounded border px-3 py-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-neutral-100 placeholder:text-neutral-400 disabled:cursor-not-allowed disabled:opacity-50',
+      base: 'rounded border px-3 py-2 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 bg-neutral-100 placeholder:text-neutral-400 disabled:select-none disabled:opacity-50 disabled:bg-neutral-200',
       normal: 'focus-visible:ring-neutral-500 border-neutral-300',
       error: 'focus-visible:ring-red-500 border-red-500',
     };

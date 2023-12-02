@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMergeRefs } from '@floating-ui/react';
 import { cx } from 'cva';
-import { AlertCircleIcon } from 'lucide-react';
+import { AlertCircleIcon, SaveIcon } from 'lucide-react';
 import { Button } from '@/app/_components/button';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -112,7 +112,7 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
             <form className="flex w-full flex-col">
               <textarea
                 className={cx(
-                  'min-h-[100px] resize-none overflow-hidden rounded-lg border-neutral-300 bg-neutral-50 p-3 outline outline-2 disabled:cursor-not-allowed disabled:opacity-50',
+                  'min-h-[100px] resize-none overflow-hidden rounded-lg border-neutral-300 bg-neutral-50 p-3 outline outline-2 disabled:select-none disabled:bg-neutral-200 disabled:opacity-50',
                   errors.detail ? 'outline-red-500' : 'outline-neutral-300',
                 )}
                 ref={textareaRef}
@@ -146,9 +146,9 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
             {editable && (
               <motion.div
                 className="flex w-full justify-between"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -5 }}
               >
                 <div className="flex items-center gap-1 text-red-500">
                   {errors.detail && (
@@ -173,6 +173,8 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
                   <Button
                     size="sm"
                     type="submit"
+                    debouncedIsLoading={updateting}
+                    leftIcon={SaveIcon}
                     onClick={handleUpdateTaskDetail}
                   >
                     保存する

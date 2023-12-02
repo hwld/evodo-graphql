@@ -1,9 +1,10 @@
+import { useDebouncedValue } from '@mantine/hooks';
 import { VariantProps, cva } from 'cva';
-import { LucideIcon } from 'lucide-react';
+import { Loader2Icon, LucideIcon } from 'lucide-react';
 import { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 const button = cva({
-  base: 'rounded transition-all focus-visible:outline-none focus-visible:ring-2 ring-offset-2 flex items-center gap-1 disabled:opacity-50 disabled:pointer-events-none ring-offset-neutral-200 ring-neutral-500',
+  base: 'rounded transition-all focus-visible:outline-none focus-visible:ring-2 ring-offset-2 flex items-center gap-1 disabled:opacity-50 disabled:pointer-events-none ring-offset-neutral-200 ring-neutral-500 disabled:cursor-not-allowed',
   variants: {
     color: {
       black: 'bg-neutral-800 text-neutral-100 hover:bg-neutral-600',
@@ -21,27 +22,43 @@ const button = cva({
   },
 });
 
+const iconSize = {
+  md: '20',
+  sm: '18',
+};
+
 type Props = {
   children: ReactNode;
   leftIcon?: LucideIcon;
-} & ComponentPropsWithoutRef<'button'> &
+  debouncedIsLoading?: boolean;
+} & Omit<ComponentPropsWithoutRef<'button'>, 'className'> &
   VariantProps<typeof button>;
 
 export const Button: React.FC<Props> = ({
   children,
   leftIcon: LeftIcon,
-  color,
+  disabled,
+  debouncedIsLoading: isLoading = false,
+  color = 'black',
   size = 'md',
   ...props
 }) => {
-  const iconSize = {
-    md: '20',
-    sm: '18',
-  };
+  const [debouncedIsLoading] = useDebouncedValue(isLoading, 500);
 
   return (
-    <button {...props} className={button({ color, size })}>
-      {LeftIcon && <LeftIcon size={iconSize[size]} />}
+    <button
+      disabled={isLoading || disabled}
+      {...props}
+      className={button({ color, size })}
+    >
+      {debouncedIsLoading && (
+        <Loader2Icon
+          size={iconSize[size]}
+          className="animate-spin"
+          strokeWidth={3}
+        />
+      )}
+      {LeftIcon && !debouncedIsLoading && <LeftIcon size={iconSize[size]} />}
       {children}
     </button>
   );

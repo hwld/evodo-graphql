@@ -13,6 +13,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SignupInputSchema } from '@/gql/validator';
 import { z } from 'zod';
+import { PowerIcon } from 'lucide-react';
 
 const SignupMutation = graphql(`
   mutation SignupMutation($input: SignupInput!) {
@@ -46,6 +47,8 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
     resolver: zodResolver(signupInputSchema),
   });
 
+  const internalIsLoading = isLoading || fetching;
+
   const handleSignup = _handleSubmit(async ({ name, profile, avatarUrl }) => {
     const token = await firebaseAuthState.user?.getIdToken();
     if (!token) {
@@ -77,26 +80,33 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
 
   return (
     <form onSubmit={handleSignup} className="flex w-full flex-col gap-3">
-      <Input
-        label="ユーザー名"
-        id="name"
-        autoComplete="off"
-        placeholder="ユーザー名を入力してください..."
-        disabled={isLoading}
-        {...register('name')}
-        error={errors.name?.message}
-      />
-      <Textarea
-        id="profile"
-        label="プロフィール"
-        placeholder="プロフィールを入力してください..."
-        disabled={isLoading}
-        {...register('profile')}
-        error={errors.profile?.message}
-      />
-      <div className="self-center">
-        <Button disabled={fetching || isLoading}>Evodoをはじめる</Button>
-      </div>
+      <fieldset disabled={internalIsLoading}>
+        <Input
+          label="ユーザー名"
+          id="name"
+          autoComplete="off"
+          placeholder="ユーザー名を入力してください..."
+          {...register('name')}
+          error={errors.name?.message}
+        />
+        <Textarea
+          id="profile"
+          label="プロフィール"
+          placeholder="プロフィールを入力してください..."
+          {...register('profile')}
+          error={errors.profile?.message}
+        />
+        <div className="self-center">
+          <Button
+            disabled={internalIsLoading}
+            debouncedIsLoading={internalIsLoading}
+            leftIcon={PowerIcon}
+          >
+            Evodoをはじめる
+          </Button>
+          <div className="mt-1" />
+        </div>
+      </fieldset>
     </form>
   );
 };
