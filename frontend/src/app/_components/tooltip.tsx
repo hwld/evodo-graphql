@@ -1,12 +1,25 @@
 import * as RadixTooltip from '@radix-ui/react-tooltip';
-import { ReactNode } from 'react';
 
-type Props = { children: ReactNode; label: string };
-export const Tooltip: React.FC<Props> = ({ children, label }) => {
+type Props = {
+  children: React.ReactNode;
+  label: string;
+  asChild?: boolean;
+};
+
+/**
+ *  asChild=false以外の場合、Tooltipに渡すchildrenはComponentPropsWithoutRef<"button">を受け取る必要がある。
+ */
+export const Tooltip: React.FC<Props> = ({
+  children,
+  label,
+  asChild = true,
+}) => {
   return (
     <RadixTooltip.Provider>
       <RadixTooltip.Root>
-        <RadixTooltip.Trigger>{children}</RadixTooltip.Trigger>
+        <RadixTooltip.Trigger asChild={asChild}>
+          {children}
+        </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
             side="top"
