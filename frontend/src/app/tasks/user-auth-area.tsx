@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useSession } from '@/app/_hooks/useSession';
-import { Button } from '../_components/button';
+import { useSession } from "@/app/_hooks/useSession";
+import { Button } from "../_components/button";
 
 type Props = {};
 export const UserAuthArea: React.FC<Props> = () => {

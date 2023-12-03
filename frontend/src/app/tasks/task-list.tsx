@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { graphql } from '@/gql';
-import { TaskItem } from './task-item/task-item';
-import { TaskDeleteDialog } from './task-delete-dialog';
-import { AnimatePresence, motion } from 'framer-motion';
-import { EmptyTaskCard } from './empty-task-card';
-import { useSuspenseQuery } from '@apollo/client';
+import { graphql } from "@/gql";
+import { TaskItem } from "./task-item/task-item";
+import { TaskDeleteDialog } from "./task-delete-dialog";
+import { AnimatePresence, motion } from "framer-motion";
+import { EmptyTaskCard } from "./empty-task-card";
+import { useSuspenseQuery } from "@apollo/client";
 
 const TaskListQuery = graphql(`
   query TodoListQuery {
@@ -49,7 +49,7 @@ export const TaskList: React.FC = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
               >
                 <TaskItem task={t} />
               </motion.div>

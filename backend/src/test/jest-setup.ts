@@ -1,4 +1,4 @@
-import { db } from '../db';
+import { db } from "../db";
 
 const truncateAllTables = async () => {
   const tableNames = await db.$queryRaw<
@@ -8,7 +8,7 @@ const truncateAllTables = async () => {
   const tables = tableNames
     .map(({ tablename }) => tablename)
     .map((name) => `"public"."${name}"`)
-    .join(', ');
+    .join(", ");
 
   await db.$executeRawUnsafe(`TRUNCATE TABLE ${tables} CASCADE;`);
 };

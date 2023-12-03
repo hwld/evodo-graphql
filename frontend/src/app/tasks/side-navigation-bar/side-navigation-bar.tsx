@@ -1,6 +1,6 @@
-import { CalendarIcon, HomeIcon, LayoutListIcon } from 'lucide-react';
-import { NavigationItem } from './navigation-item';
-import { AppLogo } from '@/app/_components/app-logo';
+import { CalendarIcon, HomeIcon, LayoutListIcon } from "lucide-react";
+import { NavigationItem } from "./navigation-item";
+import { AppLogo } from "@/app/_components/app-logo";
 
 type Props = {};
 

@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import * as Dialog from '@radix-ui/react-dialog';
-import { AnimatePresence, motion } from 'framer-motion';
-import { XIcon } from 'lucide-react';
-import { ReactNode } from 'react';
-import { ScrollArea } from './scroll-area';
+import * as Dialog from "@radix-ui/react-dialog";
+import { AnimatePresence, motion } from "framer-motion";
+import { XIcon } from "lucide-react";
+import { ReactNode } from "react";
+import { ScrollArea } from "./scroll-area";
 
 type Props = {
   open: boolean;

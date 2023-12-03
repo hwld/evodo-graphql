@@ -1,7 +1,7 @@
-import { firebaseAuth } from '../../../../services/firebase';
-import type { MutationResolvers } from '../../../types.generated';
-import { convertUser } from '../../finder';
-export const signup: NonNullable<MutationResolvers['signup']> = async (
+import { firebaseAuth } from "../../../../services/firebase";
+import type { MutationResolvers } from "../../../types.generated";
+import { convertUser } from "../../finder";
+export const signup: NonNullable<MutationResolvers["signup"]> = async (
   _parent,
   { input },
   { db },
@@ -18,9 +18,9 @@ export const signup: NonNullable<MutationResolvers['signup']> = async (
     const newUser = await tx.user.create({
       data: {
         id: userId,
-        name: input.name ?? '',
-        avatarUrl: input.avatarUrl ?? '',
-        profile: input.profile ?? '',
+        name: input.name ?? "",
+        avatarUrl: input.avatarUrl ?? "",
+        profile: input.profile ?? "",
       },
     });
 

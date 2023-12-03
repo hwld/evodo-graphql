@@ -1,5 +1,5 @@
-import { AlertCircleIcon } from 'lucide-react';
-import { ReactNode } from 'react';
+import { AlertCircleIcon } from "lucide-react";
+import { ReactNode } from "react";
 
 type Props = { label: string; id: string; error?: string; children: ReactNode };
 

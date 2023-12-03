@@ -1,17 +1,17 @@
-import { TaskItemFragmentFragment } from '@/gql/graphql';
-import { graphql } from '@/gql';
-import { useMutation } from '@apollo/client';
-import { useForm } from 'react-hook-form';
-import { UpdateTaskDescriptionInputSchema } from '@/gql/validator';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMergeRefs } from '@floating-ui/react';
-import { cx } from 'cva';
-import { AlertCircleIcon, SaveIcon } from 'lucide-react';
-import { Button } from '@/app/_components/button';
-import { forwardRef, useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { stopPropagation } from '@/lib/utils';
+import { TaskItemFragmentFragment } from "@/gql/graphql";
+import { graphql } from "@/gql";
+import { useMutation } from "@apollo/client";
+import { useForm } from "react-hook-form";
+import { UpdateTaskDescriptionInputSchema } from "@/gql/validator";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMergeRefs } from "@floating-ui/react";
+import { cx } from "cva";
+import { AlertCircleIcon, SaveIcon } from "lucide-react";
+import { Button } from "@/app/_components/button";
+import { forwardRef, useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { stopPropagation } from "@/lib/utils";
 
 const UpdateTaskDescriptionMutation = graphql(`
   mutation UpdateTaskDescriptionMutation($input: UpdateTaskDescriptionInput!) {
@@ -58,12 +58,12 @@ export const EditableTaskDescription = forwardRef<HTMLTextAreaElement, Props>(
       resolver: zodResolver(updateTaskDescriptionInputSchema),
     });
 
-    const { ref: _ref, onChange, ...others } = register('description');
+    const { ref: _ref, onChange, ...others } = register("description");
     const textareaRef = useMergeRefs([ref, _ref, descriptionTextareaRef]);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       // min-heightに合わせる
-      e.target.style.height = '100px';
+      e.target.style.height = "100px";
       e.target.style.height = `${e.target.scrollHeight}px`;
       onChange(e);
     };
@@ -75,14 +75,14 @@ export const EditableTaskDescription = forwardRef<HTMLTextAreaElement, Props>(
           optimisticResponse: {
             updateTaskDescription: {
               task: {
-                __typename: 'Task',
+                __typename: "Task",
                 description: description,
                 id: task.id,
               },
             },
           },
           onError: () => {
-            window.alert('タスクの説明を更新できませんでした。');
+            window.alert("タスクの説明を更新できませんでした。");
             setTimeout(() => descriptionTextareaRef.current?.focus(), 0);
           },
         });
@@ -129,10 +129,10 @@ export const EditableTaskDescription = forwardRef<HTMLTextAreaElement, Props>(
             <form className="flex w-full flex-col">
               <textarea
                 className={cx(
-                  'min-h-[100px] resize-none overflow-hidden rounded-lg border-neutral-300 bg-neutral-50 p-3 outline outline-2',
+                  "min-h-[100px] resize-none overflow-hidden rounded-lg border-neutral-300 bg-neutral-50 p-3 outline outline-2",
                   errors.description
-                    ? 'outline-red-500'
-                    : 'outline-neutral-300',
+                    ? "outline-red-500"
+                    : "outline-neutral-300",
                 )}
                 ref={textareaRef}
                 onChange={handleChange}
@@ -146,7 +146,7 @@ export const EditableTaskDescription = forwardRef<HTMLTextAreaElement, Props>(
             <div
               ref={descriptionTextRef}
               className={cx(
-                'min-h-[100px] cursor-pointer rounded-lg p-3 outline outline-2 outline-neutral-300',
+                "min-h-[100px] cursor-pointer rounded-lg p-3 outline outline-2 outline-neutral-300",
               )}
               onClick={handleClickDescription}
             >

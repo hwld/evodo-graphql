@@ -1,11 +1,11 @@
-import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react';
-import { Slot } from '@radix-ui/react-slot';
-import { useEditableTaskTitle } from './root';
+import { ComponentPropsWithoutRef, ReactNode, forwardRef } from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { useEditableTaskTitle } from "./root";
 
 type Props = {
   children: ReactNode;
   asChild?: boolean;
-} & ComponentPropsWithoutRef<'button'>;
+} & ComponentPropsWithoutRef<"button">;
 
 export const _Trigger: React.FC<Props> = forwardRef<HTMLButtonElement, Props>(
   function _Trigger({ children, asChild, onClick, ...props }, ref) {
@@ -16,7 +16,7 @@ export const _Trigger: React.FC<Props> = forwardRef<HTMLButtonElement, Props>(
       enableEditing();
     };
 
-    const Component = asChild ? Slot : 'button';
+    const Component = asChild ? Slot : "button";
     return (
       <Component {...props} ref={ref} onClick={handleClick}>
         {children}

@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { usePopoverContext } from './provider';
-import { AnimatePresence } from 'framer-motion';
+import { ReactNode } from "react";
+import { usePopoverContext } from "./provider";
+import { AnimatePresence } from "framer-motion";
 
 type Props = { children: ReactNode };
 export const _Content: React.FC<Props> = ({ children }) => {

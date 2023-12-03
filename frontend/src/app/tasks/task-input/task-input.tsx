@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { graphql } from '@/gql';
-import { AlertCircleIcon, CommandIcon } from 'lucide-react';
-import { useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { CreateTaskInputSchema } from '@/gql/validator';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useTaskInputEffect } from './use-task-input-effect';
-import { useMergeRefs } from '@floating-ui/react';
-import { motion } from 'framer-motion';
-import { cx } from 'cva';
-import { Popover } from '@/app/_components/popover';
-import { useMutation } from '@apollo/client';
+import { graphql } from "@/gql";
+import { AlertCircleIcon, CommandIcon } from "lucide-react";
+import { useRef } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { CreateTaskInputSchema } from "@/gql/validator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTaskInputEffect } from "./use-task-input-effect";
+import { useMergeRefs } from "@floating-ui/react";
+import { motion } from "framer-motion";
+import { cx } from "cva";
+import { Popover } from "@/app/_components/popover";
+import { useMutation } from "@apollo/client";
 
 type Props = {};
 
@@ -40,12 +40,12 @@ export const TaskInput: React.FC<Props> = () => {
     watch,
     clearErrors,
   } = useForm<CreateTaskInput>({
-    defaultValues: { title: '' },
+    defaultValues: { title: "" },
     resolver: zodResolver(createTaskInputSchema),
   });
 
   const _inputRef = useRef<HTMLInputElement>(null);
-  const { ref: _ref, onBlur: _onBlur, ...register } = _register('title');
+  const { ref: _ref, onBlur: _onBlur, ...register } = _register("title");
   const inputRef = useMergeRefs([_inputRef, _ref]);
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -64,11 +64,11 @@ export const TaskInput: React.FC<Props> = () => {
     });
 
     if (result.errors) {
-      window.alert('タスクが入力できませんでした');
+      window.alert("タスクが入力できませんでした");
       return;
     }
 
-    reset({ title: '' });
+    reset({ title: "" });
   });
 
   useTaskInputEffect(_inputRef);
@@ -77,10 +77,10 @@ export const TaskInput: React.FC<Props> = () => {
     <Popover.Root isOpen={!!errors.title} placement="top">
       <div
         className={cx(
-          'flex h-[45px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 shadow-lg shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px] focus-within:ring-2 focus-within:ring-offset-2',
+          "flex h-[45px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 shadow-lg shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px] focus-within:ring-2 focus-within:ring-offset-2",
           errors.title
-            ? 'text-red-500 focus-within:ring-red-600'
-            : 'text-neutral-100 focus-within:ring-neutral-500',
+            ? "text-red-500 focus-within:ring-red-600"
+            : "text-neutral-100 focus-within:ring-neutral-500",
         )}
       >
         <form
@@ -113,14 +113,14 @@ export const TaskInput: React.FC<Props> = () => {
           <div className="flex items-end gap-2">
             <div className="flex items-center gap-1 text-red-300">
               <AlertCircleIcon size={20} />
-              {errors.title?.type === 'too_small' ? (
+              {errors.title?.type === "too_small" ? (
                 <p>文字列が空です。</p>
               ) : (
                 <p>{errors.title?.message}</p>
               )}
             </div>
             <p className="text-xs tabular-nums text-neutral-300">
-              文字数: {watch('title').length}
+              文字数: {watch("title").length}
             </p>
           </div>
         </motion.div>

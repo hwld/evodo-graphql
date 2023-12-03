@@ -6,23 +6,12 @@
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "jest.autoRun": {
     "watch": false,
-    "onSave": "test-file",
+    "onSave": "test-file"
   },
   "jest.jestCommandLine": "pnpm test -- ",
-  "tailwindCSS.classAttributes": [
-    "class",
-    "className",
-    "ngClass",
-    ".*Class.*",
-  ],
+  "tailwindCSS.classAttributes": ["class", "className", "ngClass", ".*Class.*"],
   "tailwindCSS.experimental.classRegex": [
-    [
-      "cva\\(([^)]*)\\)",
-      "[\"'`]([^\"'`]*).*?[\"'`]"
-    ],
-    [
-      "cx\\(([^)]*)\\)",
-      "(?:'|\"|`)([^']*)(?:'|\"|`)"
-    ]
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ]
 }

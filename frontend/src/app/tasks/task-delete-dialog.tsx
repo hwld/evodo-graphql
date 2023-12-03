@@ -1,9 +1,9 @@
-import { TrashIcon } from 'lucide-react';
-import { atom, useAtom, useSetAtom } from 'jotai';
-import { useTaskDelete } from './use-task-delete';
-import { useMemo } from 'react';
-import { Button } from '../_components/button';
-import { Dialog } from '../_components/dialog';
+import { TrashIcon } from "lucide-react";
+import { atom, useAtom, useSetAtom } from "jotai";
+import { useTaskDelete } from "./use-task-delete";
+import { useMemo } from "react";
+import { Button } from "../_components/button";
+import { Dialog } from "../_components/dialog";
 
 type TaskDeleteDialogAtom =
   | { isOpen: true; taskId: string }

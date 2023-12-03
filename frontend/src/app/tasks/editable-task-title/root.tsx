@@ -6,7 +6,7 @@ import {
   useContext,
   useRef,
   useState,
-} from 'react';
+} from "react";
 
 type EditableTaskTitleContext = {
   editable: boolean;
@@ -22,7 +22,7 @@ const editableTaskTitleContext = createContext<
 export const useEditableTaskTitle = () => {
   const context = useContext(editableTaskTitleContext);
   if (!context) {
-    throw new Error('EditableTaskTitle.Rootが使用されていません。');
+    throw new Error("EditableTaskTitle.Rootが使用されていません。");
   }
   return context;
 };

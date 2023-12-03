@@ -1,9 +1,9 @@
-import { YogaInitialContext } from 'graphql-yoga';
-import { getTokenFromRequest } from '../lib/utils';
-import { db } from '../db';
-import { firebaseAuth } from '../services/firebase';
-import { DecodedIdToken } from 'firebase-admin/auth';
-import type { PrismaClient } from '@prisma/client';
+import { YogaInitialContext } from "graphql-yoga";
+import { getTokenFromRequest } from "../lib/utils";
+import { db } from "../db";
+import { firebaseAuth } from "../services/firebase";
+import { DecodedIdToken } from "firebase-admin/auth";
+import type { PrismaClient } from "@prisma/client";
 
 export type CustomContext = {
   loggedInUserId: string | undefined;

@@ -1,9 +1,9 @@
-import { TaskItemFragmentFragment } from '@/gql/graphql';
-import { TaskCheckbox } from '../task-item/task-checkbox';
-import { EditableTaskDescription } from './editable-task-description';
-import { Clock8Icon, RotateCcwIcon } from 'lucide-react';
-import { DateTime } from '@/app/_components/date-time';
-import { TaskSheetRow } from './task-sheet-row';
+import { TaskItemFragmentFragment } from "@/gql/graphql";
+import { TaskCheckbox } from "../task-item/task-checkbox";
+import { EditableTaskDescription } from "./editable-task-description";
+import { Clock8Icon, RotateCcwIcon } from "lucide-react";
+import { DateTime } from "@/app/_components/date-time";
+import { TaskSheetRow } from "./task-sheet-row";
 
 type Props = {
   task: TaskItemFragmentFragment;

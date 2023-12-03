@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
-import { Button } from '@/app/_components/button';
-import { Input } from '@/app/_components/input';
-import { Textarea } from '@/app/_components/textarea';
-import { graphql } from '@/gql';
-import { useFirebaseAuthState } from '@/app/_hooks/useFirebaseAuthState';
-import { Routes } from '@/lib/routes';
-import { useRouter } from 'next/navigation';
-import { useEffect, useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { SignupInputSchema } from '@/gql/validator';
-import { z } from 'zod';
-import { PowerIcon } from 'lucide-react';
-import { useMutation } from '@apollo/client';
-import { noop } from '@/lib/utils';
+import { Button } from "@/app/_components/button";
+import { Input } from "@/app/_components/input";
+import { Textarea } from "@/app/_components/textarea";
+import { graphql } from "@/gql";
+import { useFirebaseAuthState } from "@/app/_hooks/useFirebaseAuthState";
+import { Routes } from "@/lib/routes";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SignupInputSchema } from "@/gql/validator";
+import { z } from "zod";
+import { PowerIcon } from "lucide-react";
+import { useMutation } from "@apollo/client";
+import { noop } from "@/lib/utils";
 
 const SignupMutation = graphql(`
   mutation SignupMutation($input: SignupInput!) {
@@ -44,7 +44,7 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
     handleSubmit: _handleSubmit,
     formState: { errors },
   } = useForm<SignupInput>({
-    defaultValues: { name: '', profile: '', avatarUrl: '', ...defaultValues },
+    defaultValues: { name: "", profile: "", avatarUrl: "", ...defaultValues },
     resolver: zodResolver(signupInputSchema),
   });
 
@@ -69,7 +69,7 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
     });
 
     if (result.errors) {
-      window.alert('新規登録できませんでした。');
+      window.alert("新規登録できませんでした。");
       return;
     }
 
@@ -90,14 +90,14 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
           id="name"
           autoComplete="off"
           placeholder="ユーザー名を入力してください..."
-          {...register('name')}
+          {...register("name")}
           error={errors.name?.message}
         />
         <Textarea
           id="profile"
           label="プロフィール"
           placeholder="プロフィールを入力してください..."
-          {...register('profile')}
+          {...register("profile")}
           error={errors.profile?.message}
         />
         <div className="self-center">

@@ -1,6 +1,6 @@
-import { Prisma, PrismaClient } from '@prisma/client';
-import { Task } from '../types.generated';
-import { FindManyArgs } from '../../db/types';
+import { Prisma, PrismaClient } from "@prisma/client";
+import { Task } from "../types.generated";
+import { FindManyArgs } from "../../db/types";
 
 const taskArgs = {} satisfies Prisma.TaskDefaultArgs;
 
@@ -17,7 +17,7 @@ export const convertTask = (
   };
 };
 
-type FindManyTasksArgs = FindManyArgs<'task', { db: PrismaClient }>;
+type FindManyTasksArgs = FindManyArgs<"task", { db: PrismaClient }>;
 
 export const findManyTasks = async ({
   db,

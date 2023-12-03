@@ -1,9 +1,9 @@
-import { AppLogo } from '@/app/_components/app-logo';
-import { useSession } from '@/app/_hooks/useSession';
-import { Routes } from '@/lib/routes';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { AppLogo } from "@/app/_components/app-logo";
+import { useSession } from "@/app/_hooks/useSession";
+import { Routes } from "@/lib/routes";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 type Props = {};
 

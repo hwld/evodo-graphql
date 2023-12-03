@@ -1,11 +1,11 @@
-import { graphql } from '@/gql';
-import { firebaseAuth, googleAuthProvider } from '@/lib/firebase';
-import { FirebaseError } from 'firebase/app';
-import { signInWithPopup, signOut } from 'firebase/auth';
-import { useQuery, useMutation } from '@apollo/client';
-import { useFirebaseAuthState } from './useFirebaseAuthState';
-import { useMemo } from 'react';
-import { noop } from '@/lib/utils';
+import { graphql } from "@/gql";
+import { firebaseAuth, googleAuthProvider } from "@/lib/firebase";
+import { FirebaseError } from "firebase/app";
+import { signInWithPopup, signOut } from "firebase/auth";
+import { useQuery, useMutation } from "@apollo/client";
+import { useFirebaseAuthState } from "./useFirebaseAuthState";
+import { useMemo } from "react";
+import { noop } from "@/lib/utils";
 
 const UserQuery = graphql(`
   query UserQuery($id: ID!) {
@@ -37,18 +37,18 @@ export const useSession = () => {
 
   const status = useMemo(() => {
     if (isFirebaseLoading || isUserLoading) {
-      return 'loading';
+      return "loading";
     }
     // ログアウトするとここがundefinedになるが、dataはpauseされるのでundefinedにならないので
     // data.userのチェックの前にfirebaesUserが存在しないことを確認する必要がある
     if (!firebaseUser) {
-      return 'unauthenticated';
+      return "unauthenticated";
     }
     if (data?.user) {
-      return 'authenticated';
+      return "authenticated";
     }
 
-    return 'unauthenticated';
+    return "unauthenticated";
   }, [data?.user, isUserLoading, firebaseUser, isFirebaseLoading]);
 
   const [initializeSignupIfNew] = useMutation(InitializeSignupIfNewMutation);
@@ -68,8 +68,8 @@ export const useSession = () => {
         variables: {
           input: {
             firebaseToken: idToken,
-            name: result.user.displayName ?? '',
-            avatarUrl: result.user.photoURL ?? '',
+            name: result.user.displayName ?? "",
+            avatarUrl: result.user.photoURL ?? "",
           },
         },
         onError: noop,
@@ -86,8 +86,8 @@ export const useSession = () => {
         // ポップアップを閉じてもう一度開こうとするとエラーになるが、無視して問題なさそうなので無視する。
         // https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#error-codes_15
         if (
-          e.code === 'auth/popup-closed-by-user' ||
-          e.code === 'auth/cancelled-popup-request'
+          e.code === "auth/popup-closed-by-user" ||
+          e.code === "auth/cancelled-popup-request"
         ) {
           return { cancelled: true };
         }

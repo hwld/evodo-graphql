@@ -1,4 +1,4 @@
-import { RefObject, useEffect } from 'react';
+import { RefObject, useEffect } from "react";
 
 /**
  * キー入力、レンダリング時にフォーカスを当てる
@@ -6,13 +6,13 @@ import { RefObject, useEffect } from 'react';
 export const useTaskInputEffect = (ref: RefObject<HTMLInputElement>) => {
   useEffect(() => {
     const focusInput = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k' && ref.current) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k" && ref.current) {
         ref.current.focus();
       }
     };
 
-    window.addEventListener('keydown', focusInput);
-    return () => window.removeEventListener('keydown', focusInput);
+    window.addEventListener("keydown", focusInput);
+    return () => window.removeEventListener("keydown", focusInput);
   }, [ref]);
 
   useEffect(() => {

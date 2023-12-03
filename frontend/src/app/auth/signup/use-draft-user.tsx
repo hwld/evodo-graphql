@@ -1,9 +1,9 @@
-import { graphql } from '@/gql';
-import { useFirebaseAuthState } from '@/app/_hooks/useFirebaseAuthState';
-import { Routes } from '@/lib/routes';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { graphql } from "@/gql";
+import { useFirebaseAuthState } from "@/app/_hooks/useFirebaseAuthState";
+import { Routes } from "@/lib/routes";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useQuery } from "@apollo/client";
 
 const DraftUserQuery = graphql(`
   query DraftUserQuery {

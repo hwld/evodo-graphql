@@ -1,7 +1,7 @@
-import * as RadixDialog from '@radix-ui/react-dialog';
-import { AnimatePresence, motion } from 'framer-motion';
-import { XIcon } from 'lucide-react';
-import { ReactNode } from 'react';
+import * as RadixDialog from "@radix-ui/react-dialog";
+import { AnimatePresence, motion } from "framer-motion";
+import { XIcon } from "lucide-react";
+import { ReactNode } from "react";
 
 type DialogProps = {
   height: number;
@@ -38,9 +38,9 @@ export const Dialog: React.FC<DialogProps> = ({
             <RadixDialog.Content asChild>
               <motion.div
                 className="fixed inset-0 left-[50%] top-[50%] z-50 w-[500px] rounded-lg bg-neutral-100 p-5 text-neutral-700 ring-neutral-900 focus-visible:outline-none focus-visible:ring-2"
-                initial={{ opacity: 0, translateX: '-50%', translateY: '-55%' }}
-                animate={{ opacity: 1, translateX: '-50%', translateY: '-50%' }}
-                exit={{ opacity: 0, translateX: '-50%', translateY: '-55%' }}
+                initial={{ opacity: 0, translateX: "-50%", translateY: "-55%" }}
+                animate={{ opacity: 1, translateX: "-50%", translateY: "-50%" }}
+                exit={{ opacity: 0, translateX: "-50%", translateY: "-55%" }}
                 style={{ height }}
               >
                 <RadixDialog.Close

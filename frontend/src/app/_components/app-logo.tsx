@@ -1,5 +1,5 @@
-import * as React from 'react';
-type Props = React.ComponentPropsWithoutRef<'svg'> & { size?: number };
+import * as React from "react";
+type Props = React.ComponentPropsWithoutRef<"svg"> & { size?: number };
 export const AppLogo: React.FC<Props> = ({ size = 25, ...props }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

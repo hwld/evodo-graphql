@@ -9,7 +9,7 @@
     "backend": "pnpm -F \"backend\"",
     "frontend": "pnpm -F \"frontend\"",
     "test": "pnpm -r test -- ",
-    "prisma": "pnpm backend exec prisma ",
+    "prisma": "pnpm backend exec prisma -- ",
     "emulator:export": "pnpm firebase emularots:export .firebase-data",
     "emulator:start": "pnpm firebase emulators:start --import=.firebase-data",
     "dev": "pnpm emulator:start &  pnpm -r dev",

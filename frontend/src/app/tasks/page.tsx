@@ -1,12 +1,12 @@
-import { TaskList } from '@/app/tasks/task-list';
-import { TaskInput } from './task-input/task-input';
-import { UserAuthArea } from './user-auth-area';
-import { RequireAuthPage } from '../_components/require-auth-page';
-import { SideNavigationBar } from './side-navigation-bar/side-navigation-bar';
-import { MenuButton } from './menu/menu-button';
-import { HomeIcon } from 'lucide-react';
-import { Suspense } from 'react';
-import { Spinner } from '../_components/spinner';
+import { TaskList } from "@/app/tasks/task-list";
+import { TaskInput } from "./task-input/task-input";
+import { UserAuthArea } from "./user-auth-area";
+import { RequireAuthPage } from "../_components/require-auth-page";
+import { SideNavigationBar } from "./side-navigation-bar/side-navigation-bar";
+import { MenuButton } from "./menu/menu-button";
+import { HomeIcon } from "lucide-react";
+import { Suspense } from "react";
+import { Spinner } from "../_components/spinner";
 
 export default function Home() {
   return (

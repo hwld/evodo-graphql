@@ -1,7 +1,7 @@
-import { graphql } from '@/gql';
-import { atom, useAtomValue, useSetAtom } from 'jotai';
-import { useCallback, useMemo } from 'react';
-import { useMutation } from '@apollo/client';
+import { graphql } from "@/gql";
+import { atom, useAtomValue, useSetAtom } from "jotai";
+import { useCallback, useMemo } from "react";
+import { useMutation } from "@apollo/client";
 
 const ToggleTaskDoneMutation = graphql(`
   mutation ToggleTaskDoneMutation($input: ToggleTaskDoneInput!) {
@@ -37,7 +37,7 @@ export const useToggleTaskDone = ({ taskId, done }: Args) => {
     async ({ onError }: { onError?: () => void }) => {
       if (isToggling) {
         throw new Error(
-          'すでに完了/未完了を切り替えています。操作を行う前に操作が実行中かチェックしてください。',
+          "すでに完了/未完了を切り替えています。操作を行う前に操作が実行中かチェックしてください。",
         );
       }
 
@@ -47,7 +47,7 @@ export const useToggleTaskDone = ({ taskId, done }: Args) => {
         variables: { input: { id: taskId, done: !done } },
         optimisticResponse: {
           toggleTaskDone: {
-            task: { __typename: 'Task', done: !done, id: taskId },
+            task: { __typename: "Task", done: !done, id: taskId },
           },
         },
         onError: () => {

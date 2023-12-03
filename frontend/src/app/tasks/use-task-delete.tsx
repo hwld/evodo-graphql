@@ -1,8 +1,8 @@
-import { graphql } from '@/gql';
-import { atom, useAtom } from 'jotai';
-import { useCallback } from 'react';
-import { useMutation } from '@apollo/client';
-import { noop } from '@/lib/utils';
+import { graphql } from "@/gql";
+import { atom, useAtom } from "jotai";
+import { useCallback } from "react";
+import { useMutation } from "@apollo/client";
+import { noop } from "@/lib/utils";
 
 const deletingTasIdsAtom = atom<string[]>([]);
 
@@ -31,7 +31,7 @@ export const useTaskDelete = () => {
     async (id: string) => {
       if (isDeleting(id)) {
         throw new Error(
-          'すでに削除を実行中です。操作を行う前に実行中かチェックしてください。',
+          "すでに削除を実行中です。操作を行う前に実行中かチェックしてください。",
         );
       }
 
@@ -45,7 +45,7 @@ export const useTaskDelete = () => {
       });
 
       if (result.errors) {
-        window.alert('タスクを削除できませんでした。');
+        window.alert("タスクを削除できませんでした。");
       }
 
       setDeletingTaskIds((ids) => ids.filter((i) => i !== id));

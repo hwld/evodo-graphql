@@ -1,4 +1,4 @@
-import * as RadixTooltip from '@radix-ui/react-tooltip';
+import * as RadixTooltip from "@radix-ui/react-tooltip";
 
 type Props = {
   children: React.ReactNode;

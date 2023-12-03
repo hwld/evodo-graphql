@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { FragmentType, graphql, useFragment } from '@/gql';
-import { TaskCheckbox } from './task-checkbox';
-import { PanelRightOpenIcon, PencilIcon, TrashIcon } from 'lucide-react';
-import { EditableTaskTitle } from '../editable-task-title/index';
-import { useTaskDeleteDialog } from '../task-delete-dialog';
-import { IconButton } from '@/app/_components/icon-button';
-import { useState } from 'react';
-import { TaskSheetContent } from '../task-sheet/task-sheet-content';
-import { Sheet } from '@/app/_components/sheet';
-import { Tooltip } from '@/app/_components/tooltip';
+import { FragmentType, graphql, useFragment } from "@/gql";
+import { TaskCheckbox } from "./task-checkbox";
+import { PanelRightOpenIcon, PencilIcon, TrashIcon } from "lucide-react";
+import { EditableTaskTitle } from "../editable-task-title/index";
+import { useTaskDeleteDialog } from "../task-delete-dialog";
+import { IconButton } from "@/app/_components/icon-button";
+import { useState } from "react";
+import { TaskSheetContent } from "../task-sheet/task-sheet-content";
+import { Sheet } from "@/app/_components/sheet";
+import { Tooltip } from "@/app/_components/tooltip";
 
 const TaskItemFragment = graphql(`
   fragment TaskItemFragment on Task {

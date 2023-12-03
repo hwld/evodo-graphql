@@ -1,5 +1,5 @@
-import * as RadixScrollArea from '@radix-ui/react-scroll-area';
-import { forwardRef } from 'react';
+import * as RadixScrollArea from "@radix-ui/react-scroll-area";
+import { forwardRef } from "react";
 
 type Props = RadixScrollArea.ScrollAreaProps;
 

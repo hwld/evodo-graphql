@@ -1,4 +1,4 @@
-import { LayoutListIcon } from 'lucide-react';
+import { LayoutListIcon } from "lucide-react";
 
 export const EmptyTaskCard = () => {
   return (

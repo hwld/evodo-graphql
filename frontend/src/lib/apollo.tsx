@@ -3,12 +3,12 @@ import {
   InMemoryCache,
   ApolloProvider as ApolloProviderInternal,
   createHttpLink,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { ReactNode } from 'react';
-import { firebaseAuth } from './firebase';
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { ReactNode } from "react";
+import { firebaseAuth } from "./firebase";
 
-const httpLink = createHttpLink({ uri: 'http://localhost:4000/graphql' });
+const httpLink = createHttpLink({ uri: "http://localhost:4000/graphql" });
 
 const authLink = setContext(async (_, { headers }) => {
   const token = await firebaseAuth.currentUser?.getIdToken();
@@ -16,13 +16,13 @@ const authLink = setContext(async (_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
 
 export const client = new ApolloClient({
-  connectToDevTools: process.env.NODE_ENV === 'development',
+  connectToDevTools: process.env.NODE_ENV === "development",
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
   defaultOptions: {

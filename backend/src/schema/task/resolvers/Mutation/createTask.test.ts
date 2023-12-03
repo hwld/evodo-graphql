@@ -1,9 +1,9 @@
-import { TestHelpers } from '../../../../test/helpers';
-import { executor, gql } from '../../../../test/graphql';
-import { db } from '../../../../db';
+import { TestHelpers } from "../../../../test/helpers";
+import { executor, gql } from "../../../../test/graphql";
+import { db } from "../../../../db";
 
-describe('タスクの作成', () => {
-  it('タスクを作成できる', async () => {
+describe("タスクの作成", () => {
+  it("タスクを作成できる", async () => {
     const user = await TestHelpers.createUser();
 
     await executor({

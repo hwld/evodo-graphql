@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { SignupForm } from './signup-form';
-import { HandMetalIcon } from 'lucide-react';
-import { useDraftUser } from './use-draft-user';
+import { SignupForm } from "./signup-form";
+import { HandMetalIcon } from "lucide-react";
+import { useDraftUser } from "./use-draft-user";
 
 const SignupPage: React.FC = () => {
   const { draftUser, isLoading } = useDraftUser();
