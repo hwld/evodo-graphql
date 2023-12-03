@@ -9,7 +9,7 @@ describe('ログインユーザーのタスクの取得', () => {
     await TestHelpers.createTask({ userId: user.id });
 
     const result = await executor({
-      document: gql(`query { myTasks { title, detail }}`),
+      document: gql(`query { myTasks { title, description }}`),
       context: { loggedInUserId: user.id, db, firebaseToken: undefined },
     });
     assertSingleValue(result);
@@ -22,7 +22,7 @@ describe('ログインユーザーのタスクの取得', () => {
     TestHelpers.createTask({ userId: user.id });
 
     const result = await executor({
-      document: gql(`query { myTasks {title, detail} }`),
+      document: gql(`query { myTasks {title, description} }`),
       context: { loggedInUserId: 'dummy', db, firebaseToken: undefined },
     });
     assertSingleValue(result);

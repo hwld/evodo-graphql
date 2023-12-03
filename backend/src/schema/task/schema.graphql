@@ -8,13 +8,15 @@ extend type Mutation {
   updateTaskTitle(input: UpdateTaskTitleInput!): UpdateTaskTitlePayload!
   doneTask(id: ID!): DoneTaskPayload!
   undoneTask(id: ID!): UndoneTaskPayload!
-  updateTaskDetail(input: UpdateTaskDetailInput!): UpdateTaskDetailPayload!
+  updateTaskDescription(
+    input: UpdateTaskDescriptionInput!
+  ): UpdateTaskDescriptionPayload!
 }
 
 type Task {
   id: ID!
   title: String!
-  detail: String!
+  description: String!
   done: Boolean!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -49,11 +51,11 @@ type UndoneTaskPayload {
   task: Task!
 }
 
-input UpdateTaskDetailInput {
+input UpdateTaskDescriptionInput {
   id: ID!
-  detail: String! @constraint(maxLength: 1000)
+  description: String! @constraint(maxLength: 1000)
 }
 
-type UpdateTaskDetailPayload {
+type UpdateTaskDescriptionPayload {
   task: Task!
 }

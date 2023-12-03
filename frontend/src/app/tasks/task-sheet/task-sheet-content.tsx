@@ -1,6 +1,6 @@
 import { TaskItemFragmentFragment } from '@/gql/graphql';
 import { TaskCheckbox } from '../task-item/task-checkbox';
-import { EditableTaskDetail } from './editable-task-detail';
+import { EditableTaskDescription } from './editable-task-description';
 import { Clock8Icon, RotateCcwIcon } from 'lucide-react';
 import { DateTime } from '@/app/_components/date-time';
 import { TaskSheetRow } from './task-sheet-row';
@@ -45,7 +45,7 @@ export const TaskSheetContent: React.FC<Props> = ({ task }) => {
       </div>
 
       <div>
-        <EditableTaskDetail task={task} />
+        <EditableTaskDescription task={task} />
       </div>
 
       <div className="-mt-5">

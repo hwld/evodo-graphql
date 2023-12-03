@@ -10,7 +10,7 @@ export const convertTask = (
   return {
     id: raw.id,
     title: raw.title,
-    detail: raw.detail,
+    description: raw.detail,
     done: raw.done,
     createdAt: raw.createdAt,
     updatedAt: raw.updatedAt,

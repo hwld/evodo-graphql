@@ -2,7 +2,7 @@ import { TaskItemFragmentFragment } from '@/gql/graphql';
 import { graphql } from '@/gql';
 import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
-import { UpdateTaskDetailInputSchema } from '@/gql/validator';
+import { UpdateTaskDescriptionInputSchema } from '@/gql/validator';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMergeRefs } from '@floating-ui/react';
@@ -13,36 +13,39 @@ import { forwardRef, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { stopPropagation } from '@/lib/utils';
 
-const UpdateTaskDetailMutation = graphql(`
-  mutation UpdateTaskDetailMutation($input: UpdateTaskDetailInput!) {
-    updateTaskDetail(input: $input) {
+const UpdateTaskDescriptionMutation = graphql(`
+  mutation UpdateTaskDescriptionMutation($input: UpdateTaskDescriptionInput!) {
+    updateTaskDescription(input: $input) {
       task {
         __typename
         id
-        detail
+        description
       }
     }
   }
 `);
 
-const updateTaskDetailInputSchema = UpdateTaskDetailInputSchema().omit({
-  id: true,
-});
-type UpdateTaskDetailInput = z.infer<typeof updateTaskDetailInputSchema>;
+const updateTaskDescriptionInputSchema =
+  UpdateTaskDescriptionInputSchema().omit({
+    id: true,
+  });
+type UpdateTaskDescriptionInput = z.infer<
+  typeof updateTaskDescriptionInputSchema
+>;
 
 type Props = {
   task: TaskItemFragmentFragment;
 };
 
-export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
-  function TaskDetailForm({ task }, ref) {
+export const EditableTaskDescription = forwardRef<HTMLTextAreaElement, Props>(
+  function TaskDescriptionForm({ task }, ref) {
     const [editable, setEditable] = useState(false);
-    const detailTextareaRef = useRef<HTMLTextAreaElement>(null);
-    const detailTextRef = useRef<HTMLDivElement>(null);
+    const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
+    const descriptionTextRef = useRef<HTMLDivElement>(null);
     const textHeightRef = useRef(0);
 
-    const [updateTaskDetail, { loading: updating }] = useMutation(
-      UpdateTaskDetailMutation,
+    const [updateTaskDescription, { loading: updating }] = useMutation(
+      UpdateTaskDescriptionMutation,
     );
 
     const {
@@ -50,13 +53,13 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
       handleSubmit,
       formState: { errors },
       reset,
-    } = useForm<UpdateTaskDetailInput>({
-      defaultValues: { detail: task.detail },
-      resolver: zodResolver(updateTaskDetailInputSchema),
+    } = useForm<UpdateTaskDescriptionInput>({
+      defaultValues: { description: task.description },
+      resolver: zodResolver(updateTaskDescriptionInputSchema),
     });
 
-    const { ref: _ref, onChange, ...others } = register('detail');
-    const textareaRef = useMergeRefs([ref, _ref, detailTextareaRef]);
+    const { ref: _ref, onChange, ...others } = register('description');
+    const textareaRef = useMergeRefs([ref, _ref, descriptionTextareaRef]);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
       // min-heightに合わせる
@@ -65,51 +68,58 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
       onChange(e);
     };
 
-    const handleUpdateTaskDetail = handleSubmit(async ({ detail }) => {
-      updateTaskDetail({
-        variables: { input: { id: task.id, detail } },
-        optimisticResponse: {
-          updateTaskDetail: {
-            task: { __typename: 'Task', detail, id: task.id },
+    const handleUpdateTaskDescription = handleSubmit(
+      async ({ description }) => {
+        updateTaskDescription({
+          variables: { input: { id: task.id, description } },
+          optimisticResponse: {
+            updateTaskDescription: {
+              task: {
+                __typename: 'Task',
+                description: description,
+                id: task.id,
+              },
+            },
           },
-        },
-        onError: () => {
-          window.alert('タスクの説明を更新できませんでした。');
-          setTimeout(() => detailTextareaRef.current?.focus(), 0);
-        },
-      });
-      setEditable(false);
-    });
+          onError: () => {
+            window.alert('タスクの説明を更新できませんでした。');
+            setTimeout(() => descriptionTextareaRef.current?.focus(), 0);
+          },
+        });
+
+        setEditable(false);
+      },
+    );
 
     const handleCancel = () => {
       setEditable(false);
-      reset({ detail: task.detail });
+      reset({ description: task.description });
     };
 
-    const handleClickDetail = () => {
+    const handleClickDescription = () => {
       setEditable(true);
       setTimeout(() => {
-        detailTextareaRef.current?.focus();
+        descriptionTextareaRef.current?.focus();
       }, 0);
     };
 
     // editableに変わったときにformに渡す高さをここでセットする
     useEffect(() => {
-      if (!detailTextRef.current) {
+      if (!descriptionTextRef.current) {
         return;
       }
-      const h = detailTextRef.current.clientHeight;
+      const h = descriptionTextRef.current.clientHeight;
       if (h !== textHeightRef.current) {
         textHeightRef.current = h;
       }
     });
 
     useEffect(() => {
-      if (!detailTextareaRef.current) {
+      if (!descriptionTextareaRef.current) {
         return;
       }
-      // この時点でdetailTextのheightは0になっているので、事前にセットした高さを使用する
-      detailTextareaRef.current.style.height = `${textHeightRef.current}px`;
+      // この時点でdescriptionTextのheightは0になっているので、事前にセットした高さを使用する
+      descriptionTextareaRef.current.style.height = `${textHeightRef.current}px`;
     }, [editable]);
 
     return (
@@ -120,7 +130,9 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
               <textarea
                 className={cx(
                   'min-h-[100px] resize-none overflow-hidden rounded-lg border-neutral-300 bg-neutral-50 p-3 outline outline-2',
-                  errors.detail ? 'outline-red-500' : 'outline-neutral-300',
+                  errors.description
+                    ? 'outline-red-500'
+                    : 'outline-neutral-300',
                 )}
                 ref={textareaRef}
                 onChange={handleChange}
@@ -132,14 +144,14 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
             </form>
           ) : (
             <div
-              ref={detailTextRef}
+              ref={descriptionTextRef}
               className={cx(
                 'min-h-[100px] cursor-pointer rounded-lg p-3 outline outline-2 outline-neutral-300',
               )}
-              onClick={handleClickDetail}
+              onClick={handleClickDescription}
             >
-              {task.detail ? (
-                <p className="whitespace-pre-wrap">{task.detail}</p>
+              {task.description ? (
+                <p className="whitespace-pre-wrap">{task.description}</p>
               ) : (
                 <p className="text-neutral-500">
                   ここをクリックすると、タスクの説明を入力することができます...
@@ -159,10 +171,10 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
                 exit={{ opacity: 0, y: -5 }}
               >
                 <div className="flex items-center gap-1 text-red-500">
-                  {errors.detail && (
+                  {errors.description && (
                     <>
                       <AlertCircleIcon size={20} className="flex-shrink-0" />
-                      <p className="text-sm">{errors.detail?.message}</p>
+                      <p className="text-sm">{errors.description?.message}</p>
                     </>
                   )}
                 </div>
@@ -183,7 +195,7 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
                     type="submit"
                     debouncedIsLoading={updating}
                     leftIcon={SaveIcon}
-                    onClick={handleUpdateTaskDetail}
+                    onClick={handleUpdateTaskDescription}
                   >
                     保存する
                   </Button>

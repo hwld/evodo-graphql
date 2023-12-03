@@ -15,7 +15,7 @@ const TaskItemFragment = graphql(`
   fragment TaskItemFragment on Task {
     id
     title
-    detail
+    description
     done
     createdAt
     updatedAt
