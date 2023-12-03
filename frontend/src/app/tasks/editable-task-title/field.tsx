@@ -9,14 +9,16 @@ import { motion } from 'framer-motion';
 import { AlertCircleIcon } from 'lucide-react';
 import { Popover } from '@/app/_components/popover';
 import { useEditableTaskTitle } from './root';
-import { noop, stopPropagation } from '@/lib/utils';
+import { stopPropagation } from '@/lib/utils';
 import { useMutation } from '@apollo/client';
 
 const UpdateTaskTitle = graphql(`
   mutation UpdateTaskTitleMutation($input: UpdateTaskTitleInput!) {
     updateTaskTitle(input: $input) {
       task {
+        __typename
         id
+        title
       }
     }
   }
@@ -35,7 +37,7 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
     editable,
     disableEditing,
   } = useEditableTaskTitle();
-  const [updateTaskTitle, { loading: updating }] = useMutation(UpdateTaskTitle);
+  const [updateTaskTitle] = useMutation(UpdateTaskTitle);
 
   const {
     register: _register,
@@ -60,25 +62,25 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
   };
 
   const handleUpdateTaskTitle = _handleSubmit(async (data) => {
-    const result = await updateTaskTitle({
+    updateTaskTitle({
       variables: {
         input: {
           id,
           title: data.title,
         },
       },
-      onError: noop,
+      optimisticResponse: {
+        updateTaskTitle: {
+          task: { __typename: 'Task', id, title: data.title },
+        },
+      },
+      onError: () => {
+        window.alert('タスク名を変更できませんでした。');
+        setTimeout(() => _inputRef?.current?.focus(), 0);
+      },
     });
 
-    if (result.errors) {
-      window.alert('タスク名を変えられませんでした');
-      setTimeout(() => _inputRef?.current?.focus(), 0);
-      return;
-    }
-
-    // TODO: 変更しても次のレンダリングでは変更前のデータが使用されるので、ちょっと待機する
-    // queryに時間がかかってしまう場合は普通にちらつく
-    setTimeout(() => disableEditing(), 100);
+    disableEditing();
   });
 
   return (
@@ -100,7 +102,6 @@ export const _Field: React.FC<Props> = ({ title, id }) => {
                   ? 'text-red-500 focus-visible:outline-red-500'
                   : 'focus-visible:outline-neutral-900',
               )}
-              disabled={updating}
               {...register}
               ref={inputRef}
               onBlur={handleBlur}

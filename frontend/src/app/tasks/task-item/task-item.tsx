@@ -7,7 +7,7 @@ import { EditableTaskTitle } from '../editable-task-title/index';
 import { useTaskDeleteDialog } from '../task-delete-dialog';
 import { IconButton } from '@/app/_components/icon-button';
 import { useState } from 'react';
-import { TaskDetailSheetContent } from '../task-detail-sheet/task-detail-sheet-content';
+import { TaskSheetContent } from '../task-sheet/task-sheet-content';
 import { Sheet } from '@/app/_components/sheet';
 import { Tooltip } from '@/app/_components/tooltip';
 
@@ -60,7 +60,7 @@ export const TaskItem: React.FC<Props> = ({ task: _task }) => {
         </div>
       </div>
       <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-        <TaskDetailSheetContent task={task} />
+        <TaskSheetContent task={task} />
       </Sheet>
     </EditableTaskTitle.Root>
   );

@@ -17,12 +17,12 @@ export const DateTime: React.FC<Props> = ({ dateTime }) => {
     <p className="tabular-nums">
       <span>
         {year}
-        <span className="mx-[2px]">/</span>
+        <span className="mx-[1px]">/</span>
         {month}
-        <span className="mx-[2px]">/</span>
+        <span className="mx-[1px]">/</span>
         {day}
         <span className="ml-2">{hours}</span>
-        <span className="mx-[2px]">:</span>
+        <span className="mx-[1px]">:</span>
         {minutes}
       </span>
     </p>

@@ -1,14 +1,14 @@
 import { graphql } from '@/gql';
-import { atom, useAtom } from 'jotai';
+import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { useCallback, useMemo } from 'react';
 import { useMutation } from '@apollo/client';
-import { noop } from '@/lib/utils';
 
 const DoneTask = graphql(`
   mutation DoneTaskMutation($id: ID!) {
     doneTask(id: $id) {
       task {
         id
+        done
       }
     }
   }
@@ -18,16 +18,25 @@ const UndoneTask = graphql(`
     undoneTask(id: $id) {
       task {
         id
+        done
       }
     }
   }
 `);
 
 const togglingTaskIdsAtom = atom<string[]>([]);
+const toggleStartAtom = atom(null, (_, set, taskId: string) => {
+  set(togglingTaskIdsAtom, (ids) => [...ids, taskId]);
+});
+const toggleEndAtom = atom(null, (_, set, taskId: string) => {
+  set(togglingTaskIdsAtom, (ids) => ids.filter((i) => i !== taskId));
+});
 
 type Args = { taskId: string; done: boolean };
 export const useToggleTaskDone = ({ taskId, done }: Args) => {
-  const [togglingIds, setTogglingIds] = useAtom(togglingTaskIdsAtom);
+  const togglingIds = useAtomValue(togglingTaskIdsAtom);
+  const toggleStart = useSetAtom(toggleStartAtom);
+  const toggleEnd = useSetAtom(toggleEndAtom);
   const [doneTask] = useMutation(DoneTask);
   const [undoneTask] = useMutation(UndoneTask);
 
@@ -35,30 +44,40 @@ export const useToggleTaskDone = ({ taskId, done }: Args) => {
     return togglingIds.includes(taskId);
   }, [taskId, togglingIds]);
 
-  const toggleTaskDone = useCallback(async () => {
-    if (isToggling) {
-      throw new Error(
-        'すでに完了/未完了を切り替えています。操作を行う前に操作が実行中かチェックしてください。',
-      );
-    }
+  const toggleTaskDone = useCallback(
+    async ({ onError }: { onError?: () => void }) => {
+      if (isToggling) {
+        throw new Error(
+          'すでに完了/未完了を切り替えています。操作を行う前に操作が実行中かチェックしてください。',
+        );
+      }
 
-    setTogglingIds((ids) => [...ids, taskId]);
+      toggleStart(taskId);
 
-    let mutate;
-    if (done) {
-      mutate = undoneTask;
-    } else {
-      mutate = doneTask;
-    }
+      let mutate;
+      if (done) {
+        mutate = undoneTask;
+      } else {
+        mutate = doneTask;
+      }
 
-    const result = await mutate({
-      variables: { id: taskId },
-      onError: noop,
-    });
-    setTogglingIds((ids) => ids.filter((i) => i !== taskId));
-
-    return result;
-  }, [done, doneTask, isToggling, setTogglingIds, taskId, undoneTask]);
+      mutate({
+        variables: { id: taskId },
+        optimisticResponse: {
+          doneTask: { task: { __typename: 'Task', id: taskId, done: true } },
+          undoneTask: { task: { __typename: 'Task', id: taskId, done: false } },
+        },
+        onError: () => {
+          onError?.();
+          toggleEnd(taskId);
+        },
+        onCompleted: () => {
+          toggleEnd(taskId);
+        },
+      });
+    },
+    [done, doneTask, isToggling, taskId, toggleEnd, toggleStart, undoneTask],
+  );
 
   return { toggleTaskDone, isToggling };
 };

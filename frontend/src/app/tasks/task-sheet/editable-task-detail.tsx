@@ -11,13 +11,15 @@ import { AlertCircleIcon, SaveIcon } from 'lucide-react';
 import { Button } from '@/app/_components/button';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { noop, stopPropagation } from '@/lib/utils';
+import { stopPropagation } from '@/lib/utils';
 
 const UpdateTaskDetailMutation = graphql(`
   mutation UpdateTaskDetailMutation($input: UpdateTaskDetailInput!) {
     updateTaskDetail(input: $input) {
       task {
+        __typename
         id
+        detail
       }
     }
   }
@@ -31,6 +33,7 @@ type UpdateTaskDetailInput = z.infer<typeof updateTaskDetailInputSchema>;
 type Props = {
   task: TaskItemFragmentFragment;
 };
+
 export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
   function TaskDetailForm({ task }, ref) {
     const [editable, setEditable] = useState(false);
@@ -63,20 +66,19 @@ export const EditableTaskDetail = forwardRef<HTMLTextAreaElement, Props>(
     };
 
     const handleUpdateTaskDetail = handleSubmit(async ({ detail }) => {
-      const result = await updateTaskDetail({
+      updateTaskDetail({
         variables: { input: { id: task.id, detail } },
-        onError: noop,
+        optimisticResponse: {
+          updateTaskDetail: {
+            task: { __typename: 'Task', detail, id: task.id },
+          },
+        },
+        onError: () => {
+          window.alert('タスクの説明を更新できませんでした。');
+          setTimeout(() => detailTextareaRef.current?.focus(), 0);
+        },
       });
-
-      if (result.errors) {
-        window.alert('タスクを更新できませんでした。');
-        setTimeout(() => detailTextareaRef.current?.focus(), 0);
-        return;
-      }
-
-      // TODO: 変更しても次のレンダリングでは変更前のデータが使用されるので、ちょっと待機する
-      // queryに時間がかかってしまう場合は普通にちらつく
-      setTimeout(() => setEditable(false), 100);
+      setEditable(false);
     });
 
     const handleCancel = () => {

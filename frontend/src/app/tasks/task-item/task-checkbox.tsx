@@ -18,11 +18,11 @@ export const TaskCheckbox: React.FC<Props> = ({
   });
 
   const handleToggleTaskDone = async () => {
-    const result = await toggleTaskDone();
-    if (result.errors) {
-      window.alert('タスクを更新できませんでした。');
-      return;
-    }
+    toggleTaskDone({
+      onError: () => {
+        window.alert('タスクを更新できませんでした。');
+      },
+    });
   };
 
   return (
@@ -34,7 +34,7 @@ export const TaskCheckbox: React.FC<Props> = ({
         disabled={isToggling}
         className={cx(
           'group relative h-[25px] w-[25px] shrink-0 rounded-full border-2 border-neutral-700 bg-neutral-100 text-neutral-100 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 disabled:opacity-50 data-[state=checked]:bg-neutral-900',
-          { 'hover:bg-neutral-200': !done },
+          { 'hover:bg-neutral-200': !done && !isToggling },
         )}
       >
         {done && (
@@ -51,7 +51,7 @@ export const TaskCheckbox: React.FC<Props> = ({
           <CheckIcon
             size="80%"
             className={cx('transition-all duration-300', {
-              'group-hover:text-neutral-600': !done,
+              'group-hover:text-neutral-600': !done && !isToggling,
             })}
           />
         </Checkbox.Indicator>

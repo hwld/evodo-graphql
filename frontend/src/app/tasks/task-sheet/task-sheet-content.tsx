@@ -1,15 +1,15 @@
 import { TaskItemFragmentFragment } from '@/gql/graphql';
 import { TaskCheckbox } from '../task-item/task-checkbox';
 import { EditableTaskDetail } from './editable-task-detail';
-import { Clock8Icon, LucideIcon, RotateCcwIcon } from 'lucide-react';
-import { ReactNode } from 'react';
+import { Clock8Icon, RotateCcwIcon } from 'lucide-react';
 import { DateTime } from '@/app/_components/date-time';
+import { TaskSheetRow } from './task-sheet-row';
 
 type Props = {
   task: TaskItemFragmentFragment;
 };
 
-export const TaskDetailSheetContent: React.FC<Props> = ({ task }) => {
+export const TaskSheetContent: React.FC<Props> = ({ task }) => {
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -31,12 +31,12 @@ export const TaskDetailSheetContent: React.FC<Props> = ({ task }) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <TaskDetailSheetRow
+        <TaskSheetRow
           icon={Clock8Icon}
           label="作成した日時"
           content={<DateTime dateTime={new Date(task.createdAt)} />}
         />
-        <TaskDetailSheetRow
+        <TaskSheetRow
           icon={RotateCcwIcon}
           label="更新した日時"
           content={<DateTime dateTime={new Date(task.updatedAt)} />}
@@ -52,19 +52,6 @@ export const TaskDetailSheetContent: React.FC<Props> = ({ task }) => {
         <div className="text-neutral-500">コメント</div>
         <div className="my-2 h-[1px] w-full bg-neutral-200" />
       </div>
-    </div>
-  );
-};
-
-type P = { icon: LucideIcon; label: string; content: ReactNode };
-const TaskDetailSheetRow: React.FC<P> = ({ icon: Icon, label, content }) => {
-  return (
-    <div className="flex h-[30px] grow items-center gap-3">
-      <div className="flex w-[150px] flex-shrink-0 items-center  gap-1 text-sm text-neutral-500">
-        <Icon size={18} />
-        <p>{label}</p>
-      </div>
-      <div className="grow">{content}</div>
     </div>
   );
 };
