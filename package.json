@@ -13,7 +13,8 @@
     "codegen": "pnpm -r codegen:watch",
     "lint": "pnpm \"/^lint:.*/\"",
     "lint:type": "pnpm -r exec tsc --noEmit",
-    "lint:eslint": "pnpm exec eslint . --ext .ts,.tsx"
+    "lint:eslint": "pnpm exec eslint . --ext .ts,.tsx",
+    "format": "pnpm prettier \"**/src/**/*.{ts,tsx}\" --write"
   },
   "keywords": [],
   "author": "",

@@ -3,19 +3,9 @@ import { atom, useAtomValue, useSetAtom } from 'jotai';
 import { useCallback, useMemo } from 'react';
 import { useMutation } from '@apollo/client';
 
-const DoneTask = graphql(`
-  mutation DoneTaskMutation($id: ID!) {
-    doneTask(id: $id) {
-      task {
-        id
-        done
-      }
-    }
-  }
-`);
-const UndoneTask = graphql(`
-  mutation UndoneTaskMutation($id: ID!) {
-    undoneTask(id: $id) {
+const ToggleTaskDoneMutation = graphql(`
+  mutation ToggleTaskDoneMutation($input: ToggleTaskDoneInput!) {
+    toggleTaskDone(input: $input) {
       task {
         id
         done
@@ -37,8 +27,7 @@ export const useToggleTaskDone = ({ taskId, done }: Args) => {
   const togglingIds = useAtomValue(togglingTaskIdsAtom);
   const toggleStart = useSetAtom(toggleStartAtom);
   const toggleEnd = useSetAtom(toggleEndAtom);
-  const [doneTask] = useMutation(DoneTask);
-  const [undoneTask] = useMutation(UndoneTask);
+  const [toggleTaskDoneMutate] = useMutation(ToggleTaskDoneMutation);
 
   const isToggling = useMemo(() => {
     return togglingIds.includes(taskId);
@@ -54,18 +43,12 @@ export const useToggleTaskDone = ({ taskId, done }: Args) => {
 
       toggleStart(taskId);
 
-      let mutate;
-      if (done) {
-        mutate = undoneTask;
-      } else {
-        mutate = doneTask;
-      }
-
-      mutate({
-        variables: { id: taskId },
+      toggleTaskDoneMutate({
+        variables: { input: { id: taskId, done: !done } },
         optimisticResponse: {
-          doneTask: { task: { __typename: 'Task', id: taskId, done: true } },
-          undoneTask: { task: { __typename: 'Task', id: taskId, done: false } },
+          toggleTaskDone: {
+            task: { __typename: 'Task', done: !done, id: taskId },
+          },
         },
         onError: () => {
           onError?.();
@@ -76,7 +59,7 @@ export const useToggleTaskDone = ({ taskId, done }: Args) => {
         },
       });
     },
-    [done, doneTask, isToggling, taskId, toggleEnd, toggleStart, undoneTask],
+    [done, isToggling, taskId, toggleEnd, toggleStart, toggleTaskDoneMutate],
   );
 
   return { toggleTaskDone, isToggling };

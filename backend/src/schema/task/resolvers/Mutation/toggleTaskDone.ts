@@ -1,18 +1,16 @@
 import { GraphQLError } from 'graphql';
-import { convertTask } from '../../finder';
 import type { MutationResolvers } from './../../../types.generated';
-export const undoneTask: NonNullable<MutationResolvers['undoneTask']> = async (
-  _parent,
-  { id },
-  { loggedInUserId, db },
-) => {
+import { convertTask } from '../../finder';
+export const toggleTaskDone: NonNullable<
+  MutationResolvers['toggleTaskDone']
+> = async (_parent, { input }, { loggedInUserId, db }) => {
   if (!loggedInUserId) {
     throw new GraphQLError('forbidden');
   }
 
   const updated = await db.task.update({
-    where: { id, userId: loggedInUserId },
-    data: { done: false },
+    where: { id: input.id, userId: loggedInUserId },
+    data: { done: input.done },
   });
 
   const task = convertTask(updated);

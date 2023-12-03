@@ -1,12 +1,9 @@
 import { GraphQLError } from 'graphql';
 import type { MutationResolvers } from './../../../types.generated';
 import { convertTask } from '../../finder';
-import { setTimeout } from 'timers/promises';
 export const updateTaskDescription: NonNullable<
   MutationResolvers['updateTaskDescription']
 > = async (_parent, { input }, { loggedInUserId, db }) => {
-  await setTimeout(3000);
-
   if (!loggedInUserId) {
     throw new GraphQLError('forbidden');
   }
