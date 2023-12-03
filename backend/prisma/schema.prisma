@@ -13,7 +13,7 @@ datasource db {
 model Task {
   id  String @id @default(cuid())
   title String
-  detail String
+  description String
   done Boolean @default(false)
   user User @relation(references: [id], fields: [userId], onDelete: Cascade)
   userId String

@@ -15,7 +15,7 @@ export const TestHelpers = {
   },
   createTask: async ({ userId }: { userId: string }): Promise<Task> => {
     const task = await db.task.create({
-      data: { title: 'title', detail: 'detail', userId },
+      data: { title: 'title', description: 'description', userId },
     });
 
     return task;

@@ -12,7 +12,7 @@ export const createTask: NonNullable<MutationResolvers['createTask']> = async (
   }
 
   const raw = await db.task.create({
-    data: { title: _arg.input.title, detail: '', userId: loggedInUserId },
+    data: { title: _arg.input.title, description: '', userId: loggedInUserId },
   });
 
   const task = convertTask(raw);

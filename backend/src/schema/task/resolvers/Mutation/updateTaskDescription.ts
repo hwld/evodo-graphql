@@ -13,7 +13,7 @@ export const updateTaskDescription: NonNullable<
 
   const updated = await db.task.update({
     where: { id: input.id, userId: loggedInUserId },
-    data: { detail: input.description },
+    data: { description: input.description },
   });
 
   const task = convertTask(updated);
