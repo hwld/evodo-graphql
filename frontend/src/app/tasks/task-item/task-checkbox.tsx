@@ -33,7 +33,7 @@ export const TaskCheckbox: React.FC<Props> = ({
         onCheckedChange={handleToggleTaskDone}
         disabled={isToggling}
         className={cx(
-          'group relative h-[25px] w-[25px] rounded-full border-2 border-neutral-700 bg-neutral-100 text-neutral-100 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 disabled:opacity-50 data-[state=checked]:bg-neutral-900',
+          'group relative h-[25px] w-[25px] shrink-0 rounded-full border-2 border-neutral-700 bg-neutral-100 text-neutral-100 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-100 disabled:opacity-50 data-[state=checked]:bg-neutral-900',
           { 'hover:bg-neutral-200': !done },
         )}
       >
