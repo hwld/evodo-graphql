@@ -2,6 +2,9 @@
   "name": "evodo-graphql",
   "version": "1.0.0",
   "description": "",
+  "lint-staged": {
+    "**/*.{ts,tsx,json}": "pnpm format"
+  },
   "scripts": {
     "backend": "pnpm -F \"backend\"",
     "frontend": "pnpm -F \"frontend\"",
@@ -14,7 +17,9 @@
     "lint": "pnpm \"/^lint:.*/\"",
     "lint:type": "pnpm -r exec tsc --noEmit",
     "lint:eslint": "pnpm exec eslint . --ext .ts,.tsx",
-    "format": "pnpm prettier \"**/src/**/*.{ts,tsx}\" --write"
+    "format": "pnpm prettier --write -- ",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +29,9 @@
     "@typescript-eslint/parser": "^6.12.0",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
-    "prettier": "^3.1.0",
-    "firebase-tools": "^12.9.1"
+    "firebase-tools": "^12.9.1",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.1.0"
   }
 }
