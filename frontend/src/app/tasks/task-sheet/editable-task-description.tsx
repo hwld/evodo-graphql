@@ -1,5 +1,4 @@
-import { cx } from "cva";
-import { useEffect, useRef, useState } from "react";
+import { useEffect as useLayoutEffect, useRef, useState } from "react";
 import { TaskDescriptionForm } from "./task-description-form";
 import { TaskItemFragmentFragment } from "@/gql/graphql";
 import { AnimatePresence, motion } from "framer-motion";
@@ -10,34 +9,25 @@ type Props = {
 
 export const EditableTaskDescription: React.FC<Props> = ({ task }) => {
   const [editable, setEditable] = useState(false);
-  const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
-  const descriptionTextRef = useRef<HTMLDivElement>(null);
-  const textHeightRef = useRef(0);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
 
   const handleClickDescription = () => {
     setEditable(true);
     setTimeout(() => {
-      descriptionTextareaRef.current?.focus();
+      textareaRef.current?.focus();
     }, 0);
   };
 
-  // editableに変わったときにformに渡す高さをここでセットする
-  useEffect(() => {
-    if (!descriptionTextRef.current) {
+  // textRefを持つコンポーネントのマウント・アンマウントのタイミングによって、clientHeightがundefined
+  // になり、高さが適切に設定されない可能性がある。
+  // 今はAnimatePresenceでラップしているため高さが取得できているが、できなくなるかも
+  useLayoutEffect(() => {
+    if (!textareaRef.current || !textRef.current) {
       return;
     }
-    const h = descriptionTextRef.current.clientHeight;
-    if (h !== textHeightRef.current) {
-      textHeightRef.current = h;
-    }
-  });
 
-  useEffect(() => {
-    if (!descriptionTextareaRef.current) {
-      return;
-    }
-    // この時点でdescriptionTextのheightは0になっているので、事前にセットした高さを使用する
-    descriptionTextareaRef.current.style.height = `${textHeightRef.current}px`;
+    textareaRef.current.style.height = `${textRef.current.clientHeight}px`;
   }, [editable]);
 
   return (
@@ -51,7 +41,7 @@ export const EditableTaskDescription: React.FC<Props> = ({ task }) => {
             exit={{ opacity: 0 }}
           >
             <TaskDescriptionForm
-              ref={descriptionTextareaRef}
+              ref={textareaRef}
               taskId={task.id}
               defaultValues={{ description: task.description }}
               disableEditing={() => setEditable(false)}
@@ -60,22 +50,23 @@ export const EditableTaskDescription: React.FC<Props> = ({ task }) => {
         ) : (
           <motion.div
             key="view"
-            ref={descriptionTextRef}
-            className={cx(
-              "min-h-[100px] cursor-pointer rounded-lg p-3 outline outline-2 outline-neutral-300",
-            )}
             onClick={handleClickDescription}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {task.description ? (
-              <p className="whitespace-pre-wrap">{task.description}</p>
-            ) : (
-              <p className="text-neutral-500">
-                ここをクリックすると、タスクの説明を入力することができます...
-              </p>
-            )}
+            <div
+              ref={textRef}
+              className="min-h-[100px] cursor-pointer rounded-lg p-3 outline outline-2 outline-neutral-200"
+            >
+              {task.description ? (
+                <p className="whitespace-pre-wrap">{task.description}</p>
+              ) : (
+                <p className="text-neutral-500">
+                  ここをクリックすると、タスクの説明を入力することができます...
+                </p>
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
