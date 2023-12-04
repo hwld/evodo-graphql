@@ -25,22 +25,19 @@ export const TaskList: React.FC = () => {
 
   return (
     <>
-      <div className="relative flex flex-col gap-1">
-        <AnimatePresence initial={false}>
+      <div className="relative flex flex-col gap-2">
+        <AnimatePresence initial={false} mode="popLayout">
           {data?.myTasks.length === 0 && (
-            // myTasksが1->0になったときにこのコンポーネントがレイアウトアニメーションに影響を与えないように
-            // absoluteにする
             <motion.div
-              className="absolute mt-5 w-full"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+              layout
+              className="w-full"
+              initial={{ opacity: 0, y: -10, scale: 1.1 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 1.1 }}
             >
               <EmptyTaskCard />
             </motion.div>
           )}
-        </AnimatePresence>
-        <AnimatePresence mode="popLayout" initial={false}>
           {data?.myTasks.map((t) => {
             return (
               <motion.div
@@ -49,7 +46,6 @@ export const TaskList: React.FC = () => {
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
               >
                 <TaskItem task={t} />
               </motion.div>
