@@ -1,4 +1,5 @@
 import { Button } from "@/app/_components/button";
+import { useToast } from "@/app/_components/toast";
 import { graphql } from "@/gql";
 import { UpdateTaskDescriptionInputSchema } from "@/gql/validator";
 import { stopPropagation } from "@/lib/utils";
@@ -39,6 +40,7 @@ type Props = {
 };
 export const TaskDescriptionForm = forwardRef<HTMLTextAreaElement, Props>(
   function TaskDescriptionForm({ taskId, defaultValues, disableEditing }, ref) {
+    const { toast } = useToast();
     const [updateTaskDescription, { loading: updating }] = useMutation(
       UpdateTaskDescriptionMutation,
     );
@@ -77,7 +79,11 @@ export const TaskDescriptionForm = forwardRef<HTMLTextAreaElement, Props>(
             },
           },
           onError: () => {
-            window.alert("タスクの説明を更新できませんでした。");
+            toast({
+              type: "error",
+              title: "タスクの説明の更新",
+              description: "タスクの説明を更新できませんでした。",
+            });
             setTimeout(() => descriptionTextareaRef.current?.focus(), 0);
           },
         });

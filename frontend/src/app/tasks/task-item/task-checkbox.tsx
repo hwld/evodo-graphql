@@ -5,6 +5,7 @@ import { CheckIcon } from "lucide-react";
 import { cx } from "cva";
 import { useToggleTaskDone } from "./use-toggle-task-done";
 import { motion } from "framer-motion";
+import { useToast } from "@/app/_components/toast";
 
 type Props = { id: string; done: boolean; checkboxId?: string };
 export const TaskCheckbox: React.FC<Props> = ({
@@ -12,6 +13,7 @@ export const TaskCheckbox: React.FC<Props> = ({
   done,
   checkboxId = id,
 }) => {
+  const { toast } = useToast();
   const { toggleTaskDone, isToggling } = useToggleTaskDone({
     taskId: id,
     done,
@@ -20,7 +22,11 @@ export const TaskCheckbox: React.FC<Props> = ({
   const handleToggleTaskDone = async () => {
     toggleTaskDone({
       onError: () => {
-        window.alert("タスクを更新できませんでした。");
+        toast({
+          type: "error",
+          title: "タスクの更新",
+          description: "タスクが更新できませんでした。",
+        });
       },
     });
   };

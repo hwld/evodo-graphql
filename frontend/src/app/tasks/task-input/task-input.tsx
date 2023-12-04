@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import { cx } from "cva";
 import { Popover } from "@/app/_components/popover";
 import { useMutation } from "@apollo/client";
+import { useToast } from "@/app/_components/toast";
 
 type Props = {};
 
@@ -30,6 +31,7 @@ const createTaskInputSchema = CreateTaskInputSchema();
 type CreateTaskInput = z.infer<typeof createTaskInputSchema>;
 
 export const TaskInput: React.FC<Props> = () => {
+  const { toast } = useToast();
   const [createTaskMutation, { loading }] = useMutation(CreateTask);
 
   const {
@@ -64,7 +66,12 @@ export const TaskInput: React.FC<Props> = () => {
     });
 
     if (result.errors) {
-      window.alert("タスクが入力できませんでした");
+      toast({
+        type: "error",
+        title: "タスクの作成",
+        description: "タスクが作成できませんでした。",
+      });
+
       return;
     }
 
@@ -77,7 +84,7 @@ export const TaskInput: React.FC<Props> = () => {
     <Popover.Root isOpen={!!errors.title} placement="top">
       <div
         className={cx(
-          "flex h-[45px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 shadow-lg shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px] focus-within:ring-2 focus-within:ring-offset-2",
+          "flex h-[45px] w-[300px] max-w-full shrink-0 items-center rounded-full bg-neutral-900 px-2 text-neutral-100 shadow-md shadow-neutral-900/20 transition-all duration-200 focus-within:w-[700px] focus-within:ring-2 focus-within:ring-offset-2",
           errors.title
             ? "text-red-500 focus-within:ring-red-600"
             : "text-neutral-100 focus-within:ring-neutral-500",

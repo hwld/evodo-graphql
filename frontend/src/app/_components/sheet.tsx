@@ -35,7 +35,7 @@ export const Sheet: React.FC<Props> = ({
 
             <Dialog.Content asChild>
               <motion.div
-                className="fixed bottom-[15px] right-[15px] top-[15px] z-50 rounded-lg bg-neutral-100 shadow transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
+                className="fixed bottom-[15px] right-[15px] top-[15px] z-50 rounded-lg bg-neutral-100 shadow-md transition-shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
                 style={{ width }}
                 initial={{ x: 50, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}

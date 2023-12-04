@@ -15,6 +15,7 @@ import { z } from "zod";
 import { PowerIcon } from "lucide-react";
 import { useMutation } from "@apollo/client";
 import { noop } from "@/lib/utils";
+import { useToast } from "@/app/_components/toast";
 
 const SignupMutation = graphql(`
   mutation SignupMutation($input: SignupInput!) {
@@ -47,6 +48,7 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
     defaultValues: { name: "", profile: "", avatarUrl: "", ...defaultValues },
     resolver: zodResolver(signupInputSchema),
   });
+  const { toast } = useToast();
 
   const internalIsLoading = isLoading || loading;
 
@@ -69,7 +71,11 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
     });
 
     if (result.errors) {
-      window.alert("新規登録できませんでした。");
+      toast({
+        type: "error",
+        title: "ユーザーの新規登録",
+        description: "ユーザーの新規登録ができませんでした。",
+      });
       return;
     }
 

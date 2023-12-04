@@ -3,6 +3,7 @@ import { atom, useAtom } from "jotai";
 import { useCallback } from "react";
 import { useMutation } from "@apollo/client";
 import { noop } from "@/lib/utils";
+import { useToast } from "../_components/toast";
 
 const deletingTasIdsAtom = atom<string[]>([]);
 
@@ -17,6 +18,7 @@ const DeleteTaskMutation = graphql(`
 `);
 
 export const useTaskDelete = () => {
+  const { toast } = useToast();
   const [deletingTaskIds, setDeletingTaskIds] = useAtom(deletingTasIdsAtom);
   const [deleteTaskMutation] = useMutation(DeleteTaskMutation);
 
@@ -45,14 +47,18 @@ export const useTaskDelete = () => {
       });
 
       if (result.errors) {
-        window.alert("タスクを削除できませんでした。");
+        toast({
+          type: "error",
+          title: "タスクの削除",
+          description: "タスクが削除できませんでした。",
+        });
       }
 
       setDeletingTaskIds((ids) => ids.filter((i) => i !== id));
 
       return result;
     },
-    [deleteTaskMutation, isDeleting, setDeletingTaskIds],
+    [deleteTaskMutation, isDeleting, setDeletingTaskIds, toast],
   );
 
   return { deleteTask, isDeleting };

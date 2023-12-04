@@ -10,6 +10,7 @@ import { useMergeRefs } from "@floating-ui/react";
 import { Popover } from "@/app/_components/popover";
 import { motion } from "framer-motion";
 import { AlertCircleIcon } from "lucide-react";
+import { useToast } from "@/app/_components/toast";
 
 const UpdateTaskTitleMutation = graphql(`
   mutation UpdateTaskTitleMutation($input: UpdateTaskTitleInput!) {
@@ -31,6 +32,7 @@ type UpdateTaskTitleInput = z.infer<typeof updateTaskTitleInputSchema>;
 type Props = { taskId: string; defaultValues?: UpdateTaskTitleInput };
 
 export const TaskTitleForm: React.FC<Props> = ({ taskId, defaultValues }) => {
+  const { toast } = useToast();
   const { inputRef: editableInputRef, disableEditing } = useEditableTaskTitle();
 
   const [updateTaskTitle] = useMutation(UpdateTaskTitleMutation);
@@ -67,7 +69,12 @@ export const TaskTitleForm: React.FC<Props> = ({ taskId, defaultValues }) => {
         },
       },
       onError: () => {
-        window.alert("タスク名を変更できませんでした。");
+        toast({
+          type: "error",
+          title: "タスク名の変更",
+          description: "タスク名が変更ができませんでした。",
+        });
+
         setTimeout(() => editableInputRef?.current?.focus(), 0);
       },
     });
