@@ -22,7 +22,7 @@ export const TaskSheetContent: React.FC<Props> = ({ task }) => {
           />
           <label
             htmlFor={`sheet-${task.id}`}
-            className="cursor-pointer text-2xl font-bold"
+            className="cursor-pointer break-all text-2xl font-bold"
           >
             {task.title}
           </label>
@@ -48,7 +48,7 @@ export const TaskSheetContent: React.FC<Props> = ({ task }) => {
         <EditableTaskDescription task={task} />
       </div>
 
-      <div className="-mt-5">
+      <div>
         <div className="text-neutral-500">コメント</div>
         <div className="my-2 h-[1px] w-full bg-neutral-200" />
       </div>

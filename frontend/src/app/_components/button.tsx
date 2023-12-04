@@ -9,6 +9,7 @@ type Props = {
   debouncedIsLoading?: boolean;
   size?: "md" | "sm";
   color?: "black" | "white";
+  variant?: "filled" | "outline";
 } & Omit<ComponentPropsWithoutRef<"button">, "className">;
 
 export const Button: React.FC<Props> = ({
@@ -18,9 +19,28 @@ export const Button: React.FC<Props> = ({
   debouncedIsLoading: isLoading = false,
   color = "black",
   size = "md",
+  variant = "filled",
   ...props
 }) => {
   const [debouncedIsLoading] = useDebouncedValue(isLoading, 500);
+
+  const sizeClass = {
+    md: "px-4 py-2 text-base",
+    sm: "px-3 py-1 text-sm",
+  };
+  const variantClass = {
+    filled: {
+      white:
+        "border border-neutral-300 bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
+      black: "bg-neutral-800 text-neutral-100 hover:bg-neutral-600",
+    },
+    outline: {
+      white:
+        "border border-neutral-100 text-neutral-100 hover:bg-neutral-100/10",
+      black:
+        "border border-neutral-900 text-neutral-700 hover:bg-neutral-900/10",
+    },
+  };
 
   const iconSize = {
     md: "20",
@@ -33,15 +53,8 @@ export const Button: React.FC<Props> = ({
       {...props}
       className={cx(
         "flex items-center gap-1 rounded ring-neutral-500 ring-offset-2 ring-offset-neutral-200 transition-all focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-        {
-          white:
-            "border border-neutral-300 bg-neutral-100 text-neutral-700 hover:bg-neutral-200",
-          black: "bg-neutral-800 text-neutral-100 hover:bg-neutral-600",
-        }[color],
-        {
-          md: "px-4 py-2 text-base",
-          sm: "px-3 py-1 text-sm",
-        }[size],
+        sizeClass[size],
+        variantClass[variant][color],
       )}
     >
       {debouncedIsLoading && (
