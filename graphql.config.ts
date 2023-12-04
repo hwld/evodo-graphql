@@ -1,12 +1,16 @@
-import type { IGraphQLConfig } from "graphql-config";
+import type { IGraphQLConfig, IGraphQLProject } from "graphql-config";
 import { defineConfig } from "@eddeee888/gcg-typescript-resolver-files";
 
 const scalarConfig = { strictScalars: true, scalars: { DateTime: "string" } };
+const schemaConfig: IGraphQLProject["schema"] = [
+  "backend/src/schema/**/*.graphql",
+  "backend/directiveDefs.ts",
+];
 
 const config: IGraphQLConfig = {
   projects: {
     backend: {
-      schema: "backend/src/**/schema.graphql",
+      schema: schemaConfig,
       extensions: {
         codegen: {
           generates: {
@@ -19,7 +23,7 @@ const config: IGraphQLConfig = {
     },
 
     frontend: {
-      schema: "backend/src/schema/**/schema.graphql",
+      schema: schemaConfig,
       documents: ["frontend/src/**/*.tsx"],
       extensions: {
         codegen: {
