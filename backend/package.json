@@ -3,8 +3,6 @@
   "scripts": {
     "dev": "dotenv -e .env -- cross-env NODE_ENV=development ts-node-dev --exit-child --respawn src/main.ts",
     "start": "ts-node src/main.ts",
-    "codegen": "graphql-codegen",
-    "codegen:watch": "graphql-codegen --watch",
     "test:dotenv": "dotenv -e .env.test",
     "test:db-push": "pnpm test:dotenv -- pnpm exec prisma -- db push",
     "test:setup": "pnpm test:db-push",
@@ -24,8 +22,6 @@
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
-    "@eddeee888/gcg-typescript-resolver-files": "^0.7.1",
-    "@graphql-codegen/cli": "^5.0.0",
     "@graphql-tools/executor-http": "^1.0.3",
     "@types/jest": "^29.5.10",
     "@types/node": "^20",

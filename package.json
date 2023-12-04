@@ -13,7 +13,9 @@
     "emulator:export": "pnpm firebase emularots:export .firebase-data",
     "emulator:start": "pnpm firebase emulators:start --import=.firebase-data",
     "dev": "pnpm emulator:start &  pnpm -r dev",
-    "codegen": "pnpm -r codegen:watch",
+    "codegen": "pnpm codegen:backend --watch & pnpm codegen:frontend --watch",
+    "codegen:backend": "pnpm graphql-codegen --project backend",
+    "codegen:frontend": "pnpm graphql-codegen --project frontend",
     "lint": "pnpm \"/^lint:.*/\"",
     "lint:type": "pnpm -r exec tsc --noEmit",
     "lint:eslint": "pnpm exec eslint . --ext .ts,.tsx",
@@ -25,13 +27,21 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@eddeee888/gcg-typescript-resolver-files": "^0.7.1",
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "eslint": "^8.54.0",
     "eslint-config-prettier": "^9.0.0",
     "firebase-tools": "^12.9.1",
+    "graphql-codegen-typescript-validation-schema": "^0.12.0",
+    "graphql-config": "^5.0.3",
+    "graphql-scalars": "^1.22.4",
     "husky": "^8.0.0",
     "lint-staged": "^15.1.0",
-    "prettier": "^3.1.0"
+    "prettier": "^3.1.0",
+    "typescript": "^5"
   }
 }
