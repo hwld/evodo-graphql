@@ -14,6 +14,8 @@ const config: Config = {
 
         tooltipEnter: "tooltipEnter .15s ease-out",
         tooltipExit: "tooltipExit .15s ease-out",
+
+        toastSlideRight: "toastSlideRight 200ms ease-out",
       },
       keyframes: {
         showScrollbar: { from: { opacity: "0" }, to: { opacity: "1" } },
@@ -26,6 +28,11 @@ const config: Config = {
         tooltipExit: {
           from: { opacity: "1", transform: "translateY(0px)" },
           to: { opacity: "0", transform: "translateY(5px)" },
+        },
+
+        toastSlideRight: {
+          from: { transform: "translateX(var(--radix-toast-swipe-end-x))" },
+          to: { transform: "translateX(100%)" },
         },
       },
     },
