@@ -24,7 +24,7 @@ export const Tooltip: React.FC<Props> = ({
           <RadixTooltip.Content
             side="top"
             align="center"
-            className="data-[state=delayed-open]:animate-tooltipEnter data-[state=instant-open]:animate-tooltipEnter data-[state=closed]:animate-tooltipExit rounded bg-neutral-700 px-2 py-1 text-sm text-neutral-100"
+            className="data-[state=delayed-open]:animate-tooltipEnter data-[state=instant-open]:animate-tooltipEnter data-[state=closed]:animate-tooltipExit z-[100] rounded bg-neutral-700 px-2 py-1 text-sm text-neutral-100"
           >
             {label}
             <RadixTooltip.Arrow className="fill-neutral-700" />

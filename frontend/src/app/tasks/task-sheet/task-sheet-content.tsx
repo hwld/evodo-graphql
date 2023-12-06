@@ -69,11 +69,17 @@ export const TaskSheetContent: React.FC<Props> = ({ task }) => {
 
       <div>
         <div className="text-neutral-500">メモ</div>
-        <div className="my-2 h-[1px] w-full bg-neutral-200" />
+        <div className="my-3 h-[1px] w-full bg-neutral-200" />
         {data?.myTask.memos.map((memo) => {
-          return <TaskMemo key={memo.id} memo={memo} />;
+          return (
+            <div key={memo.id} className="">
+              <TaskMemo memo={memo} />
+            </div>
+          );
         })}
-        <TaskMemoForm taskId={task.id} />
+        <div className="mt-2">
+          <TaskMemoForm taskId={task.id} />
+        </div>
       </div>
     </div>
   );

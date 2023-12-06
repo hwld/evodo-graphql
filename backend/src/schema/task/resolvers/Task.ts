@@ -11,7 +11,9 @@ export const Task: TaskResolvers = {
     return user;
   },
   memos: async (task, _, { db }) => {
-    const memos = await db.task.findUnique({ where: { id: task.id } }).memos();
+    const memos = await db.task
+      .findUnique({ where: { id: task.id } })
+      .memos({ orderBy: { createdAt: "asc" } });
 
     if (!memos) {
       throw new GraphQLError("not found");
