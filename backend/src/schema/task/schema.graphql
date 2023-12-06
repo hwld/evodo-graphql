@@ -17,6 +17,7 @@ type Task {
   title: String!
   description: String!
   done: Boolean!
+  author: User!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
