@@ -1,6 +1,5 @@
 import { firebaseAuth } from "../../../../services/firebase";
 import type { MutationResolvers } from "../../../types.generated";
-import { convertUser } from "../../finder";
 export const signup: NonNullable<MutationResolvers["signup"]> = async (
   _parent,
   { input },
@@ -9,7 +8,7 @@ export const signup: NonNullable<MutationResolvers["signup"]> = async (
   const decoded = await firebaseAuth.verifyIdToken(input.firebaseToken);
   const userId = decoded.sub;
 
-  const rawUser = await db.$transaction(async (tx) => {
+  const user = await db.$transaction(async (tx) => {
     const foundUser = await tx.user.findUnique({ where: { id: userId } });
     if (foundUser) {
       return foundUser;
@@ -29,6 +28,5 @@ export const signup: NonNullable<MutationResolvers["signup"]> = async (
     return newUser;
   });
 
-  const user = convertUser(rawUser);
   return { user };
 };

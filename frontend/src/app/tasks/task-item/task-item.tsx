@@ -17,6 +17,9 @@ const TaskItemFragment = graphql(`
     title
     description
     done
+    author {
+      id
+    }
     createdAt
     updatedAt
   }
