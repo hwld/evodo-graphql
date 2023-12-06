@@ -30,7 +30,11 @@ export const useSession = () => {
     firebaseAuthState: { user: firebaseUser, isLoading: isFirebaseLoading },
   } = useFirebaseAuthState();
 
-  const { data, loading: isUserLoading } = useQuery(UserQuery, {
+  const {
+    client,
+    data,
+    loading: isUserLoading,
+  } = useQuery(UserQuery, {
     variables: { id: firebaseUser?.uid! },
     skip: firebaseUser?.uid === undefined,
   });
@@ -97,6 +101,7 @@ export const useSession = () => {
   };
 
   const logout = async () => {
+    client.clearStore();
     await signOut(firebaseAuth);
   };
 
