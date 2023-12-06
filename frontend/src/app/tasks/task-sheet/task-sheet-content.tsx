@@ -4,12 +4,31 @@ import { EditableTaskDescription } from "./editable-task-description";
 import { Clock8Icon, RotateCcwIcon } from "lucide-react";
 import { DateTime } from "@/app/_components/date-time";
 import { TaskSheetRow } from "./task-sheet-row";
+import { graphql } from "@/gql";
+import { useQuery } from "@apollo/client";
+import { TaskMemo } from "./task-memo";
+import { TaskMemoForm } from "./task-memo-form";
+
+const TaskMemosQuery = graphql(`
+  query TaskMemosQuery($taskId: ID!) {
+    myTask(taskId: $taskId) {
+      memos {
+        id
+        ...TaskMemoFragment
+      }
+    }
+  }
+`);
 
 type Props = {
   task: TaskItemFragmentFragment;
 };
 
 export const TaskSheetContent: React.FC<Props> = ({ task }) => {
+  const { data } = useQuery(TaskMemosQuery, {
+    variables: { taskId: task.id },
+  });
+
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -49,8 +68,12 @@ export const TaskSheetContent: React.FC<Props> = ({ task }) => {
       </div>
 
       <div>
-        <div className="text-neutral-500">コメント</div>
+        <div className="text-neutral-500">メモ</div>
         <div className="my-2 h-[1px] w-full bg-neutral-200" />
+        {data?.myTask.memos.map((memo) => {
+          return <TaskMemo key={memo.id} memo={memo} />;
+        })}
+        <TaskMemoForm taskId={task.id} />
       </div>
     </div>
   );

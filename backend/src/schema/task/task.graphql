@@ -1,5 +1,6 @@
 extend type Query {
   myTasks: [Task!]!
+  myTask(taskId: ID!): Task!
 }
 
 extend type Mutation {
@@ -18,6 +19,7 @@ type Task {
   description: String!
   done: Boolean!
   author: User!
+  memos: [TaskMemo!]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }

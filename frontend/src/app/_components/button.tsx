@@ -52,7 +52,7 @@ export const Button: React.FC<Props> = ({
       disabled={isLoading || disabled}
       {...props}
       className={cx(
-        "flex items-center gap-1 rounded ring-neutral-500 ring-offset-2 ring-offset-neutral-200 transition-all focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+        "flex flex-shrink-0 items-center gap-1 rounded ring-neutral-500 ring-offset-2 ring-offset-neutral-200 transition-all focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
         sizeClass[size],
         variantClass[variant][color],
       )}

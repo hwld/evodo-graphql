@@ -112,7 +112,7 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
 
   return (
     <ToastContext.Provider value={{ toast: openToast }}>
-      <RadixToast.Provider duration={500000} swipeThreshold={100}>
+      <RadixToast.Provider duration={5000} swipeThreshold={100}>
         {children}
         <AnimatePresence>
           {toasts.map((toast) => {

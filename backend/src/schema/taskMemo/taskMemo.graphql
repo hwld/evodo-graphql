@@ -1,0 +1,30 @@
+extend type Mutation {
+  createTaskMemo(input: CreateTaskMemoInput!): CreateTaskMemoPayload!
+  deleteTaskMemo(input: DeleteTaskMemoInput!): DeleteTaskMemoPayload!
+}
+
+type TaskMemo {
+  id: ID!
+  content: String!
+  author: User!
+  task: Task!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input CreateTaskMemoInput {
+  taskId: ID!
+  content: String! @constraint(minLength: 1, maxLength: 100)
+}
+
+type CreateTaskMemoPayload {
+  taskMemo: TaskMemo!
+}
+
+input DeleteTaskMemoInput {
+  taskMemoId: ID!
+}
+
+type DeleteTaskMemoPayload {
+  taskMemo: TaskMemo!
+}
