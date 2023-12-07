@@ -1,11 +1,13 @@
-import { firebaseAuth } from "../../../../services/firebase";
+import { GraphQLError } from "graphql";
 import type { MutationResolvers } from "../../../types.generated";
 
 export const initializeSignupIfNew: NonNullable<
   MutationResolvers["initializeSignupIfNew"]
-> = async (_parent, { input }, { db }) => {
-  const decoded = await firebaseAuth.verifyIdToken(input.firebaseToken);
-  const userId = decoded.sub;
+> = async (_parent, { input }, { db, firebaseUserId }) => {
+  const userId = firebaseUserId;
+  if (!userId) {
+    throw new GraphQLError("forbidden");
+  }
 
   const foundUser = await db.user.findUnique({ where: { id: userId } });
   if (foundUser) {

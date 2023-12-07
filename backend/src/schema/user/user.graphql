@@ -7,7 +7,6 @@ extend type Query {
 
 extend type Mutation {
   # もしDBに存在しないユーザーであれば新規登録の準備をする
-  # この時点でauthozationヘッダを登録できないのでinputにtokenを入れる
   initializeSignupIfNew(
     input: InitializeSignupIfNewInput!
   ): InitializeSignupIfNewPayload!
@@ -29,14 +28,12 @@ type DraftUser {
 }
 
 input SignupInput {
-  firebaseToken: String!
   name: String! @constraint(minLength: 1, maxLength: 100)
   avatarUrl: String!
   profile: String! @constraint(maxLength: 100)
 }
 
 input InitializeSignupIfNewInput {
-  firebaseToken: String!
   name: String!
   avatarUrl: String!
 }

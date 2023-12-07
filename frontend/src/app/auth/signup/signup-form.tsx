@@ -4,7 +4,6 @@ import { Button } from "@/app/_components/button";
 import { Input } from "@/app/_components/input";
 import { Textarea } from "@/app/_components/textarea";
 import { graphql } from "@/gql";
-import { useFirebaseAuthState } from "@/app/_hooks/useFirebaseAuthState";
 import { Routes } from "@/lib/routes";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
@@ -27,7 +26,7 @@ const SignupMutation = graphql(`
   }
 `);
 
-const signupInputSchema = SignupInputSchema().omit({ firebaseToken: true });
+const signupInputSchema = SignupInputSchema();
 type SignupInput = z.infer<typeof signupInputSchema>;
 
 type Props = {
@@ -37,7 +36,6 @@ type Props = {
 
 export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
   const router = useRouter();
-  const { firebaseAuthState } = useFirebaseAuthState();
   const [signup, { loading }] = useMutation(SignupMutation);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const {
@@ -53,15 +51,9 @@ export const SignupForm: React.FC<Props> = ({ defaultValues, isLoading }) => {
   const internalIsLoading = isLoading || loading;
 
   const handleSignup = _handleSubmit(async ({ name, profile, avatarUrl }) => {
-    const token = await firebaseAuthState.user?.getIdToken();
-    if (!token) {
-      return;
-    }
-
     const result = await signup({
       variables: {
         input: {
-          firebaseToken: token,
           name: name,
           profile: profile,
           avatarUrl: avatarUrl,

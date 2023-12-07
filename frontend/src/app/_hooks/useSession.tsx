@@ -62,16 +62,13 @@ export const useSession = () => {
     | { cancelled: true };
   const login = async (): Promise<LoginResult> => {
     try {
-      // ログイン後にtokenをAPIに投げて、新規登録かを判断するためpopupを使用する。
       // redirectでもできないことはないが、getRedirectResultを使って結果を取得する必要があり、
       // getRedirectResultに時間がかかるのでpopupを使用する。
       const result = await signInWithPopup(firebaseAuth, googleAuthProvider);
-      const idToken = await result.user.getIdToken();
 
       const { data } = await initializeSignupIfNew({
         variables: {
           input: {
-            firebaseToken: idToken,
             name: result.user.displayName ?? "",
             avatarUrl: result.user.photoURL ?? "",
           },
