@@ -79,6 +79,8 @@ describe("新規登録", () => {
     });
     assertSingleValue(result);
 
+    const users = await db.user.findMany();
     expect(result.errors?.length).toBe(1);
+    expect(users.length).toBe(0);
   });
 });

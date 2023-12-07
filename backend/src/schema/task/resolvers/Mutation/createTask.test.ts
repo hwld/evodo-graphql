@@ -14,7 +14,9 @@ describe("タスクの作成", () => {
     });
     assertSingleValue(result);
 
+    const tasks = await db.task.findMany({});
     expect(result.errors?.length).toBe(1);
+    expect(tasks.length).toBe(0);
   });
 
   it("タスクを作成できる", async () => {
@@ -28,8 +30,8 @@ describe("タスクの作成", () => {
       }`),
       context: { db, loggedInUserId: user.id },
     });
-    const tasks = await db.task.findMany({ where: { userId: user.id } });
 
+    const tasks = await db.task.findMany({ where: { userId: user.id } });
     expect(tasks.length).toBe(1);
   });
 });

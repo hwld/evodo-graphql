@@ -48,6 +48,8 @@ describe("タスクの削除", () => {
     });
     assertSingleValue(result);
 
+    const task = await db.task.findUnique({ where: { id: otherUserTask.id } });
     expect(result.errors?.length).toBe(1);
+    expect(task).not.toBeNull();
   });
 });

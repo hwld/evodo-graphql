@@ -53,6 +53,8 @@ describe("タスクメモの作成", () => {
     });
     assertSingleValue(result);
 
+    const memos = await db.taskMemo.findMany();
     expect(result.errors?.length).toBe(1);
+    expect(memos.length).toBe(0);
   });
 });
