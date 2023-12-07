@@ -6,7 +6,7 @@
     "test:dotenv": "dotenv -e .env.test",
     "test:db-push": "pnpm test:dotenv -- pnpm exec prisma -- db push",
     "test:setup": "pnpm test:db-push",
-    "test": "pnpm test:dotenv -- jest"
+    "test": "pnpm test:dotenv -- jest -i"
   },
   "dependencies": {
     "@graphql-tools/utils": "^10.0.11",
