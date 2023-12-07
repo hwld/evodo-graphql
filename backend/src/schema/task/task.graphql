@@ -7,7 +7,7 @@ extend type Mutation {
   createTask(input: CreateTaskInput!): CreateTaskPayload!
   deleteTask(id: ID!): DeleteTaskPayload!
   updateTaskTitle(input: UpdateTaskTitleInput!): UpdateTaskTitlePayload!
-  toggleTaskDone(input: ToggleTaskDoneInput!): ToggleTaskDonePayload!
+  updateTaskDone(input: UpdateTaskDoneInput!): UpdateTaskDonePayload!
   updateTaskDescription(
     input: UpdateTaskDescriptionInput!
   ): UpdateTaskDescriptionPayload!
@@ -45,12 +45,12 @@ type UpdateTaskTitlePayload {
   task: Task!
 }
 
-input ToggleTaskDoneInput {
+input UpdateTaskDoneInput {
   id: ID!
   done: Boolean!
 }
 
-type ToggleTaskDonePayload {
+type UpdateTaskDonePayload {
   task: Task!
 }
 

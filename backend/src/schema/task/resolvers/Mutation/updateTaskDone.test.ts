@@ -1,9 +1,9 @@
 import { db } from "../../../../db";
 import { executor, gql } from "../../../../test/graphql";
 import { TestHelpers } from "../../../../test/helpers";
-import { MutationtoggleTaskDoneArgs } from "../../../types.generated";
+import { MutationupdateTaskDoneArgs } from "../../../types.generated";
 
-const validateVariables = (args: MutationtoggleTaskDoneArgs) => args;
+const validateVariables = (args: MutationupdateTaskDoneArgs) => args;
 
 describe("タスク完了状態の更新", () => {
   it("自分のタスクの完了状態を変更できる", async () => {
@@ -17,8 +17,8 @@ describe("タスク完了状態の更新", () => {
 
     await executor({
       document: gql(`
-        mutation($input: ToggleTaskDoneInput!) {
-          toggleTaskDone(input: $input) {
+        mutation($input: UpdateTaskDoneInput!) {
+          updateTaskDone(input: $input) {
             task { id }
           }
         }
@@ -44,8 +44,8 @@ describe("タスク完了状態の更新", () => {
 
     await executor({
       document: gql(`
-        mutation($input: ToggleTaskDoneInput!) {
-          toggleTaskDone(input: $input) {
+        mutation($input: UpdateTaskDoneInput!) {
+          updateTaskDone(input: $input) {
             task { id }
           }
         }

@@ -3,9 +3,9 @@ import { atom, useAtomValue, useSetAtom } from "jotai";
 import { useCallback, useMemo } from "react";
 import { useMutation } from "@apollo/client";
 
-const ToggleTaskDoneMutation = graphql(`
-  mutation ToggleTaskDoneMutation($input: ToggleTaskDoneInput!) {
-    toggleTaskDone(input: $input) {
+const UpdateTaskDoneMutation = graphql(`
+  mutation UpdateTaskDoneMutation($input: UpdateTaskDoneInput!) {
+    updateTaskDone(input: $input) {
       task {
         id
         done
@@ -27,7 +27,7 @@ export const useToggleTaskDone = ({ taskId, done }: Args) => {
   const togglingIds = useAtomValue(togglingTaskIdsAtom);
   const toggleStart = useSetAtom(toggleStartAtom);
   const toggleEnd = useSetAtom(toggleEndAtom);
-  const [toggleTaskDoneMutate] = useMutation(ToggleTaskDoneMutation);
+  const [toggleTaskDoneMutate] = useMutation(UpdateTaskDoneMutation);
 
   const isToggling = useMemo(() => {
     return togglingIds.includes(taskId);
@@ -46,7 +46,7 @@ export const useToggleTaskDone = ({ taskId, done }: Args) => {
       toggleTaskDoneMutate({
         variables: { input: { id: taskId, done: !done } },
         optimisticResponse: {
-          toggleTaskDone: {
+          updateTaskDone: {
             task: { __typename: "Task", done: !done, id: taskId },
           },
         },

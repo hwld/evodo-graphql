@@ -1,8 +1,8 @@
 import { GraphQLError } from "graphql";
 import type { MutationResolvers } from "./../../../types.generated";
-export const toggleTaskDone: NonNullable<
-  MutationResolvers["toggleTaskDone"]
-> = async (_parent, { input }, { loggedInUserId, db }) => {
+export const updateTaskDone: NonNullable<
+  MutationResolvers["updateTaskDone"]
+> = async (_parent, { input }, { db, loggedInUserId }) => {
   if (!loggedInUserId) {
     throw new GraphQLError("forbidden");
   }
