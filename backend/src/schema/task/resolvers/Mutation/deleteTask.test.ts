@@ -35,8 +35,6 @@ describe("タスクの削除", () => {
       userId: otherUser.id,
     });
 
-    `"${otherUser.id}"`;
-
     const result = await executor({
       document: gql(`
         mutation($id: ID!) {

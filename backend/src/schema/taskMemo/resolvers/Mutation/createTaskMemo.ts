@@ -7,6 +7,11 @@ export const createTaskMemo: NonNullable<
     throw new GraphQLError("forbidden");
   }
 
+  const task = await db.task.findUnique({ where: { id: input.taskId } });
+  if (loggedInUserId !== task?.userId) {
+    throw new GraphQLError("forbidden");
+  }
+
   const taskMemo = await db.taskMemo.create({
     data: {
       content: input.content,

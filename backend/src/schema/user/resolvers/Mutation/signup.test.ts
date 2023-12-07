@@ -34,15 +34,12 @@ describe("新規登録", () => {
       },
     });
 
-    const result = await executor<Mutation>({
+    await executor<Mutation>({
       document: gql(`
         mutation ($input: SignupInput!) {
           signup(input: $input) {
             user {
               id
-              name
-              profile
-              avatarUrl
             }
           }
         }
@@ -56,9 +53,10 @@ describe("新規登録", () => {
         firebaseUserId: decodedFirebaseUserId,
       },
     });
-    assertSingleValue(result);
 
-    const createdUser = result.data?.signup.user;
+    const createdUser = await db.user.findUnique({
+      where: { id: decodedFirebaseUserId },
+    });
     expect(createdUser?.id).toBe(decodedFirebaseUserId);
     expect(createdUser?.name).toBe(newName);
     expect(createdUser?.profile).toBe(newProfile);

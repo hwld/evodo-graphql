@@ -6,9 +6,14 @@ import type { PrismaClient } from "@prisma/client";
 
 export type CustomContext = {
   loggedInUserId: string | undefined;
-  // 受け取った認証情報に存在するfirebaseが管理しているユーザーのID
-  // GraphQLバックエンドではユーザーの情報だけを管理していて、セッションの管理は
-  // クライアントとfirebaseが直接通信して行っている。
+  /**
+   * 受け取った認証情報に存在するfirebaseが管理しているユーザーのID
+   * @description
+   * GraphQLバックエンドではユーザーの情報だけを管理していて、
+   * セッションの管理はクライアントとfirebaseが直接通信して行っている。
+   * このフィールドは、ログインしているユーザーのidではなく、firebaseのセッションにあるユーザーのidを表す。
+   * ログインしているユーザーのIDは、`loggedInUserId`に入っている
+   */
   firebaseUserId?: string;
   db: PrismaClient;
 };
