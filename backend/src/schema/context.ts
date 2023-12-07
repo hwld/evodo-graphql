@@ -7,7 +7,7 @@ import type { PrismaClient } from "@prisma/client";
 
 export type CustomContext = {
   loggedInUserId: string | undefined;
-  firebaseToken: DecodedIdToken | undefined;
+  firebaseToken?: DecodedIdToken;
   db: PrismaClient;
 };
 export type Context = YogaInitialContext & CustomContext;
@@ -17,7 +17,7 @@ export const yogaContext = async (
 ): Promise<Context> => {
   const token = getTokenFromRequest(ctx.request);
   if (token === null) {
-    return { ...ctx, loggedInUserId: undefined, firebaseToken: undefined, db };
+    return { ...ctx, loggedInUserId: undefined, db };
   }
 
   const decodedToken = await firebaseAuth.verifyIdToken(token);

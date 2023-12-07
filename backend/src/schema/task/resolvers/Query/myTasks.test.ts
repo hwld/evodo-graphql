@@ -10,7 +10,7 @@ describe("ログインユーザーのタスクの取得", () => {
 
     const result = await executor({
       document: gql(`query { myTasks { title, description }}`),
-      context: { loggedInUserId: user.id, db, firebaseToken: undefined },
+      context: { loggedInUserId: user.id, db },
     });
     assertSingleValue(result);
 
@@ -23,7 +23,7 @@ describe("ログインユーザーのタスクの取得", () => {
 
     const result = await executor({
       document: gql(`query { myTasks {title, description} }`),
-      context: { loggedInUserId: "dummy", db, firebaseToken: undefined },
+      context: { loggedInUserId: "dummy", db },
     });
     assertSingleValue(result);
 

@@ -1,8 +1,22 @@
 import { TestHelpers } from "../../../../test/helpers";
-import { executor, gql } from "../../../../test/graphql";
+import { assertSingleValue, executor, gql } from "../../../../test/graphql";
 import { db } from "../../../../db";
 
 describe("タスクの作成", () => {
+  it("ログインしていないユーザーはタスクの作成に失敗する", async () => {
+    const result = await executor({
+      document: gql(`mutation {
+        createTask( input: { title: "title" }) {
+          task { id }
+        }
+      }`),
+      context: { db, loggedInUserId: undefined },
+    });
+    assertSingleValue(result);
+
+    expect(result.errors?.length).toBe(1);
+  });
+
   it("タスクを作成できる", async () => {
     const user = await TestHelpers.createUser();
 
@@ -12,7 +26,7 @@ describe("タスクの作成", () => {
           task { id }
         }
       }`),
-      context: { db, loggedInUserId: user.id, firebaseToken: undefined },
+      context: { db, loggedInUserId: user.id },
     });
     const tasks = await db.task.findMany({ where: { userId: user.id } });
 

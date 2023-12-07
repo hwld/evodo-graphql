@@ -1,5 +1,6 @@
 import { Task, User } from "@prisma/client";
 import { db } from "../db";
+import { TaskMapper } from "../schema/task/task.mappers";
 
 export const TestHelpers = {
   createUser: async (): Promise<User> => {
@@ -13,9 +14,12 @@ export const TestHelpers = {
     });
     return user;
   },
-  createTask: async ({ userId }: { userId: string }): Promise<Task> => {
+  createTask: async ({
+    userId,
+    ...others
+  }: { userId: string } & Partial<TaskMapper>): Promise<Task> => {
     const task = await db.task.create({
-      data: { title: "title", description: "description", userId },
+      data: { title: "title", description: "description", userId, ...others },
     });
 
     return task;
