@@ -16,6 +16,12 @@ export const signup: NonNullable<MutationResolvers["signup"]> = async (
       return foundUser;
     }
 
+    const draftUser = await tx.draftUser.findUnique({ where: { id: userId } });
+    // 新規登録の準備でdraftUserが作られていなければエラーにする
+    if (!draftUser) {
+      throw new GraphQLError("forbidden");
+    }
+
     const newUser = await tx.user.create({
       data: {
         id: userId,

@@ -1,6 +1,7 @@
 import { db } from "../../../../db";
 import { assertSingleValue, executor, gql } from "../../../../test/graphql";
 import { TestHelpers } from "../../../../test/helpers";
+import { Query } from "../../../types.generated";
 
 describe("ログインユーザーのタスクの取得", () => {
   it("タスクを取得できる", async () => {
@@ -8,7 +9,7 @@ describe("ログインユーザーのタスクの取得", () => {
     await TestHelpers.createTask({ userId: user.id });
     await TestHelpers.createTask({ userId: user.id });
 
-    const result = await executor({
+    const result = await executor<Query>({
       document: gql(`query { myTasks { title, description }}`),
       context: { loggedInUserId: user.id, db },
     });
@@ -21,7 +22,7 @@ describe("ログインユーザーのタスクの取得", () => {
     const user = await TestHelpers.createUser();
     TestHelpers.createTask({ userId: user.id });
 
-    const result = await executor({
+    const result = await executor<Query>({
       document: gql(`query { myTasks {title, description} }`),
       context: { loggedInUserId: "dummy", db },
     });
