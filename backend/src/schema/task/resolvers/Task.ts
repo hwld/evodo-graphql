@@ -10,15 +10,27 @@ export const Task: TaskResolvers = {
 
     return user;
   },
-  memos: async (task, _, { db }) => {
-    const memos = await db.task
-      .findUnique({ where: { id: task.id } })
-      .memos({ orderBy: { createdAt: "asc" } });
+  memos: async (task, { first, after }, { db }) => {
+    const memos = await db.task.findUnique({ where: { id: task.id } }).memos({
+      take: first + 1,
+      orderBy: { createdAt: "asc" },
+      ...(after && { cursor: { id: after } }),
+    });
 
     if (!memos) {
       throw new GraphQLError("not found");
     }
 
-    return memos;
+    const hasNextPage = memos.length === first + 1;
+    const returneMemos = hasNextPage ? memos.slice(0, -1) : memos;
+    const endCursor = hasNextPage ? memos.at(-1)?.id : undefined;
+
+    return {
+      edges: returneMemos.map((memo) => ({ node: memo, cursor: memo.id })),
+      pageInfo: {
+        hasNextPage,
+        endCursor,
+      },
+    };
   },
 };

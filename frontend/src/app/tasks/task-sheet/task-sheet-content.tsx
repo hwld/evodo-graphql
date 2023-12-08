@@ -1,34 +1,17 @@
 import { TaskItemFragmentFragment } from "@/gql/graphql";
 import { TaskCheckbox } from "../task-item/task-checkbox";
 import { EditableTaskDescription } from "./editable-task-description";
-import { Clock8Icon, RotateCcwIcon } from "lucide-react";
+import { Clock8Icon, FileIcon, RotateCcwIcon } from "lucide-react";
 import { DateTime } from "@/app/_components/date-time";
 import { TaskSheetRow } from "./task-sheet-row";
-import { graphql } from "@/gql";
-import { useQuery } from "@apollo/client";
-import { TaskMemo } from "./task-memo";
 import { TaskMemoForm } from "./task-memo-form";
-
-const TaskMemosQuery = graphql(`
-  query TaskMemosQuery($taskId: ID!) {
-    myTask(taskId: $taskId) {
-      memos {
-        id
-        ...TaskMemoFragment
-      }
-    }
-  }
-`);
+import { TaskMemoList } from "./task-memo-list";
 
 type Props = {
   task: TaskItemFragmentFragment;
 };
 
 export const TaskSheetContent: React.FC<Props> = ({ task }) => {
-  const { data } = useQuery(TaskMemosQuery, {
-    variables: { taskId: task.id },
-  });
-
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -63,20 +46,15 @@ export const TaskSheetContent: React.FC<Props> = ({ task }) => {
         <div className="h-[1px] bg-neutral-200" />
       </div>
 
-      <div>
-        <EditableTaskDescription task={task} />
-      </div>
+      <EditableTaskDescription task={task} />
 
-      <div>
-        <div className="text-neutral-500">メモ</div>
-        <div className="my-3 h-[1px] w-full bg-neutral-200" />
-        {data?.myTask.memos.map((memo) => {
-          return (
-            <div key={memo.id} className="">
-              <TaskMemo memo={memo} />
-            </div>
-          );
-        })}
+      <div className="flex flex-col">
+        <div className="flex items-center gap-1 text-neutral-500">
+          <FileIcon size={20} />
+          <p className="text-sm">メモ</p>
+        </div>
+        <div className="my-2 h-[1px] w-full bg-neutral-200" />
+        <TaskMemoList taskId={task.id} />
         <div className="mt-2">
           <TaskMemoForm taskId={task.id} />
         </div>

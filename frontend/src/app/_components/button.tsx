@@ -10,6 +10,7 @@ type Props = {
   size?: "md" | "sm";
   color?: "black" | "white";
   variant?: "filled" | "outline";
+  fullWidth?: boolean;
 } & Omit<ComponentPropsWithoutRef<"button">, "className">;
 
 export const Button: React.FC<Props> = ({
@@ -20,6 +21,7 @@ export const Button: React.FC<Props> = ({
   color = "black",
   size = "md",
   variant = "filled",
+  fullWidth = false,
   ...props
 }) => {
   const [debouncedIsLoading] = useDebouncedValue(isLoading, 500);
@@ -38,7 +40,7 @@ export const Button: React.FC<Props> = ({
       white:
         "border border-neutral-100 text-neutral-100 hover:bg-neutral-100/10",
       black:
-        "border border-neutral-900 text-neutral-700 hover:bg-neutral-900/10",
+        "border border-neutral-700 text-neutral-700 hover:bg-neutral-900/10",
     },
   };
 
@@ -52,9 +54,10 @@ export const Button: React.FC<Props> = ({
       disabled={isLoading || disabled}
       {...props}
       className={cx(
-        "flex flex-shrink-0 items-center gap-1 rounded ring-neutral-500 ring-offset-2 ring-offset-neutral-200 transition-all focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+        "flex flex-shrink-0 items-center justify-center gap-1 rounded ring-neutral-500 ring-offset-2 ring-offset-neutral-200 transition-all focus-visible:outline-none focus-visible:ring-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
         sizeClass[size],
         variantClass[variant][color],
+        fullWidth && "w-full",
       )}
     >
       {debouncedIsLoading && (

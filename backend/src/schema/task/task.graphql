@@ -19,9 +19,24 @@ type Task {
   description: String!
   done: Boolean!
   author: User!
-  memos: [TaskMemo!]!
+  memos(first: Int!, after: String): MemoConnection!
   createdAt: DateTime!
   updatedAt: DateTime!
+}
+
+type MemoConnection {
+  edges: [MemoEdge!]!
+  pageInfo: PageInfo!
+}
+
+type MemoEdge {
+  node: TaskMemo!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: String
 }
 
 input CreateTaskInput {

@@ -1,3 +1,4 @@
+import { DateTime } from "@/app/_components/date-time";
 import { IconButton } from "@/app/_components/icon-button";
 import { useToast } from "@/app/_components/toast";
 import { Tooltip } from "@/app/_components/tooltip";
@@ -9,6 +10,7 @@ const TaskMemoFragment = graphql(`
   fragment TaskMemoFragment on TaskMemo {
     id
     content
+    createdAt
   }
 `);
 
@@ -43,9 +45,9 @@ export const TaskMemo: React.FC<Props> = ({ memo: _memo }) => {
 
   return (
     <div className="group relative flex flex-col gap-1 rounded p-2 transition-all hover:bg-black/5">
-      <div className="flex gap-2">
-        <div className="h-[25px] w-[25px] shrink-0 rounded-full bg-neutral-700" />
-        <p className="break-all text-sm">{memo.content}</p>
+      <div className="flex flex-col gap-1">
+        <p className="break-all text-sm">{memo.content}</p>{" "}
+        <DateTime size="xs" muted dateTime={new Date(memo.createdAt)} />
       </div>
       <div className="absolute right-1 top-1 flex justify-end rounded bg-neutral-700 opacity-0 transition-opacity group-hover:opacity-100">
         <Tooltip label="メモを削除する">
