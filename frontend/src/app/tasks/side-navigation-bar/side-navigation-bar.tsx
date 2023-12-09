@@ -6,7 +6,7 @@ type Props = {};
 
 export const SideNavigationBar: React.FC<Props> = () => {
   return (
-    <div className="h-full w-[250px] flex-shrink-0 border-r-2 border-neutral-300 bg-neutral-800 p-5 text-neutral-100">
+    <div className="h-full w-[300px] flex-shrink-0 border-r-2 border-neutral-300 bg-neutral-800 p-5 text-neutral-100">
       <div className="flex items-center gap-1">
         <AppLogo size={25} />
         <div className="font-bold">evodo</div>
