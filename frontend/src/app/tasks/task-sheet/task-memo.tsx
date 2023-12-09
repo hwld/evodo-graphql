@@ -1,10 +1,9 @@
 import { DateTime } from "@/app/_components/date-time";
 import { IconButton } from "@/app/_components/icon-button";
-import { useToast } from "@/app/_components/toast";
 import { Tooltip } from "@/app/_components/tooltip";
 import { FragmentType, graphql, useFragment } from "@/gql";
-import { useMutation } from "@apollo/client";
 import { TrashIcon } from "lucide-react";
+import { useDeleteTaskMemo } from "./use-delete-task-memo";
 
 const TaskMemoFragment = graphql(`
   fragment TaskMemoFragment on TaskMemo {
@@ -14,33 +13,15 @@ const TaskMemoFragment = graphql(`
   }
 `);
 
-const DeleteTaskMemoMutation = graphql(`
-  mutation DeleteTaskMemoMutation($input: DeleteTaskMemoInput!) {
-    deleteTaskMemo(input: $input) {
-      taskMemo {
-        id
-      }
-    }
-  }
-`);
-
-type Props = { memo: FragmentType<typeof TaskMemoFragment> };
+type Props = {
+  memo: FragmentType<typeof TaskMemoFragment>;
+};
 export const TaskMemo: React.FC<Props> = ({ memo: _memo }) => {
   const memo = useFragment(TaskMemoFragment, _memo);
-  const [deleteTaskMemo, { loading }] = useMutation(DeleteTaskMemoMutation);
-  const { toast } = useToast();
+  const { deleteTaskMemo, loading } = useDeleteTaskMemo({});
 
   const handleDeleteTaskMemo = async () => {
-    await deleteTaskMemo({
-      variables: { input: { taskMemoId: memo.id } },
-      onError: () => {
-        toast({
-          type: "error",
-          title: "メモの削除",
-          description: "メモを削除しました",
-        });
-      },
-    });
+    await deleteTaskMemo(memo.id);
   };
 
   return (

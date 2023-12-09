@@ -8,8 +8,8 @@ export const db =
     process.env.NODE_ENV === "development"
       ? {
           log: [
-            { emit: "stdout", level: "query" },
-            { emit: "stdout", level: "info" },
+            // { emit: "stdout", level: "query" },
+            // { emit: "stdout", level: "info" },
           ],
         }
       : undefined,

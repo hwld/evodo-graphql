@@ -7,7 +7,7 @@ import { useFirebaseAuthState } from "./useFirebaseAuthState";
 import { useMemo } from "react";
 import { noop } from "@/lib/utils";
 
-const UserQuery = graphql(`
+export const UserQuery = graphql(`
   query UserQuery($id: ID!) {
     user(id: $id) {
       id

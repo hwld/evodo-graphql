@@ -19,7 +19,7 @@ type Task {
   description: String!
   done: Boolean!
   author: User!
-  memos(first: Int!, after: String): MemoConnection!
+  memos(first: Int, after: String): MemoConnection!
   createdAt: DateTime!
   updatedAt: DateTime!
 }

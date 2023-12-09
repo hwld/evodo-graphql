@@ -10,7 +10,9 @@ export const Task: TaskResolvers = {
 
     return user;
   },
-  memos: async (task, { first, after }, { db }) => {
+  memos: async (task, { first: _first, after }, { db }) => {
+    const first = _first ?? 100;
+
     const memos = await db.task.findUnique({ where: { id: task.id } }).memos({
       take: first + 1,
       orderBy: { createdAt: "asc" },

@@ -9,6 +9,8 @@ import { ReactNode } from "react";
 import { firebaseAuth } from "./firebase";
 import { Task } from "@/gql/graphql";
 import { relayStylePagination } from "@apollo/client/utilities";
+import { TaskMemosQuery } from "@/app/tasks/task-sheet/task-memo-list";
+import { isSameQueryName } from "./utils";
 
 const httpLink = createHttpLink({ uri: "http://localhost:4000/graphql" });
 
@@ -23,11 +25,14 @@ const authLink = setContext(async (_, { headers }) => {
   };
 });
 
-type Fields<T> = Partial<{ [K in keyof T]: unknown }>;
 const cache = new InMemoryCache({
   typePolicies: {
     ["Task" satisfies Task["__typename"]]: {
-      fields: { memos: relayStylePagination() } satisfies Fields<Task>,
+      fields: {
+        ["memos" satisfies keyof Task]: {
+          ...relayStylePagination(),
+        },
+      },
     },
   },
 });
@@ -42,6 +47,17 @@ export const client = new ApolloClient({
         cache.reset();
       },
       onQueryUpdated: (query) => {
+        // TaskMemosQueryは無限スクロールを実装しているので、refetchすると1ページ目だけが
+        // フェッチされてしまうため、ここでは無視する
+        if (
+          isSameQueryName({
+            document: TaskMemosQuery,
+            queryName: query.queryName,
+          })
+        ) {
+          return false;
+        }
+
         query.refetch();
       },
     },

@@ -8,12 +8,17 @@ import { cx } from "cva";
 import { FocusEventHandler } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Task } from "@/gql/graphql";
 
 const CreateTaskMemoMutation = graphql(`
   mutation CreateTaskMemoMutation($input: CreateTaskMemoInput!) {
     createTaskMemo(input: $input) {
       taskMemo {
         id
+        task {
+          id
+        }
+        ...TaskMemoFragment
       }
     }
   }
@@ -37,7 +42,38 @@ export const TaskMemoForm: React.FC<Props> = ({ taskId }) => {
     defaultValues: { content: "" },
     resolver: zodResolver(createMemoInputSchema),
   });
-  const [createMemoMutate, { loading }] = useMutation(CreateTaskMemoMutation);
+
+  const [createMemoMutate, { loading }] = useMutation(CreateTaskMemoMutation, {
+    update: (cache, { data }) => {
+      const taskCacheId = cache.identify({
+        ...data?.createTaskMemo.taskMemo.task,
+      });
+
+      cache.modify({
+        id: taskCacheId,
+        fields: {
+          ["memos" satisfies keyof Task]: (existingMemos) => {
+            const memos = existingMemos as Task["memos"];
+            const result = {
+              ...existingMemos,
+              edges: [
+                ...memos.edges,
+                {
+                  node: data?.createTaskMemo.taskMemo,
+                  cursor: data?.createTaskMemo.taskMemo.id,
+                  __typename: "MemoEdge",
+                },
+              ],
+            } satisfies Task["memos"];
+            return result;
+          },
+        },
+      });
+    },
+    onQueryUpdated: (q) => {
+      return q.reobserve();
+    },
+  });
 
   const { onBlur, ...otherRegister } = register("content");
   const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {

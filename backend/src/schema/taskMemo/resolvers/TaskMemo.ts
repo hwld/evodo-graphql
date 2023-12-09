@@ -13,9 +13,7 @@ export const TaskMemo: TaskMemoResolvers = {
     return author;
   },
   task: async (memo, _, { db }) => {
-    const task = await db.taskMemo
-      .findUnique({ where: { id: memo.id } })
-      .task();
+    const task = await db.task.findUnique({ where: { id: memo.taskId } });
 
     if (!task) {
       throw new GraphQLError("not found");

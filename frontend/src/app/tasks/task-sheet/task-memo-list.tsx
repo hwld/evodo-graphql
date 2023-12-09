@@ -3,15 +3,17 @@ import { useQuery } from "@apollo/client";
 import { TaskMemo } from "./task-memo";
 import { Button } from "@/app/_components/button";
 
-const TaskMemosQuery = graphql(`
-  query TaskMemosQuery($taskId: ID!, $cursor: String) {
+export const TaskMemosQuery = graphql(`
+  query TaskMemosQuery($taskId: ID!, $first: Int, $cursor: String) {
     myTask(taskId: $taskId) {
-      memos(first: 100, after: $cursor) {
+      id
+      memos(first: $first, after: $cursor) {
         edges {
           node {
             id
             ...TaskMemoFragment
           }
+          cursor
         }
         pageInfo {
           endCursor
@@ -44,10 +46,10 @@ export const TaskMemoList: React.FC<Props> = ({ taskId }) => {
             size="sm"
             variant="outline"
             fullWidth
-            disabled={!data?.myTask.memos.pageInfo.hasNextPage}
-            onClick={() => {
-              if (data?.myTask.memos.pageInfo.hasNextPage) {
-                fetchMore({
+            disabled={!hasNextPage}
+            onClick={async () => {
+              if (hasNextPage) {
+                await fetchMore({
                   variables: { cursor: data?.myTask.memos.pageInfo.endCursor },
                 });
               }
