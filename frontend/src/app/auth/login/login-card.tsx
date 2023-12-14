@@ -35,7 +35,7 @@ export const LoginCard: React.FC<Props> = () => {
     <div className="rounded-2xl border border-neutral-300 bg-neutral-100 p-16">
       <div className="flex max-w-[350px] flex-col items-center">
         <div className="flex w-full items-center justify-center gap-3">
-          <div className="flex h-[100px] w-[100px] items-center justify-center rounded-lg bg-black">
+          <div className="flex h-[100px] w-[100px] items-center justify-center rounded-lg bg-neutral-900">
             <AppLogo size={75} />
           </div>
           <p className="text-7xl font-bold text-neutral-900">evodo</p>
