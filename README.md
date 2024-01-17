@@ -1,11 +1,9 @@
-# evodo-graphql
-
 <img src="https://raw.githubusercontent.com/hwld/evodo-graphql/main/images/evodo-graphql.png" alt="screenshot" >
 
-## 概要
+# evodo-graphql
 
-GraphQL を試すために作った、GraphQL と Next.js で作る todo リスト。  
-シンプルな機能から始めて、気が向いたら複雑にしていきたい。
+GraphQL を試すために作る [evodo](https://github.com/hwld/evodo)。  
+
 
 ## 使用する技術
 
